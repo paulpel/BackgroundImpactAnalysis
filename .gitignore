@@ -1,0 +1,15 @@
+# Bytecode files
+*.pyc
+*.pyo
+__pycache__/
+
+# Virtual environments
+venv/
+
+# Dataset directories (adjust as needed)
+images/
+data/
+
+# OS generated files
+.DS_Store
+Thumbs.db
