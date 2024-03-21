@@ -47,7 +47,3 @@ def analyze_masks_and_list_exceptions(masks_dir='data/masks'):
 
     return class_to_grayscale_map
 
-# Example usage
-class_to_grayscale_map = analyze_masks_and_list_exceptions()
-print("\nClass to Grayscale Value Map:", class_to_grayscale_map)
-
