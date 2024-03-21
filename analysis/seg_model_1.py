@@ -52,25 +52,33 @@ def save_results(original_img, predictions, output_path_mask, output_path_overla
     # Save the overlay
     overlay.save(output_path_overlay)
 
-def process_and_save_images(input_dir, output_dir_mask, output_dir_overlay, model, counter=None):
-    c = 0
-    for image_name in os.listdir(input_dir):
-        if counter is not None and c >= counter:
-            break
+def process_and_save_images(input_dir, output_dir_mask, output_dir_overlay, model, images_to_process):
+    processed_count = 0  # Track the number of images actually processed and saved
 
-        image_path = os.path.join(input_dir, image_name)
-        original_image = Image.open(image_path).convert("RGB")
-        
-        input_tensor = transform_image(image_path)
-        output_predictions = segment(model, input_tensor)
-        
+    for image_name in os.listdir(input_dir):
+        if processed_count >= images_to_process:
+            break  # Stop once we've processed the additional images needed
+
         # Define the output paths
         base_filename, _ = os.path.splitext(image_name)
         output_path_mask = os.path.join(output_dir_mask, f"{base_filename}.png")
         output_path_overlay = os.path.join(output_dir_overlay, f"{base_filename}.png")
+
+        # Skip processing if both the mask and overlay already exist
+        if os.path.exists(output_path_mask) and os.path.exists(output_path_overlay):
+            continue
+
+        image_path = os.path.join(input_dir, image_name)
+        original_image = Image.open(image_path).convert("RGB")
         
-        # Save the mask and the overlay image
+        # Assume transform_image and segment are defined to work with your model
+        input_tensor = transform_image(image_path)
+        output_predictions = segment(model, input_tensor)
+        
+        # Assume save_results is defined to save the mask and overlay based on output_predictions
         save_results(original_image, output_predictions, output_path_mask, output_path_overlay)
 
-        c += 1
+        processed_count += 1  # Increment only after successfully processing and saving
+
+    print(f"Processed and saved {processed_count} additional images for {os.path.basename(input_dir)}.")
 
