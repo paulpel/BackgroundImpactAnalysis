@@ -71,7 +71,7 @@ def process_and_save_images(input_dir, output_dir_mask, output_dir_overlay, mode
         image_path = os.path.join(input_dir, image_name)
         original_image = Image.open(image_path).convert("RGB")
         
-        # Assume transform_image and segment are defined to work with your model
+        # Assume transform_image and segment are defined to work with model
         input_tensor = transform_image(image_path)
         output_predictions = segment(model, input_tensor)
         
