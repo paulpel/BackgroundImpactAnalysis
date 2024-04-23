@@ -4,29 +4,41 @@ from torchvision import transforms
 from PIL import Image
 import torch
 
+
 def load_model():
     model = segmentation.deeplabv3_resnet101(pretrained=True)
     model.eval()
     return model
 
+
 def transform_image(image_path):
     input_image = Image.open(image_path).convert("RGB")
-    transform = transforms.Compose([
-        transforms.Resize(520),  # Resize the image to 520 pixels on the smaller side
-        transforms.ToTensor(),  # Convert the image to a PyTorch tensor
-        transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])  # Normalize
-    ])
+    transform = transforms.Compose(
+        [
+            transforms.Resize(
+                520
+            ),  # Resize the image to 520 pixels on the smaller side
+            transforms.ToTensor(),  # Convert the image to a PyTorch tensor
+            transforms.Normalize(
+                mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]
+            ),  # Normalize
+        ]
+    )
     return transform(input_image)
 
+
 def segment(model, input_tensor):
-    input_batch = input_tensor.unsqueeze(0)  # Create a batch by adding a batch dimension
+    input_batch = input_tensor.unsqueeze(
+        0
+    )  # Create a batch by adding a batch dimension
     with torch.no_grad():
-        output = model(input_batch)['out'][0]
+        output = model(input_batch)["out"][0]
     return output.argmax(0)
+
 
 def apply_color_map_to_mask(predictions):
     # Define the colormap to apply
-    palette = torch.tensor([2 ** 25 - 1, 2 ** 15 - 1, 2 ** 21 - 1])
+    palette = torch.tensor([2**25 - 1, 2**15 - 1, 2**21 - 1])
     colors = torch.as_tensor([i for i in range(21)])[:, None] * palette
     colors = (colors % 255).numpy().astype("uint8")
 
@@ -35,12 +47,15 @@ def apply_color_map_to_mask(predictions):
     r.putpalette(colors)
     return r
 
+
 def save_results(original_img, predictions, output_path_mask, output_path_overlay):
     # Apply a color map to the mask predictions
     color_mask = apply_color_map_to_mask(predictions)
-    
+
     # Resize the color mask to match the original image
-    color_mask = color_mask.resize(original_img.size, resample=Image.NEAREST).convert('RGBA')
+    color_mask = color_mask.resize(original_img.size, resample=Image.NEAREST).convert(
+        "RGBA"
+    )
 
     # Save the grayscale mask
     mask = Image.fromarray(predictions.byte().cpu().numpy())
@@ -48,11 +63,14 @@ def save_results(original_img, predictions, output_path_mask, output_path_overla
     mask.save(output_path_mask)
 
     # Create an overlay image by blending the original image with the color mask
-    overlay = Image.blend(original_img.convert('RGBA'), color_mask, alpha=0.5)
+    overlay = Image.blend(original_img.convert("RGBA"), color_mask, alpha=0.5)
     # Save the overlay
     overlay.save(output_path_overlay)
 
-def process_and_save_images(input_dir, output_dir_mask, output_dir_overlay, model, images_to_process):
+
+def process_and_save_images(
+    input_dir, output_dir_mask, output_dir_overlay, model, images_to_process
+):
     processed_count = 0  # Track the number of images actually processed and saved
 
     for image_name in os.listdir(input_dir):
@@ -70,15 +88,18 @@ def process_and_save_images(input_dir, output_dir_mask, output_dir_overlay, mode
 
         image_path = os.path.join(input_dir, image_name)
         original_image = Image.open(image_path).convert("RGB")
-        
+
         # Assume transform_image and segment are defined to work with model
         input_tensor = transform_image(image_path)
         output_predictions = segment(model, input_tensor)
-        
+
         # Assume save_results is defined to save the mask and overlay based on output_predictions
-        save_results(original_image, output_predictions, output_path_mask, output_path_overlay)
+        save_results(
+            original_image, output_predictions, output_path_mask, output_path_overlay
+        )
 
         processed_count += 1  # Increment only after successfully processing and saving
 
-    print(f"Processed and saved {processed_count} additional images for {os.path.basename(input_dir)}.")
-
+    print(
+        f"Processed and saved {processed_count} additional images for {os.path.basename(input_dir)}."
+    )
