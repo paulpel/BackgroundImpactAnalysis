@@ -1,0 +1,419 @@
+\chapter*{Przegląd literatury}
+
+W ramach niniejszego rozdziału przedstawiony zostanie przegląd literatury dotyczący 
+kluczowych zagadnień związanych z klasyfikacją obrazów, segmentacją obrazów oraz wpływem 
+tła na wyniki klasyfikacji. Celem tego przeglądu jest zrozumienie dotychczasowych badań i rozwiązań, 
+które mogą być istotne dla realizacji niniejszej pracy. Omówione zostaną zarówno klasyczne, jak i 
+nowoczesne podejścia do tych problemów, ze szczególnym uwzględnieniem zaawansowanych modeli głębokiego 
+uczenia, takich jak ResNet i ConvNeXt. Przegląd ten pozwoli na identyfikację luk w istniejącej 
+literaturze oraz wskazanie potencjalnych kierunków dalszych badań.
+
+\section*{Zakres przeglądu literatury}
+
+\begin{enumerate}
+    \item \textbf{Klasyfikacja obrazów:}
+    \begin{itemize}
+        \item Historia i ewolucja metod klasyfikacji obrazów.
+        \item Przegląd tradycyjnych technik, takich jak SVM i K-NN, oraz ich ograniczeń.
+        \item Wprowadzenie do modeli głębokiego uczenia, w tym sieci neuronowych i 
+        konwolucyjnych sieci neuronowych (CNN).
+    \end{itemize}
+    \item \textbf{Modele głębokiego uczenia:}
+    \begin{itemize}
+        \item Szczegółowy przegląd architektur ResNet i ConvNeXt.
+        \item Analiza wyników i wydajności tych modeli w różnych zadaniach klasyfikacji.
+        \item Porównanie ResNet i ConvNeXt z innymi popularnymi modelami, takimi jak VGG i Inception.
+    \end{itemize}
+    \item \textbf{Segmentacja obrazów:}
+    \begin{itemize}
+        \item Przegląd technik segmentacji obrazów, w tym tradycyjnych metod oraz 
+        podejść opartych na głębokim uczeniu.
+        \item Modele segmentacyjne takie jak U-Net, Mask R-CNN i inne.
+        \item Zastosowania segmentacji obrazów w różnych dziedzinach.
+    \end{itemize}
+    \item \textbf{Wpływ tła na klasyfikację obrazów:}
+    \begin{itemize}
+        \item Przegląd badań dotyczących wpływu tła na wyniki klasyfikacji obrazów.
+        \item Techniki usuwania i modyfikacji tła oraz ich efektywność.
+        \item Przykłady zastosowań w praktyce i analiza wyników.
+    \end{itemize}
+    \item \textbf{Metryki oceny jakości modeli:}
+    \begin{itemize}
+        \item Omówienie metryk używanych do oceny jakości modeli klasyfikacyjnych i segmentacyjnych.
+        \item Dokładność, precyzja, recall, F1-score i inne miary.
+    \end{itemize}
+\end{enumerate}
+
+\section*{Cel przeglądu literatury}
+Celem przeglądu literatury jest dostarczenie kompleksowej wiedzy na temat aktualnego stanu badań
+i technologii w obszarze klasyfikacji i segmentacji obrazów. Przegląd ten pozwoli na:
+
+\begin{itemize}
+    \item Zidentyfikowanie najnowszych osiągnięć i trendów w dziedzinie przetwarzania obrazów.
+    \item Zrozumienie, jakie techniki i modele są obecnie uważane za najbardziej efektywne.
+    \item Wskazanie luk w istniejących badaniach, które mogą stanowić podstawę do dalszych badań.
+    \item Sformułowanie wniosków i rekomendacji na temat optymalnych podejść do rozwiązania problemu wpływu tła na klasyfikację obrazów.
+\end{itemize}
+
+\section*{Klasyfikacja obrazów}
+
+Klasyfikacja obrazów to jedno z fundamentalnych zadań w dziedzinie przetwarzania obrazów i 
+komputerowego rozpoznawania wzorców. Proces ten polega na przypisaniu każdemu obrazowi jednej 
+lub więcej etykiet z predefiniowanego zbioru klas. Technologia ta znalazła zastosowanie w wielu 
+dziedzinach, takich jak medycyna, bezpieczeństwo, rolnictwo, czy automatyka przemysłowa. W ramach 
+tego przeglądu omówione zostaną tradycyjne metody klasyfikacji obrazów, ewolucja podejść z 
+wykorzystaniem głębokiego uczenia oraz zaawansowane architektury sieci neuronowych.
+
+\subsection*{Tradycyjne metody klasyfikacji obrazów}
+
+W początkowych etapach rozwoju klasyfikacji obrazów stosowano głównie techniki oparte
+na ręcznie wyodrębnianych cechach oraz klasyfikatorach statystycznych. Do najbardziej
+popularnych metod należały:
+
+\begin{itemize}
+    \item \textbf{Support Vector Machines (SVM):} Technika ta polega na znajdowaniu hiperpowierzchni, 
+    która najlepiej rozdziela klasy w przestrzeni cech. SVM były szeroko stosowane w klasyfikacji 
+    obrazów dzięki swojej skuteczności w radzeniu sobie z nieliniowymi danymi poprzez zastosowanie 
+    funkcji jądrowych.
+    \item \textbf{K-Nearest Neighbors (K-NN):} Algorytm ten klasyfikuje nowy przykład na podstawie 
+    większości głosów najbliższych sąsiadów w przestrzeni cech. Pomimo swojej prostoty, K-NN często 
+    wymaga dużych zasobów obliczeniowych i pamięciowych, szczególnie przy dużych zbiorach danych.
+    \item \textbf{Metody oparte na histogramach cech:} Techniki takie jak Histogram of Oriented 
+    Gradients (HOG) czy Scale-Invariant Feature Transform (SIFT) były używane do ekstrakcji cech z 
+    obrazów, które następnie były klasyfikowane za pomocą modeli takich jak SVM czy K-NN.
+\end{itemize}
+
+\subsection*{Ewolucja podejść z wykorzystaniem głębokiego uczenia}
+
+Wraz z rozwojem technologii głębokiego uczenia, tradycyjne metody zaczęły ustępować 
+miejsca konwolucyjnym sieciom neuronowym (CNN), które zrewolucjonizowały klasyfikację obrazów. 
+CNN automatycznie uczą się cech bez potrzeby ręcznego ich wyodrębniania, co pozwala na osiąganie 
+znacznie lepszych wyników.
+
+\begin{itemize}
+    \item \textbf{Convolutional Neural Networks (CNN):} CNN składają się z warstw konwolucyjnych, 
+    poolingowych i w pełni połączonych, które są trenowane w sposób end-to-end na surowych danych 
+    obrazowych. Pionierskie prace takie jak AlexNet, VGG i GoogLeNet zapoczątkowały erę głębokiego 
+    uczenia w klasyfikacji obrazów, osiągając znacznie lepsze wyniki niż tradycyjne metody.
+    \item \textbf{Residual Networks (ResNet):}  Wprowadzenie ResNet w 2015 roku było przełomem 
+    w dziedzinie głębokiego uczenia. ResNet wprowadza pojęcie "residual learning" z wykorzystaniem 
+    warstw skrótowych (skip connections), co pozwala na trenowanie bardzo głębokich sieci z tysiącami 
+    warstw bez problemu zanikania gradientu.
+    \item \textbf{Transformers} Chociaż pierwotnie zaprojektowane do przetwarzania języka naturalnego, 
+    architektury oparte na transformerach, takie jak Vision Transformer (ViT), zaczęły być stosowane 
+    również w klasyfikacji obrazów. Transformery wykorzystują mechanizm uwagi (attention mechanism), 
+    co pozwala na modelowanie globalnych zależności w danych.
+\end{itemize}
+
+\subsection*{Zaawansowane architektury sieci neuronowych}
+
+Obecnie w klasyfikacji obrazów stosuje się wiele zaawansowanych architektur, 
+które rozwijają i ulepszają wcześniejsze koncepcje:
+
+\begin{itemize}
+    \item \textbf{ConvNeXt:} Jest to nowoczesna architektura CNN, która łączy zalety tradycyjnych 
+    konwolucyjnych sieci neuronowych z nowymi pomysłami pochodzącymi od transformerów. 
+    ConvNeXt wykorzystuje bardziej złożone operacje konwolucyjne oraz zaawansowane techniki 
+    normalizacji, co pozwala na osiąganie znakomitych wyników w różnych zadaniach klasyfikacji.
+    \item \textbf{EfficientNet:}  EfficientNet wprowadza skalowanie sieci, które jednocześnie 
+    zwiększa głębokość, szerokość i rozdzielczość sieci w zrównoważony sposób. Podejście to 
+    pozwala na tworzenie modeli, które są bardziej efektywne obliczeniowo i mogą osiągać wyższą 
+    dokładność przy mniejszym zużyciu zasobów.
+\end{itemize}
+
+\subsection*{Podsumowanie}
+Przegląd literatury dotyczącej klasyfikacji obrazów pokazuje, jak ewoluowały metody od 
+tradycyjnych technik opartych na ręcznie wyodrębnianych cechach do zaawansowanych modeli 
+głębokiego uczenia. Nowoczesne architektury, takie jak ResNet i ConvNeXt, oferują znakomite 
+wyniki i są obecnie standardem w wielu zastosowaniach przemysłowych i naukowych. Zrozumienie 
+tych technologii i ich rozwoju jest kluczowe dla dalszych badań i optymalizacji modeli 
+klasyfikacyjnych, zwłaszcza w kontekście analizy wpływu tła na wyniki klasyfikacji obrazów.
+
+\section*{Modele głębokiego uczenia}
+
+Modele głębokiego uczenia, zwłaszcza konwolucyjne sieci neuronowe (CNN), zrewolucjonizowały 
+przetwarzanie obrazów, w tym zadania takie jak klasyfikacja, detekcja obiektów, i segmentacja. 
+W ramach tego przeglądu literatury skupimy się na najbardziej wpływowych modelach głębokiego uczenia, 
+w tym na ich architekturach, kluczowych innowacjach oraz wynikach osiągniętych na różnych benchmarkach.
+
+\subsection*{Convolutional Neural Networks (CNN)}
+
+CNN są fundamentem nowoczesnego przetwarzania obrazów. Ich struktura składa się z warstw 
+konwolucyjnych, poolingowych i w pełni połączonych, które są trenowane w sposób end-to-end. 
+AlexNet, zaprojektowany przez Krizhevsky'ego, Sutskevera i Hinton’a w 2012 roku, był pierwszym 
+modelem, który pokazał ogromny potencjał głębokiego uczenia w zadaniach klasyfikacji obrazów. 
+Wprowadzenie dużych filtrów konwolucyjnych, warstw max-pooling oraz technik regularizacji takich 
+jak dropout przyczyniło się do znacznego zmniejszenia błędu klasyfikacji na konkursie ImageNet. 
+Kolejnym krokiem w rozwoju CNN było VGGNet, opracowane przez Simonyana i Zissermana w 2014 roku. 
+VGGNet zyskało popularność dzięki swojej prostocie i skuteczności, opierając się na małych filtrach 
+konwolucyjnych (3x3) oraz głębokiej architekturze składającej się z wielu warstw konwolucyjnych. 
+Model ten udowodnił, że zwiększenie głębokości sieci może prowadzić do lepszej wydajności.
+
+GoogLeNet, zaprezentowany przez zespół Google w 2014 roku, wprowadził koncepcję "Inception modules", 
+które umożliwiają efektywne równoległe przetwarzanie danych. Inception modules łączą różne wielkości 
+filtrów konwolucyjnych w jednej warstwie, co pozwala na lepsze uchwycenie różnorodnych cech obrazu. 
+Dodatkowo, zamiast tradycyjnych w pełni połączonych warstw na końcu sieci, GoogLeNet używa warstw 
+global average pooling, co zmniejsza liczbę parametrów i zwiększa efektywność modelu. 
+Model ten osiągnął świetne wyniki na ImageNet, redukując liczbę parametrów w porównaniu do 
+wcześniejszych architektur.
+
+\subsection*{Residual Networks (ResNet)}
+
+W 2015 roku He et al. wprowadzili Residual Networks (ResNet), które zrewolucjonizowały głębokie 
+uczenie. Kluczową innowacją w ResNet było wprowadzenie warstw skrótowych (skip connections), które 
+umożliwiają trenowanie bardzo głębokich sieci poprzez rozwiązanie problemu zanikania gradientu. 
+Dzięki temu podejściu możliwe stało się trenowanie sieci o głębokości nawet 152 warstw. ResNet 
+osiągnął rewolucyjne wyniki na konkursie ImageNet, pokazując, że głębsze sieci mogą prowadzić do 
+znacznie lepszej wydajności niż wcześniejsze architektury.
+
+\subsection*{Transformery w przetwarzaniu obrazów}
+
+Chociaż początkowo zaprojektowane do przetwarzania języka naturalnego, architektury oparte na 
+transformerach znalazły zastosowanie również w przetwarzaniu obrazów. Vision Transformer (ViT), 
+zaprezentowany przez Dosovitskiy'ego et al. w 2020 roku, adaptuje mechanizm uwagi 
+(attention mechanism) do zadań przetwarzania obrazów. ViT dzieli obraz na mniejsze pliki 
+(patches) i traktuje je jako tokeny w modelu transformera, co pozwala na globalne modelowanie 
+zależności w danych. Model ten osiągnął konkurencyjne wyniki na benchmarkach takich jak ImageNet, 
+udowadniając, że podejście oparte na transformerach może być równie skuteczne jak tradycyjne CNN.
+
+\subsection*{Nowoczesne architektury}
+
+Wśród nowoczesnych architektur CNN, ConvNeXt wyróżnia się jako model łączący zalety tradycyjnych 
+konwolucyjnych sieci neuronowych z nowymi pomysłami pochodzącymi od transformerów. ConvNeXt 
+wykorzystuje bardziej złożone operacje konwolucyjne oraz zaawansowane techniki normalizacji, 
+co pozwala na osiąganie znakomitych wyników w różnych zadaniach klasyfikacji. Model ten potwierdza, 
+że nowoczesne CNN mogą konkurować z modelami opartymi na transformerach.
+
+EfficientNet, opracowany przez Tan i Le, wprowadza koncepcję skalowania sieci, która pozwala na 
+jednoczesne zwiększanie głębokości, szerokości i rozdzielczości sieci w zrównoważony sposób. 
+Dzięki podejściu zrównoważonego skalowania (compound scaling), EfficientNet tworzy modele, 
+które są bardziej efektywne obliczeniowo i mogą osiągać wyższą dokładność przy mniejszym zużyciu 
+zasobów. Model ten jest jednym z najbardziej efektywnych modeli głębokiego uczenia, osiągając 
+wyższą dokładność przy optymalnym wykorzystaniu zasobów.
+
+\subsection*{Podsumowanie}
+
+Przegląd literatury dotyczącej modeli głębokiego uczenia w przetwarzaniu obrazów ukazuje dynamiczny 
+rozwój tej dziedziny. Od wczesnych architektur CNN, takich jak AlexNet i VGG, przez innowacyjne 
+podejścia ResNet i GoogLeNet, aż po nowoczesne modele ConvNeXt i transformery, takie jak ViT, 
+ewolucja tych technologii znacząco poprawiła wyniki klasyfikacji obrazów. Zrozumienie tych 
+innowacji i ich zastosowań jest kluczowe dla dalszych badań i optymalizacji modeli klasyfikacyjnych 
+w różnych kontekstach, w tym w analizie wpływu tła na wyniki klasyfikacji obrazów.
+
+\section*{Segmentacja obrazów}
+
+Segmentacja obrazów to kluczowy proces w dziedzinie przetwarzania obrazów,
+polegający na podziale obrazu na znaczące fragmenty, które mogą reprezentować 
+różne obiekty lub regiony. Techniki segmentacji są szeroko stosowane w wielu dziedzinach,
+takich jak medycyna, robotyka, analiza wideo i rozpoznawanie obiektów. W ramach tego przeglądu 
+literatury omówione zostaną tradycyjne metody segmentacji, nowoczesne podejścia wykorzystujące 
+głębokie uczenie oraz ich zastosowania w różnych kontekstach.
+
+\subsection*{Tradycyjne metody segmentacji obrazów}
+
+W początkowych etapach rozwoju segmentacji obrazów stosowano głównie metody oparte na analizie 
+cech niskiego poziomu, takich jak kolor, tekstura i krawędzie. Do najpopularniejszych technik należały:
+
+\begin{enumerate}
+    \item \textbf{Segmentacja oparta na progach:} Technika ta polega na podziale obrazu na regiony 
+    na podstawie wartości pikseli. Progi mogą być ustalane globalnie dla całego obrazu lub lokalnie 
+    dla poszczególnych regionów. Chociaż metoda ta jest prosta, jej skuteczność zależy od 
+    odpowiedniego doboru progów i jest ograniczona w przypadkach obrazów z złożonymi teksturami i 
+    oświetleniem.
+    \item \textbf{Segmentacja przez regiony:} Techniki takie jak algorytm wododziałowy (watershed 
+    algorithm) oraz metoda region growing polegają na grupowaniu sąsiadujących pikseli o podobnych 
+    wartościach. Algorytm wododziałowy modeluje obraz jako topograficzną mapę, gdzie linie 
+    wododziałowe oddzielają różne segmenty. Metoda region growing natomiast zaczyna od zestawu 
+    początkowych pikseli (seed points) i iteracyjnie dodaje sąsiednie piksele spełniające kryterium 
+    podobieństwa.
+    \item \textbf{Segmentacja oparta na krawędziach:} Metody te wykorzystują detekcję krawędzi 
+    do identyfikacji granic między różnymi obiektami w obrazie. Algorytmy takie jak Canny edge 
+    detector i Sobel operator są powszechnie stosowane do wykrywania krawędzi, które następnie 
+    służą do segmentacji obrazu.
+\end{enumerate}
+
+\subsection*{Nowoczesne podejścia wykorzystujące głębokie uczenie}
+
+Rozwój głębokiego uczenia wprowadził znaczące innowacje w dziedzinie segmentacji obrazów, 
+zwłaszcza dzięki zastosowaniu konwolucyjnych sieci neuronowych (CNN). Modele te automatycznie 
+uczą się reprezentacji cech z obrazów, co prowadzi do znacznie lepszej dokładności segmentacji w 
+porównaniu do tradycyjnych metod.
+
+\begin{enumerate}
+    \item \textbf{Fully Convolutional Networks (FCN):} Wprowadzone przez Longa et al. w 2015 roku, 
+    FCN przekształcają tradycyjne CNN, zastępując w pełni połączone warstwy konwolucyjnymi, co 
+    pozwala na generowanie map segmentacji o tej samej rozdzielczości co wejściowy obraz. 
+    FCN były pierwszym krokiem w kierunku end-to-end segmentacji obrazów.
+    \item \textbf{U-Net:} Zaproponowany przez Ronnebergera et al. w 2015 roku, U-Net stał się 
+    standardem w dziedzinie segmentacji medycznych obrazów. Architektura U-Net składa się z 
+    symetrycznej struktury, która łączy warstwy składające się z konwolucji i upsamplingu, co 
+    umożliwia precyzyjne segmentowanie obiektów. U-Net wyróżnia się również dzięki połączeniom 
+    między warstwami, które przekazują szczegółowe informacje z warstw niskiego poziomu do warstw 
+    wyższego poziomu, poprawiając dokładność segmentacji.
+    \item \textbf{Mask R-CNN:} Rozwinięcie Faster R-CNN, Mask R-CNN, zaproponowane przez He et al. 
+    w 2017 roku, rozszerza funkcjonalność detekcji obiektów o możliwość segmentacji. 
+    Model ten dodaje gałąź segmentacyjną do istniejącej architektury detekcji obiektów, 
+    umożliwiając precyzyjne maskowanie wykrytych obiektów. Mask R-CNN osiągnął znakomite 
+    wyniki w wielu zadaniach segmentacji i detekcji obiektów.
+    \item \textbf{DeepLab:} Rodzina modeli DeepLab, opracowana przez zespół Google, wykorzystuje 
+    różne techniki do poprawy segmentacji, takie jak atrous convolutions (dylatowane konwolucje) i 
+    Conditional Random Fields (CRFs). DeepLabv3+, najnowsza wersja tej serii, łączy atrous 
+    convolutions z modulem spatial pyramid pooling, co pozwala na uchwycenie kontekstowych 
+    informacji na różnych skalach.
+\end{enumerate}
+
+\subsection*{Zastosowania segmentacji obrazów}
+
+Techniki segmentacji obrazów znalazły szerokie zastosowanie w różnych dziedzinach. 
+W medycynie segmentacja obrazów jest kluczowa w diagnostyce i planowaniu leczenia, 
+pozwalając na precyzyjne wyodrębnienie struktur anatomicznych i patologicznych z obrazów MRI i CT. 
+W robotyce segmentacja pomaga w nawigacji i manipulacji obiektami, umożliwiając robotom 
+zrozumienie i interakcję z otoczeniem. W analizie wideo segmentacja jest używana do śledzenia 
+obiektów i rozpoznawania scen, co ma zastosowanie w monitoringu i automatycznym nadzorze.
+
+\subsection*{Podsumowanie}
+
+Przegląd literatury dotyczącej segmentacji obrazów ukazuje, jak ewoluowały techniki od tradycyjnych 
+metod opartych na analizie cech niskiego poziomu do zaawansowanych podejść wykorzystujących głębokie 
+uczenie. Nowoczesne architektury, takie jak FCN, U-Net, Mask R-CNN i DeepLab, oferują znakomite wyniki 
+i są szeroko stosowane w różnych dziedzinach. Zrozumienie tych technik i ich zastosowań jest kluczowe 
+dla dalszych badań i optymalizacji procesów segmentacji, zwłaszcza w kontekście analizy wpływu tła na 
+wyniki klasyfikacji obrazów.
+
+
+\section*{Wpływ tła na klasyfikację obrazów}
+
+Wpływ tła na klasyfikację obrazów jest istotnym zagadnieniem w dziedzinie przetwarzania obrazów i 
+głębokiego uczenia. Tło może wprowadzać szumy, zakłócenia i nieistotne informacje, które mogą 
+negatywnie wpływać na wyniki klasyfikacji, zwłaszcza w kontekście złożonych scen i różnorodnych 
+warunków oświetleniowych. W ramach tego przeglądu literatury omówione zostaną badania dotyczące 
+wpływu tła na dokładność modeli klasyfikacyjnych, techniki usuwania i modyfikacji tła oraz ich 
+zastosowanie w praktyce.
+
+\subsection*{Badania dotyczące wpływu tła}
+
+Wiele badań wykazało, że tło może znacząco wpłynąć na wyniki klasyfikacji obrazów. Pierwsze prace w 
+tym zakresie koncentrowały się na analizie, jak obecność złożonych i zmiennych teł wpływa na 
+dokładność klasyfikacji. Na przykład, badania pokazują, że modele głębokiego uczenia, takie jak CNN, 
+mogą niekiedy mylić obiekty z tłem, co prowadzi do błędnej klasyfikacji. Prace takie jak te 
+przeprowadzone przez Torralba i Efros (2011) sugerują, że kontekst sceny, w tym tło, może wpływać na 
+percepcję i klasyfikację obiektów.
+\textcolor{red}{TO DO}
+
+\subsection*{Techniki usuwania i modyfikacji tła}
+
+W celu zminimalizowania negatywnego wpływu tła na klasyfikację obrazów, opracowano różne techniki 
+usuwania i modyfikacji tła. Jednym z podstawowych podejść jest wykorzystanie segmentacji obrazów do 
+wyodrębnienia obiektów z tła. Modele takie jak U-Net i Mask R-CNN są szeroko stosowane do precyzyjnej 
+segmentacji obiektów, co pozwala na usunięcie tła przed klasyfikacją. Dzięki temu modele 
+klasyfikacyjne mogą skupić się na cechach obiektów, a nie na nieistotnych elementach tła.
+
+Kolejnym podejściem jest modyfikacja tła, polegająca na zastąpieniu oryginalnego tła jednolitym 
+kolorem lub losowo wygenerowanym wzorem. Badania pokazują, że takie podejście może poprawić dokładność 
+klasyfikacji, zwłaszcza w przypadku obiektów trudnych do rozróżnienia od złożonego tła. Przykładem 
+jest praca wykonana przez Zhu et al. (2017), w której zastąpienie tła prostymi wzorami lub kolorami 
+prowadziło do poprawy wyników klasyfikacji.
+\textcolor{red}{TO DO}
+
+\subsection*{Wyzwania i przyszłe kierunki badań}
+
+Mimo znaczących postępów w zakresie usuwania i modyfikacji tła, istnieje wiele wyzwań, które wciąż 
+wymagają dalszych badań. Jednym z głównych problemów jest radzenie sobie z dynamicznymi i zmiennymi 
+warunkami tła, takimi jak zmiany oświetlenia, ruch obiektów i różnorodność scen. Ponadto, badania nad 
+wpływem tła na klasyfikację obrazów mogą prowadzić do opracowania bardziej odpornych modeli, które 
+lepiej radzą sobie z zakłóceniami tła.
+
+Przyszłe badania mogą również koncentrować się na integracji technik usuwania i modyfikacji tła z 
+innymi metodami przetwarzania obrazów, takimi jak detekcja obiektów i analiza scen. Opracowanie 
+bardziej zaawansowanych algorytmów, które będą w stanie lepiej modelować złożone sceny i dynamiczne 
+tła, może przyczynić się do dalszej poprawy wyników klasyfikacji obrazów.
+
+\subsection*{Podsumowanie}
+
+Przegląd literatury dotyczącej wpływu tła na klasyfikację obrazów ukazuje, jak istotny jest to 
+aspekt w dziedzinie przetwarzania obrazów i głębokiego uczenia. Techniki usuwania i modyfikacji 
+tła mogą znacząco poprawić dokładność klasyfikacji, jednak nadal istnieje wiele wyzwań, które 
+wymagają dalszych badań. Zrozumienie wpływu tła na wyniki klasyfikacji oraz opracowanie skutecznych 
+metod radzenia sobie z tym problemem jest kluczowe dla rozwoju bardziej niezawodnych i precyzyjnych 
+systemów klasyfikacyjnych.
+
+\section*{Metryki oceny jakości modeli}
+
+Ocena jakości modeli klasyfikacyjnych i segmentacyjnych jest kluczowym elementem każdego badania w 
+dziedzinie przetwarzania obrazów i głębokiego uczenia. Wybór odpowiednich metryk pozwala na obiektywne 
+porównanie różnych modeli oraz identyfikację ich mocnych i słabych stron. W ramach tego przeglądu 
+literatury omówione zostaną najważniejsze metryki stosowane do oceny jakości modeli, w tym dokładność, 
+precyzja, recall, F1-score oraz inne zaawansowane miary.
+
+\subsection*{Dokładność (Accuracy)}
+
+Dokładność jest jedną z najbardziej intuicyjnych metryk stosowanych do oceny modeli klasyfikacyjnych. 
+Jest to stosunek liczby poprawnie sklasyfikowanych przykładów do całkowitej liczby przykładów. 
+Chociaż dokładność jest łatwa do zrozumienia i szeroko stosowana, może być myląca w przypadku 
+niezrównoważonych zbiorów danych, gdzie liczba przykładów jednej klasy znacznie przewyższa liczbę 
+przykładów innych klas. W takich sytuacjach dokładność może być wysoka, nawet jeśli model nie radzi 
+sobie dobrze z rzadkimi klasami.
+
+\subsection*{Precyzja (Precision)}
+
+Precyzja, znana również jako dodatnia wartość predykcyjna, to stosunek liczby prawdziwie pozytywnych 
+przykładów do liczby wszystkich przykładów sklasyfikowanych jako pozytywne. W kontekście klasyfikacji 
+binarnej precyzja mierzy, jak wiele z przykładów sklasyfikowanych jako pozytywne faktycznie należy do 
+klasy pozytywnej. Wysoka precyzja oznacza, że model rzadko klasyfikuje negatywne przykłady jako 
+pozytywne, co jest szczególnie ważne w aplikacjach, gdzie fałszywe alarmy są kosztowne lub niepożądane.
+
+\subsection*{Czułość (Recall)}
+
+Recall, znany również jako czułość lub true positive rate, to stosunek liczby prawdziwie pozytywnych 
+przykładów do liczby wszystkich rzeczywistych pozytywnych przykładów. Recall mierzy zdolność modelu 
+do wykrywania wszystkich pozytywnych przykładów w zbiorze danych. Wysoki recall oznacza, że model 
+rzadko przeocza pozytywne przykłady, co jest ważne w aplikacjach, gdzie wykrycie wszystkich 
+pozytywnych przypadków jest kluczowe, na przykład w diagnostyce medycznej.
+
+\subsection*{F1-Score}
+
+F1-score to harmoniczna średnia precyzji i recall, która stanowi kompromis między tymi dwiema miarami. 
+Jest szczególnie użyteczna w przypadkach, gdy istotne jest jednoczesne zminimalizowanie liczby 
+fałszywie pozytywnych i fałszywie negatywnych klasyfikacji. F1-score jest bardziej informatywny niż 
+dokładność w kontekście niezrównoważonych zbiorów danych, ponieważ uwzględnia zarówno precyzję, 
+jak i recall.
+
+\subsection*{Inne zaawansowane miary}
+
+Oprócz podstawowych metryk, istnieje wiele zaawansowanych miar stosowanych do oceny jakości modeli, 
+w tym:
+
+\begin{itemize}
+    \item \textbf{ROC AUC (Area Under the Receiver Operating Characteristic Curve): }
+    ROC AUC jest miarą, która ocenia zdolność modelu do rozróżniania między klasami na podstawie 
+    analizy krzywej ROC. Wartość AUC bliska 1 oznacza, że model ma doskonałą zdolność rozróżniania 
+    między pozytywnymi a negatywnymi przykładami.
+    \item \textbf{AP (Average Precision):} Średnia precyzja to miara, która ocenia średnią precyzję 
+    przy różnych wartościach recall. Jest często stosowana w zadaniach detekcji obiektów i 
+    segmentacji, gdzie istotne jest ocenienie jakości predykcji na różnych poziomach czułości.
+    \item \textbf{IoU (Intersection over Union):} IoU jest miarą stosowaną w segmentacji obrazów, 
+    która mierzy stosunek pola wspólnego (intersection) między przewidywaną maską segmentacyjną a 
+    rzeczywistą maską do pola sumy (union) tych masek. Wysoki IoU oznacza, że przewidywana maska 
+    dobrze pokrywa się z rzeczywistą maską obiektu.
+    \item \textbf{Dice Coefficient:} Współczynnik Dice jest kolejną miarą stosowaną w segmentacji obrazów, 
+    która jest podobna do IoU, ale bardziej skoncentrowana na średniej harmonicznej obszarów 
+    przewidywanego i rzeczywistego obiektu. Jest szczególnie użyteczny w medycznej segmentacji obrazów.
+\end{itemize}
+
+\subsection*{Zastosowanie metryk w praktyce}
+
+W praktyce wybór odpowiednich metryk zależy od specyfiki zadania i rodzaju danych. Na przykład, 
+w diagnostyce medycznej ważne jest używanie recall i F1-score, aby zapewnić, że wszystkie przypadki 
+choroby są wykrywane, a liczba fałszywie negatywnych wyników jest minimalna. W systemach monitoringu 
+i detekcji obiektów, metryki takie jak AP i IoU są kluczowe do oceny precyzji i dokładności 
+lokalizacji obiektów.
+
+\subsection*{Podsumowanie}
+
+Przegląd literatury dotyczącej metryk oceny jakości modeli podkreśla znaczenie wyboru odpowiednich 
+miar w kontekście specyficznych zastosowań. Dokładność, precyzja, recall i F1-score są podstawowymi 
+metrykami stosowanymi do oceny modeli klasyfikacyjnych, natomiast bardziej zaawansowane miary, takie 
+jak ROC AUC, AP, IoU i Dice Coefficient, są kluczowe w specyficznych zadaniach, takich jak detekcja 
+obiektów i segmentacja obrazów. Zrozumienie tych metryk i ich zastosowań jest kluczowe dla obiektywnej 
+oceny i porównania różnych modeli, a także dla dalszych badań nad optymalizacją algorytmów 
+przetwarzania obrazów.
