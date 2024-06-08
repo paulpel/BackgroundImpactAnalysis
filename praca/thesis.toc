@@ -1,0 +1,71 @@
+\setcounter {tocdepth}{-1}
+\contentsline {chapter}{Streszczenie }{}{chapter*.1}%
+\contentsline {chapter}{Abstract }{}{chapter*.2}%
+\setcounter {tocdepth}{2}
+\contentsline {chapter}{Wprowadznie}{2}{chapter*.4}%
+\contentsline {section}{Cel pracy}{2}{section*.5}%
+\contentsline {section}{Zakres pracy}{3}{section*.6}%
+\contentsline {chapter}{Przegląd literatury}{5}{chapter*.7}%
+\contentsline {section}{Zakres przeglądu literatury}{5}{section*.8}%
+\contentsline {section}{Cel przeglądu literatury}{6}{section*.9}%
+\contentsline {section}{Klasyfikacja obrazów}{6}{section*.10}%
+\contentsline {subsection}{Tradycyjne metody klasyfikacji obrazów}{6}{subsection*.11}%
+\contentsline {subsection}{Ewolucja podejść z wykorzystaniem głębokiego uczenia}{7}{subsection*.12}%
+\contentsline {subsection}{Zaawansowane architektury sieci neuronowych}{7}{subsection*.13}%
+\contentsline {subsection}{Podsumowanie}{8}{subsection*.14}%
+\contentsline {section}{Modele głębokiego uczenia}{8}{section*.15}%
+\contentsline {subsection}{Convolutional Neural Networks (CNN)}{8}{subsection*.16}%
+\contentsline {subsection}{Residual Networks (ResNet)}{9}{subsection*.17}%
+\contentsline {subsection}{Transformery w przetwarzaniu obrazów}{9}{subsection*.18}%
+\contentsline {subsection}{Nowoczesne architektury}{9}{subsection*.19}%
+\contentsline {subsection}{Podsumowanie}{9}{subsection*.20}%
+\contentsline {section}{Segmentacja obrazów}{10}{section*.21}%
+\contentsline {subsection}{Tradycyjne metody segmentacji obrazów}{10}{subsection*.22}%
+\contentsline {subsection}{Nowoczesne podejścia wykorzystujące głębokie uczenie}{10}{subsection*.23}%
+\contentsline {subsection}{Zastosowania segmentacji obrazów}{11}{subsection*.24}%
+\contentsline {subsection}{Podsumowanie}{11}{subsection*.25}%
+\contentsline {section}{Wpływ tła na klasyfikację obrazów}{12}{section*.26}%
+\contentsline {subsection}{Badania dotyczące wpływu tła}{12}{subsection*.27}%
+\contentsline {subsection}{Techniki usuwania i modyfikacji tła}{12}{subsection*.28}%
+\contentsline {subsection}{Wyzwania i przyszłe kierunki badań}{12}{subsection*.29}%
+\contentsline {subsection}{Podsumowanie}{13}{subsection*.30}%
+\contentsline {section}{Metryki oceny jakości modeli}{13}{section*.31}%
+\contentsline {subsection}{Dokładność (Accuracy)}{13}{subsection*.32}%
+\contentsline {subsection}{Precyzja (Precision)}{13}{subsection*.33}%
+\contentsline {subsection}{Czułość (Recall)}{14}{subsection*.34}%
+\contentsline {subsection}{F1-Score}{14}{subsection*.35}%
+\contentsline {subsection}{Inne zaawansowane miary}{14}{subsection*.36}%
+\contentsline {subsection}{Zastosowanie metryk w praktyce}{14}{subsection*.37}%
+\contentsline {subsection}{Podsumowanie}{15}{subsection*.38}%
+\contentsline {chapter}{Metodyka badań}{16}{chapter*.39}%
+\contentsline {section}{Wprowadzenie do metodyki badań}{16}{section*.40}%
+\contentsline {section}{Przygotowanie środowiska}{16}{section*.41}%
+\contentsline {section}{Wybrane modele}{17}{section*.42}%
+\contentsline {subsection}{ResNet}{18}{subsection*.43}%
+\contentsline {subsection}{ConvNeXt}{19}{subsection*.44}%
+\contentsline {subsection}{DeepLabv3}{20}{subsection*.45}%
+\contentsline {subsection}{Uzasadnienie wyboru modeli}{20}{subsection*.46}%
+\contentsline {section}{Wybrane metryki}{21}{section*.47}%
+\contentsline {subsection}{Dokładność (Accuracy)}{21}{subsection*.48}%
+\contentsline {subsection}{Pewność klasyfikacji (Confidence Scores)}{21}{subsection*.49}%
+\contentsline {subsection}{Macierz pomyłek}{22}{subsection*.50}%
+\contentsline {section}{Opis wykorzystanego zbioru danych}{22}{section*.51}%
+\contentsline {subsection}{Struktura zbioru danych}{22}{subsection*.52}%
+\contentsline {subsection}{Różnorodność obrazów}{22}{subsection*.53}%
+\contentsline {subsection}{Popularność i znaczenie ImageNet1k}{23}{subsection*.54}%
+\contentsline {section}{Plan badań}{23}{section*.55}%
+\contentsline {subsection}{Przygotowanie środowiska pracy}{23}{subsection*.56}%
+\contentsline {subsection}{Wybranie modeli do segmentacji i klasyfikacji}{23}{subsection*.57}%
+\contentsline {subsection}{Wybranie klas zwierząt}{24}{subsection*.58}%
+\contentsline {subsection}{Segmentacja obrazów}{24}{subsection*.59}%
+\contentsline {subsection}{Przygotowanie zmodyfikowanych zbiorów zdjęć}{25}{subsection*.60}%
+\contentsline {subsection}{Dokonanie predykcji na wybranych modelach}{26}{subsection*.61}%
+\contentsline {subsection}{Dodanie kategorii zdjęć pod względem procentu zajmowanego przez obiekt na zdjęciu}{26}{subsection*.62}%
+\contentsline {subsection}{Analiza wyników}{26}{subsection*.63}%
+\contentsline {subsection}{Wnioski i dalsze kierunki rozwoju}{27}{subsection*.64}%
+\contentsline {subsection}{Podsumowanie}{27}{subsection*.65}%
+\contentsline {chapter}{Podsumowanie}{28}{chapter*.66}%
+\contentsline {chapter}{Spis rysunk\'ow}{29}{chapter*.67}%
+\contentsline {chapter}{Spis listingów}{30}{chapter*.68}%
+\contentsline {chapter}{Spis tabel}{31}{chapter*.69}%
+\contentsline {chapter}{Dodatki}{32}{section*.70}%

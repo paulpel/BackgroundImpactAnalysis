@@ -1,0 +1,14 @@
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {1.}{\ignorespaces Schemat architektury modelu ResNet50}}{19}{figure.0.1}%
+\contentsline {figure}{\numberline {2.}{\ignorespaces Przykładowe oryginalne zdjęcia wybranych klas}}{24}{figure.0.2}%
+\contentsline {figure}{\numberline {3.}{\ignorespaces Maski przykładowych wysegmentowanych obrazów}}{24}{figure.0.3}%
+\contentsline {figure}{\numberline {4.}{\ignorespaces Przykładowe zdjęcie poddane modyfikacją}}{25}{figure.0.4}%
+\contentsline {figure}{\numberline {5.}{\ignorespaces Przykładowe zdjęcia o różnych rozmiarach obiektów dla klasy "hummingbird"}}{27}{figure.0.5}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
