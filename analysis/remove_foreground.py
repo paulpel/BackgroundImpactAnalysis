@@ -35,7 +35,9 @@ def save_background_only(input_dir, mask_dir, output_dir, grayscale_values):
             mask_path = os.path.join(current_mask_dir, mask_name)
 
             if not os.path.exists(image_path):
-                print(f"No original image found for {mask_name} in {class_name}, skipping.")
+                print(
+                    f"No original image found for {mask_name} in {class_name}, skipping."
+                )
                 continue
 
             image = Image.open(image_path).convert("RGB")

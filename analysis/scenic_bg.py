@@ -34,7 +34,9 @@ def apply_scenic_backgrounds(
             mask_path = os.path.join(current_mask_dir, mask_name)
 
             if not os.path.exists(image_path):
-                print(f"No original image found for {mask_name} in {class_name}, skipping.")
+                print(
+                    f"No original image found for {mask_name} in {class_name}, skipping."
+                )
                 continue
 
             image = Image.open(image_path).convert("RGBA")
@@ -45,7 +47,9 @@ def apply_scenic_backgrounds(
 
             for scenario, background_file in backgrounds_info.items():
                 scenario_output_dir = os.path.join(output_dir, scenario, class_name)
-                output_image_path = os.path.join(scenario_output_dir, f"{base_filename}.png")
+                output_image_path = os.path.join(
+                    scenario_output_dir, f"{base_filename}.png"
+                )
 
                 if os.path.exists(output_image_path):
                     print(f"Skipping already processed {output_image_path}")
@@ -53,7 +57,9 @@ def apply_scenic_backgrounds(
 
                 background_path = os.path.join(background_dir, background_file)
                 background_image = Image.open(background_path).convert("RGBA")
-                background_resized = background_image.resize(image.size, Image.Resampling.LANCZOS)
+                background_resized = background_image.resize(
+                    image.size, Image.Resampling.LANCZOS
+                )
 
                 result_image = np.where(
                     object_mask, np.array(image), np.array(background_resized)
@@ -62,7 +68,9 @@ def apply_scenic_backgrounds(
 
                 print(f"Processed and saved {output_image_path}")
 
-            print(f"Completed processing all scenarios for {image_filename} in class {class_name}.")
+            print(
+                f"Completed processing all scenarios for {image_filename} in class {class_name}."
+            )
 
 
 if __name__ == "__main__":

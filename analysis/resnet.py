@@ -6,6 +6,7 @@ import os
 
 from analysis.analyze_masks import analyze_masks_and_list_exceptions
 
+
 def load_model(device):
     """
     Load the pre-trained ResNet model.
@@ -68,7 +69,14 @@ def predict_top5(image_path, model, device, transform):
 
 
 def compare_images_and_save_results(
-    original_dir, modifications_root_dir, model, device, transform, output_csv_path, exceptions_dic, target_per_class=1000
+    original_dir,
+    modifications_root_dir,
+    model,
+    device,
+    transform,
+    output_csv_path,
+    exceptions_dic,
+    target_per_class=1000,
 ):
     """
     Compare original images with modified versions and save the top-5 predictions to a CSV file.
@@ -117,7 +125,9 @@ def compare_images_and_save_results(
             continue
 
         if base_filename in exceptions_dic.get(class_name, []):
-            print(f"Skipping image {base_filename} for class {class_name} due to exclusion.")
+            print(
+                f"Skipping image {base_filename} for class {class_name} due to exclusion."
+            )
             continue
 
         processed_count += 1
