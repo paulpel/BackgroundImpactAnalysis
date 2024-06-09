@@ -17,7 +17,7 @@ def analyze_masks_and_list_exceptions(masks_dir="data/masks"):
     """
     class_grayscale_presence = {}
     class_to_grayscale_map = {}
-    exceptions_list = {}
+    exceptions_dic = {}
 
     for class_name in os.listdir(masks_dir):
         mask_class_dir = os.path.join(masks_dir, class_name)
@@ -50,7 +50,7 @@ def analyze_masks_and_list_exceptions(masks_dir="data/masks"):
                 for filename, values in image_presence_map.items()
                 if most_common_value not in values
             ]
-            exceptions_list[class_name] = missing_value_filenames
+            exceptions_dic[class_name] = missing_value_filenames
         else:
             class_grayscale_presence[class_name] = (None, 0)
             class_to_grayscale_map[class_name] = None
@@ -62,11 +62,11 @@ def analyze_masks_and_list_exceptions(masks_dir="data/masks"):
         print(
             f"Class: {class_name}, Most Common Nonzero Grayscale Value (by presence): {most_common_value}, Presence Count: {most_common_presence}"
         )
-        if class_name in exceptions_list and exceptions_list[class_name]:
+        if class_name in exceptions_dic and exceptions_dic[class_name]:
             print(
-                f"    Images without the most common grayscale value ({most_common_value}): {exceptions_list[class_name]}"
+                f"    Images without the most common grayscale value ({most_common_value}): {exceptions_dic[class_name]}"
             )
         else:
             print("    All images contain the most common grayscale value.")
 
-    return class_to_grayscale_map
+    return class_to_grayscale_map, exceptions_dic

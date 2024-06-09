@@ -24,14 +24,18 @@ def save_background_only(input_dir, mask_dir, output_dir, grayscale_values):
 
         for mask_name in os.listdir(current_mask_dir):
             base_filename, _ = os.path.splitext(mask_name)
+            output_image_path = os.path.join(current_output_dir, f"{base_filename}.png")
+
+            if os.path.exists(output_image_path):
+                print(f"Skipping already processed {output_image_path}")
+                continue
+
             image_filename = f"{base_filename}.JPEG"
             image_path = os.path.join(current_input_dir, image_filename)
             mask_path = os.path.join(current_mask_dir, mask_name)
 
             if not os.path.exists(image_path):
-                print(
-                    f"No original image found for {mask_name} in {class_name}, skipping."
-                )
+                print(f"No original image found for {mask_name} in {class_name}, skipping.")
                 continue
 
             image = Image.open(image_path).convert("RGB")
@@ -41,9 +45,7 @@ def save_background_only(input_dir, mask_dir, output_dir, grayscale_values):
 
             result_image = np.where(object_mask[:, :, None], np.array(image), 0)
 
-            Image.fromarray(result_image.astype(np.uint8)).save(
-                os.path.join(current_output_dir, f"{base_filename}.png")
-            )
+            Image.fromarray(result_image.astype(np.uint8)).save(output_image_path)
 
         print(f"Processed class {class_name}")
 

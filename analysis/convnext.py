@@ -4,6 +4,7 @@ from PIL import Image
 import pandas as pd
 import os
 
+from analysis.analyze_masks import analyze_masks_and_list_exceptions
 
 def load_model(device):
     """
@@ -67,7 +68,7 @@ def predict_top5(image_path, model, device, transform):
 
 
 def compare_images_and_save_results(
-    original_dir, modifications_root_dir, model, device, transform, output_csv_path
+    original_dir, modifications_root_dir, model, device, transform, output_csv_path, exceptions_dic, target_per_class=1000
 ):
     """
     Compare original images with modified versions and save the top-5 predictions to a CSV file.
@@ -108,7 +109,17 @@ def compare_images_and_save_results(
     total_images = len(image_paths)
     processed_count = 0
 
+    class_count = {class_name: 0 for class_name in exceptions_dic.keys()}
+
     for base_filename, paths in image_paths.items():
+        class_name = paths["class_name"]
+        if class_count[class_name] >= target_per_class:
+            continue
+
+        if base_filename in exceptions_dic.get(class_name, []):
+            print(f"Skipping image {base_filename} for class {class_name} due to exclusion.")
+            continue
+
         processed_count += 1
         print(f"Processing image {processed_count} of {total_images} ({base_filename})")
 
@@ -146,6 +157,10 @@ def compare_images_and_save_results(
 
         if all_mods_valid:
             results.append(result)
+            class_count[class_name] += 1
+
+        if all(count >= target_per_class for count in class_count.values()):
+            break
 
     pd.DataFrame(results).to_csv(output_csv_path, index=False)
     print("Results successfully saved to CSV.")
@@ -160,6 +175,8 @@ if __name__ == "__main__":
     modifications_root_dir = "data/modified"
     output_csv = "image_confidence_scores_convnext.csv"
 
+    _, exceptions_dic = analyze_masks_and_list_exceptions()
+
     compare_images_and_save_results(
         original_images_dir,
         modifications_root_dir,
@@ -167,4 +184,6 @@ if __name__ == "__main__":
         device,
         transform,
         output_csv,
+        exceptions_dic,
+        target_per_class=1000,
     )

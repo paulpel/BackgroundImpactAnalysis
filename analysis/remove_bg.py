@@ -20,22 +20,19 @@ def remove_background_and_save(input_dir, mask_dir, output_dir, grayscale_values
         current_mask_dir = os.path.join(mask_dir, class_name)
         current_output_dir = os.path.join(output_dir, class_name)
 
-        print(current_input_dir, current_mask_dir, current_output_dir)
-        print(
-            os.path.exists(current_input_dir),
-            os.path.exists(current_mask_dir),
-            os.path.exists(current_output_dir),
-        )
         os.makedirs(current_output_dir, exist_ok=True)
 
         for mask_name in os.listdir(current_mask_dir):
             base_filename, _ = os.path.splitext(mask_name)
+            output_image_path = os.path.join(current_output_dir, f"{base_filename}.png")
+
+            if os.path.exists(output_image_path):
+                print(f"Skipping already processed {output_image_path}")
+                continue
+
             image_filename = f"{base_filename}.JPEG"
             image_path = os.path.join(current_input_dir, image_filename)
             mask_path = os.path.join(current_mask_dir, mask_name)
-
-            print(image_path, mask_path, os.getcwd())
-            print(os.path.exists(image_path), os.path.exists(mask_path))
 
             if not os.path.exists(image_path):
                 print(
@@ -54,9 +51,7 @@ def remove_background_and_save(input_dir, mask_dir, output_dir, grayscale_values
                 object_mask[:, :, None], np.array(image), np.array(background)
             )
 
-            Image.fromarray(result_image.astype(np.uint8)).save(
-                os.path.join(current_output_dir, f"{base_filename}.png")
-            )
+            Image.fromarray(result_image.astype(np.uint8)).save(output_image_path)
 
         print(f"Processed class {class_name}")
 

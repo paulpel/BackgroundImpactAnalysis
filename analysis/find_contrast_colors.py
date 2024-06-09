@@ -72,7 +72,6 @@ if __name__ == "__main__":
         class_dir = os.path.join(base_dir, class_name)
         color_dict[class_name] = analyze_colors(class_dir)
 
-    # Save the dictionary as a JSON file
     with open("class_colors.json", "w") as file:
         json.dump(color_dict, file, indent=4)
 

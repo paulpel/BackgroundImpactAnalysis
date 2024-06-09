@@ -61,7 +61,7 @@ if __name__ == "__main__":
         "n02123394",
     ]
 
-    target_per_class = 1100
+    target_per_class = 1150
 
     for c in classes:
         _, mask_dir = create_directory(output_mask_directory, c)
