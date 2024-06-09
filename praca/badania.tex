@@ -4,3 +4,36 @@ Celem tego rozdziału jest przeprowadzenie analizy wyników klasyfikacji obrazó
 ConvNeXt. Analiza obejmuje porównanie skuteczności modeli w różnych scenariuszach modyfikacji tła oraz w zależności 
 od wielkości obiektu na obrazie. Przeanalizowane zostaną ogólne metryki, wyniki dla poszczególnych klas oraz wpływ 
 wielkości obiektu na dokładność klasyfikacji.
+
+
+\begin{table}
+	\centering
+	\begin{tabular}{|c|c|c|c|c|c|}
+		\hline
+		\textbf{Model} & \textbf{Type} & \textbf{Accuracy} & \textbf{Precision} & \textbf{Recall} & \textbf{F1-score} \\
+		\hline
+		ResNet & Original & 0.886500 & 0.967026 & 0.886500 & 0.922742 \\
+		\hline
+		ResNet & Modified & 0.697018 & 0.948539 & 0.697018 & 0.802350 \\
+		\hline
+		ConvNeXt & Original & 0.943300 & 0.972519 & 0.943300 & 0.956791 \\
+		\hline
+		ConvNeXt & Modified & 0.790873 & 0.961080 & 0.790873 & 0.866282 \\
+		\hline
+	\end{tabular}
+	\caption{Metryki porównawcze modeli ResNet i ConvNeXt}
+	\label{tab:model_comparison_metrics}
+\end{table}
+
+\begin{figure}
+	\centering\includegraphics[width=.9\textwidth]{img/overall_metrics}
+	\caption{Metryki dla danych oryginalnych zestawionych z danymi o zmodyfikowanych tłach}  
+    \label{rys:overall_metrics}
+\end{figure}
+
+\begin{figure}
+	\centering\includegraphics[width=.9\textwidth]{img/confidence_avg}
+	\caption{Średnie wartości dla confidence scores}  
+    \label{rys:confidence_avg}
+\end{figure}
+
