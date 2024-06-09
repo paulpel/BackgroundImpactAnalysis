@@ -9,12 +9,20 @@ from analysis.analyze_masks import analyze_masks_and_list_exceptions
 def apply_contrast_background(
     input_dir, mask_dir, output_base_dir, contrast_colors, grayscale_values
 ):
-    """Applies contrast backgrounds to images using masks and saves them."""
+    """
+    Applies contrast backgrounds to images using masks and saves them.
+
+    Args:
+        input_dir (str): Directory containing the original images without background.
+        mask_dir (str): Directory containing the mask images.
+        output_base_dir (str): Base directory to save the processed images with contrast backgrounds.
+        contrast_colors (dict): Dictionary mapping class names to their low and high contrast colors.
+        grayscale_values (dict): Dictionary mapping class names to their most common nonzero grayscale values in masks.
+    """
     for class_name, value in grayscale_values.items():
         low_contrast_dir = os.path.join(output_base_dir, "low_contrast", class_name)
         high_contrast_dir = os.path.join(output_base_dir, "high_contrast", class_name)
 
-        # Create output directories if they don't exist
         os.makedirs(low_contrast_dir, exist_ok=True)
         os.makedirs(high_contrast_dir, exist_ok=True)
 
@@ -23,28 +31,20 @@ def apply_contrast_background(
 
         for image_file in os.listdir(input_class_dir):
             image_path = os.path.join(input_class_dir, image_file)
-            mask_path = os.path.join(
-                mask_class_dir, image_file
-            )  # assuming mask has the same filename
+            mask_path = os.path.join(mask_class_dir, image_file)
 
             if not os.path.exists(mask_path):
                 print(f"No mask found for {image_file} in {class_name}, skipping.")
                 continue
 
             image = Image.open(image_path).convert("RGB")
-            mask = Image.open(mask_path).convert(
-                "L"
-            )  # Load mask and convert to grayscale
+            mask = Image.open(mask_path).convert("L")
 
-            # Convert mask to a binary mask where the specific grayscale value is set to False (background)
             object_mask = np.array(mask) == value
-            object_mask = np.expand_dims(
-                object_mask, axis=2
-            )  # Expand dimensions to fit RGB channels
+            object_mask = np.expand_dims(object_mask, axis=2)
 
             data = np.array(image)
 
-            # Apply low contrast background
             low_background = np.full(
                 data.shape, contrast_colors[class_name]["low"], dtype=np.uint8
             )
@@ -53,7 +53,6 @@ def apply_contrast_background(
                 os.path.join(low_contrast_dir, image_file)
             )
 
-            # Apply high contrast background
             high_background = np.full(
                 data.shape, contrast_colors[class_name]["high"], dtype=np.uint8
             )

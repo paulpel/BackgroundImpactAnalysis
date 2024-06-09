@@ -6,12 +6,20 @@ from analysis.analyze_masks import analyze_masks_and_list_exceptions
 
 
 def save_background_only(input_dir, mask_dir, output_dir, grayscale_values):
+    """
+    Save images with only the background, removing the foreground based on the specified grayscale values from masks.
+
+    Args:
+        input_dir (str): Directory containing the original images.
+        mask_dir (str): Directory containing the mask images.
+        output_dir (str): Directory to save the images with only the background.
+        grayscale_values (dict): Dictionary mapping class names to grayscale values to be used for masking.
+    """
     for class_name, value in grayscale_values.items():
         current_input_dir = os.path.join(input_dir, class_name)
         current_mask_dir = os.path.join(mask_dir, class_name)
         current_output_dir = os.path.join(output_dir, class_name)
 
-        # Ensure output directory exists
         os.makedirs(current_output_dir, exist_ok=True)
 
         for mask_name in os.listdir(current_mask_dir):
@@ -26,17 +34,13 @@ def save_background_only(input_dir, mask_dir, output_dir, grayscale_values):
                 )
                 continue
 
-            # Open the original image and mask
             image = Image.open(image_path).convert("RGB")
             mask = Image.open(mask_path).convert("L")
 
-            # Convert mask to a binary mask where the specific grayscale value is set to False (background)
             object_mask = np.array(mask) != value
 
-            # Apply the mask: For pixels where the mask is False (object), set to black
             result_image = np.where(object_mask[:, :, None], np.array(image), 0)
 
-            # Save the processed image
             Image.fromarray(result_image.astype(np.uint8)).save(
                 os.path.join(current_output_dir, f"{base_filename}.png")
             )

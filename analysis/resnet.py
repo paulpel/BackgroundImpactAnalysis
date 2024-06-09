@@ -5,22 +5,52 @@ import pandas as pd
 import os
 import csv
 
+
 def load_model(device):
-    # Load the pre-trained ResNet model
+    """
+    Load the pre-trained ResNet model.
+
+    Args:
+        device (torch.device): The device to load the model on.
+
+    Returns:
+        torch.nn.Module: The loaded ResNet model.
+    """
     model = models.resnet50(pretrained=True).to(device)
     model.eval()
     return model
 
+
 def get_transform():
-    # Define the image transformation
-    return transforms.Compose([
-        transforms.Resize(256),
-        transforms.CenterCrop(224),
-        transforms.ToTensor(),
-        transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
-    ])
+    """
+    Define the image transformation.
+
+    Returns:
+        torchvision.transforms.Compose: The composed image transformations.
+    """
+    return transforms.Compose(
+        [
+            transforms.Resize(256),
+            transforms.CenterCrop(224),
+            transforms.ToTensor(),
+            transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
+        ]
+    )
+
 
 def predict_top5(image_path, model, device, transform):
+    """
+    Predict the top-5 class probabilities for an image.
+
+    Args:
+        image_path (str): The path to the image.
+        model (torch.nn.Module): The pre-trained model.
+        device (torch.device): The device to perform inference on.
+        transform (torchvision.transforms.Compose): The image transformations.
+
+    Returns:
+        list: A list of dictionaries with class indices and confidence scores.
+    """
     try:
         with Image.open(image_path).convert("RGB") as img:
             img_t = transform(img).unsqueeze(0).to(device)
@@ -28,24 +58,41 @@ def predict_top5(image_path, model, device, transform):
                 outputs = model(img_t)
             probs = torch.nn.functional.softmax(outputs, dim=1)[0] * 100
             top5_conf, top5_class = torch.topk(probs, 5)
-            return [{int(class_idx): float(conf)} for conf, class_idx in zip(top5_conf, top5_class)]
+            return [
+                {int(class_idx): float(conf)}
+                for conf, class_idx in zip(top5_conf, top5_class)
+            ]
     except (IOError, OSError) as e:
         print(f"Warning: Could not process image {image_path}: {e}")
         return None
 
 
-def compare_images_and_save_results(original_dir, modifications_root_dir, model, device, transform, output_csv_path):
+def compare_images_and_save_results(
+    original_dir, modifications_root_dir, model, device, transform, output_csv_path
+):
+    """
+    Compare original images with modified versions and save the top-5 predictions to a CSV file.
+
+    Args:
+        original_dir (str): Directory containing the original images.
+        modifications_root_dir (str): Root directory containing the modified images.
+        model (torch.nn.Module): The pre-trained model.
+        device (torch.device): The device to perform inference on.
+        transform (torchvision.transforms.Compose): The image transformations.
+        output_csv_path (str): The path to save the CSV file with results.
+    """
     results = []
     print("Starting image comparison...")
 
-    # Get all modification types
-    modification_types = [d for d in os.listdir(modifications_root_dir) if os.path.isdir(os.path.join(modifications_root_dir, d))]
+    modification_types = [
+        d
+        for d in os.listdir(modifications_root_dir)
+        if os.path.isdir(os.path.join(modifications_root_dir, d))
+    ]
     print(f"Found modification types: {modification_types}")
 
-    # Collect information on available images for each modification
     image_paths = {}
 
-    # Gather all available images and their paths from modifications
     for modification_type in modification_types:
         mod_path = os.path.join(modifications_root_dir, modification_type)
         for class_name in os.listdir(mod_path):
@@ -54,37 +101,37 @@ def compare_images_and_save_results(original_dir, modifications_root_dir, model,
                 base_filename, _ = os.path.splitext(image_name)
                 if base_filename not in image_paths:
                     image_paths[base_filename] = {}
-                image_paths[base_filename][modification_type] = os.path.join(class_path, image_name)
-                image_paths[base_filename]['class_name'] = class_name  # Keep track of class name
+                image_paths[base_filename][modification_type] = os.path.join(
+                    class_path, image_name
+                )
+                image_paths[base_filename]["class_name"] = class_name
 
     total_images = len(image_paths)
     processed_count = 0
 
-    # Check against original images and compile results if all modifications exist
     for base_filename, paths in image_paths.items():
         processed_count += 1
         print(f"Processing image {processed_count} of {total_images} ({base_filename})")
 
-        if len(paths) - 1 != len(modification_types):  # Subtract 1 to exclude 'class_name'
-            continue  # Skip if not all modifications are available
+        if len(paths) - 1 != len(modification_types):
+            continue
 
-        original_image_path = os.path.join(original_dir, paths['class_name'], f"{base_filename}.JPEG")
+        original_image_path = os.path.join(
+            original_dir, paths["class_name"], f"{base_filename}.JPEG"
+        )
         if not os.path.exists(original_image_path):
             continue
 
-        # Attempt to get top-5 predictions for the original image
         original_top5 = predict_top5(original_image_path, model, device, transform)
         if original_top5 is None:
             continue
 
-        # Prepare results entry
         result = {
             "id": base_filename,
             "picture_name": f"{base_filename}.JPEG",
             "original_confidence": original_top5,
         }
 
-        # Process each modification
         all_mods_valid = True
         for mod_type in modification_types:
             mod_image_path = paths.get(mod_type)
@@ -101,9 +148,9 @@ def compare_images_and_save_results(original_dir, modifications_root_dir, model,
         if all_mods_valid:
             results.append(result)
 
-    # Save results to a CSV file
     pd.DataFrame(results).to_csv(output_csv_path, index=False)
     print("Results successfully saved to CSV.")
+
 
 if __name__ == "__main__":
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -115,6 +162,10 @@ if __name__ == "__main__":
     output_csv = "image_confidence_scores.csv"
 
     compare_images_and_save_results(
-        original_images_dir, modifications_root_dir, model, device, transform, output_csv
+        original_images_dir,
+        modifications_root_dir,
+        model,
+        device,
+        transform,
+        output_csv,
     )
-

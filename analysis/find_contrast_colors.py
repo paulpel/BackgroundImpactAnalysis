@@ -7,16 +7,21 @@ from collections import defaultdict
 
 
 def find_contrast_colors(colors):
-    """Finds high and low contrast colors given a set of dominant colors."""
-    colors = np.array(colors) / 255.0  # Normalize colors to 0-1 scale
-    mean_color = np.mean(colors, axis=0)  # Calculate the mean color (for low contrast)
-    distances = np.sqrt(
-        np.sum((colors - mean_color) ** 2, axis=1)
-    )  # Euclidean distances
-    high_contrast_color = colors[np.argmax(distances)]  # Color furthest from the mean
-    low_contrast_color = mean_color  # Mean color
+    """
+    Finds high and low contrast colors given a set of dominant colors.
 
-    # Ensure types are native Python integers for JSON serialization
+    Args:
+        colors (list): A list of RGB colors.
+
+    Returns:
+        dict: A dictionary with low and high contrast colors.
+    """
+    colors = np.array(colors) / 255.0
+    mean_color = np.mean(colors, axis=0)
+    distances = np.sqrt(np.sum((colors - mean_color) ** 2, axis=1))
+    high_contrast_color = colors[np.argmax(distances)]
+    low_contrast_color = mean_color
+
     high_contrast_color = tuple(int(x) for x in (high_contrast_color * 255))
     low_contrast_color = tuple(int(x) for x in (low_contrast_color * 255))
 
@@ -24,6 +29,15 @@ def find_contrast_colors(colors):
 
 
 def analyze_colors(directory):
+    """
+    Analyze the colors in the images within a directory to find dominant colors.
+
+    Args:
+        directory (str): The path to the directory containing the images.
+
+    Returns:
+        dict: A dictionary with low and high contrast colors.
+    """
     color_samples = []
     for filename in os.listdir(directory):
         if not filename.endswith((".png", ".jpg", ".jpeg")):
@@ -32,17 +46,15 @@ def analyze_colors(directory):
         image = Image.open(image_path)
         data = np.array(image)
 
-        mask = (
-            (data[:, :, 0] != 0) & (data[:, :, 1] != 0) & (data[:, :, 2] != 0)
-        )  # Mask to ignore black
+        mask = (data[:, :, 0] != 0) & (data[:, :, 1] != 0) & (data[:, :, 2] != 0)
         filtered_data = data[mask]
 
         color_samples.extend(filtered_data)
 
     if len(color_samples) == 0:
-        return {"low": (0, 0, 0), "high": (255, 255, 255)}  # Default if no colors found
+        return {"low": (0, 0, 0), "high": (255, 255, 255)}
 
-    kmeans = KMeans(n_clusters=5)  # Cluster colors
+    kmeans = KMeans(n_clusters=5)
     kmeans.fit(color_samples)
     dominant_colors = kmeans.cluster_centers_
 

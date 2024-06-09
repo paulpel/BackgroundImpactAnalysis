@@ -6,6 +6,15 @@ from analysis.analyze_masks import analyze_masks_and_list_exceptions
 
 
 def remove_background_and_save(input_dir, mask_dir, output_dir, grayscale_values):
+    """
+    Remove background from images using the specified grayscale values from masks and save the results.
+
+    Args:
+        input_dir (str): Directory containing the original images.
+        mask_dir (str): Directory containing the mask images.
+        output_dir (str): Directory to save the images with the background removed.
+        grayscale_values (dict): Dictionary mapping class names to grayscale values to be used for masking.
+    """
     for class_name, value in grayscale_values.items():
         current_input_dir = os.path.join(input_dir, class_name)
         current_mask_dir = os.path.join(mask_dir, class_name)
@@ -17,8 +26,6 @@ def remove_background_and_save(input_dir, mask_dir, output_dir, grayscale_values
             os.path.exists(current_mask_dir),
             os.path.exists(current_output_dir),
         )
-
-        # Create the output directory if it doesn't exist
         os.makedirs(current_output_dir, exist_ok=True)
 
         for mask_name in os.listdir(current_mask_dir):
@@ -36,22 +43,17 @@ def remove_background_and_save(input_dir, mask_dir, output_dir, grayscale_values
                 )
                 continue
 
-            # Open the original image and mask
             image = Image.open(image_path).convert("RGB")
             mask = Image.open(mask_path).convert("L")
 
-            # Convert mask to a binary mask for the specific grayscale value
             object_mask = np.array(mask) == value
 
-            # Prepare a black background of the same size as the original image
             background = Image.new("RGB", image.size)
 
-            # Apply the mask: for pixels where the mask matches, copy the original image's pixels
             result_image = np.where(
                 object_mask[:, :, None], np.array(image), np.array(background)
             )
 
-            # Save the processed image
             Image.fromarray(result_image.astype(np.uint8)).save(
                 os.path.join(current_output_dir, f"{base_filename}.png")
             )
@@ -59,12 +61,13 @@ def remove_background_and_save(input_dir, mask_dir, output_dir, grayscale_values
         print(f"Processed class {class_name}")
 
 
-input_directory = "data/train"
-mask_directory = "data/masks"
-output_directory = "data/modified/no_bg"
+if __name__ == "__main__":
+    input_directory = "data/train"
+    mask_directory = "data/masks"
+    output_directory = "data/modified/no_bg"
 
-grayscale_values = analyze_masks_and_list_exceptions()
+    grayscale_values = analyze_masks_and_list_exceptions()
 
-remove_background_and_save(
-    input_directory, mask_directory, output_directory, grayscale_values
-)
+    remove_background_and_save(
+        input_directory, mask_directory, output_directory, grayscale_values
+    )

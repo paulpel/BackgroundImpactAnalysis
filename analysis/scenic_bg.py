@@ -8,7 +8,17 @@ from analysis.analyze_masks import analyze_masks_and_list_exceptions
 def apply_scenic_backgrounds(
     input_dir, mask_dir, output_dir, background_dir, backgrounds_info, grayscale_values
 ):
-    """Applies different scenic backgrounds to images using masks, skipping images that are already processed."""
+    """
+    Applies different scenic backgrounds to images using masks, skipping images that are already processed.
+
+    Args:
+        input_dir (str): Directory containing the original images.
+        mask_dir (str): Directory containing the mask images.
+        output_dir (str): Directory to save the images with applied scenic backgrounds.
+        background_dir (str): Directory containing the background images.
+        backgrounds_info (dict): Dictionary mapping scenario names to background image filenames.
+        grayscale_values (dict): Dictionary mapping class names to their most common nonzero grayscale values in masks.
+    """
     for class_name, value in grayscale_values.items():
         current_input_dir = os.path.join(input_dir, class_name)
         current_mask_dir = os.path.join(mask_dir, class_name)
@@ -33,9 +43,7 @@ def apply_scenic_backgrounds(
             mask = Image.open(mask_path).convert("L")
 
             object_mask = np.array(mask) == value
-            object_mask = np.expand_dims(
-                object_mask, axis=2
-            )  # Expand dims to apply on image
+            object_mask = np.expand_dims(object_mask, axis=2)
 
             for scenario, background_file in backgrounds_info.items():
                 scenario_output_dir = os.path.join(output_dir, scenario, class_name)
@@ -43,7 +51,6 @@ def apply_scenic_backgrounds(
                     scenario_output_dir, f"{base_filename}.png"
                 )
 
-                # Check if the output image already exists, skip if it does
                 if os.path.exists(output_image_path):
                     print(f"Skipping already processed {output_image_path}")
                     continue

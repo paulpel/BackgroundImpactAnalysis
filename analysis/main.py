@@ -3,6 +3,16 @@ import os
 
 
 def create_directory(path, dir_name):
+    """
+    Create a directory if it does not exist.
+
+    Args:
+        path (str): The parent directory path.
+        dir_name (str): The name of the directory to create.
+
+    Returns:
+        tuple: A tuple containing a boolean indicating success and the full path of the created directory.
+    """
     directory_path = os.path.join(path, dir_name)
     try:
         os.makedirs(directory_path, exist_ok=True)
@@ -13,6 +23,15 @@ def create_directory(path, dir_name):
 
 
 def count_existing_files(directory):
+    """
+    Count the number of files in a directory.
+
+    Args:
+        directory (str): The path to the directory.
+
+    Returns:
+        int: The number of files in the directory.
+    """
     return len(
         [
             name
@@ -42,7 +61,7 @@ if __name__ == "__main__":
         "n02123394",
     ]
 
-    target_per_class = 1000
+    target_per_class = 1100
 
     for c in classes:
         _, mask_dir = create_directory(output_mask_directory, c)
@@ -50,10 +69,8 @@ if __name__ == "__main__":
 
         existing_masks_count = count_existing_files(mask_dir)
         existing_overlays_count = count_existing_files(overlay_dir)
-        # We assume both masks and overlays are generated for each image, so we can take the max.
         existing_count = max(existing_masks_count, existing_overlays_count)
 
-        # Calculate how many more are needed to reach the target
         images_to_process = target_per_class - existing_count
 
         if images_to_process > 0:
