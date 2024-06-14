@@ -133,77 +133,294 @@ obliczu modyfikacji tła.
 	\label{rys:conv_c_distro}
 \end{figure}
 \newpage
-\section*{Wyniki względem kategorii wielkości}
+
+\section*{Wyniki względem kategorii wielkości obiektu}
+Analiza wpływu wielkości obiektu na skuteczność klasyfikacji obrazów jest istotnym elementem badań, ponieważ różne rozmiary obiektów mogą 
+znacząco wpływać na wydajność modeli głębokiego uczenia. Obiekty o różnych wielkościach mogą być różnie traktowane przez modele klasyfikacyjne 
+ze względu na zmienność cech charakterystycznych oraz tła. Dlatego też, zrozumienie, jak zmienia się skuteczność modeli ResNet i ConvNeXt w 
+zależności od wielkości obiektu, jest kluczowe dla optymalizacji i poprawy tych modeli w rzeczywistych zastosowaniach.
 
 
+
+\begin{table}
+	\centering
+	\begin{tabular}{|c|c|c|c|c|c|}
+		\hline
+		\textbf{Object Size} & \textbf{Dataset Type} & \textbf{Accuracy} & \textbf{Precision} & \textbf{Recall} & \textbf{F1-score} \\
+		\hline
+		Large & Original & 0.877353 & 0.972679 & 0.877353 & 0.920111 \\
+		\hline
+		Large & Modified & 0.782460 & 0.960542 & 0.782460 & 0.861260 \\
+		\hline
+		Medium & Original & 0.897879 & 0.963620 & 0.897879 & 0.927600 \\
+		\hline
+		Medium & Modified & 0.757796 & 0.943584 & 0.757796 & 0.838421 \\
+		\hline
+		Small & Original & 0.884545 & 0.963823 & 0.884545 & 0.918217 \\
+		\hline
+		Small & Modified & 0.548209 & 0.936858 & 0.548209 & 0.683307 \\
+		\hline
+	\end{tabular}
+	\caption{Metryki porównawcze modelu ResNet w zależności od wielkości obiektu}
+	\label{tab:resnet_object_size_metrics}
+\end{table}
+
+Dla modelu ResNet wyniki pokazują, że dla dużych obiektów na oryginalnych obrazach uzyskano Accuracy na poziomie 0.877353, Precision 0.972679, 
+Recall 0.877353 i F1-score 0.920111. Po modyfikacji tła wartości te spadły odpowiednio do 0.782460, 0.960542, 0.782460 i 0.861260. Dla obiektów 
+średniej wielkości na oryginalnych obrazach uzyskano Accuracy 0.897879, Precision 0.963620, Recall 0.897879 i F1-score 0.927600, a po modyfikacji 
+tła wartości te spadły do 0.757796, 0.943584, 0.757796 i 0.838421. Dla małych obiektów na oryginalnych obrazach uzyskano Accuracy 0.884545, 
+Precision 0.963823, Recall 0.884545 i F1-score 0.918217, natomiast po modyfikacji tła wartości te drastycznie spadły do 0.548209, 0.936858, 
+0.548209 i 0.683307.
+
+Dla modelu ConvNeXt wyniki pokazują, że dla dużych obiektów na oryginalnych obrazach uzyskano Accuracy na poziomie 0.932353, Precision 0.974247, 
+Recall 0.932353 i F1-score 0.952076. Po modyfikacji tła wartości te spadły odpowiednio do 0.838610, 0.970077, 0.838610 i 0.897830. Dla obiektów 
+średniej wielkości na oryginalnych obrazach uzyskano Accuracy 0.943333, Precision 0.970287, Recall 0.943333 i F1-score 0.955907, a po modyfikacji 
+tła wartości te spadły do 0.834545, 0.959503, 0.834545 i 0.888990. Dla małych obiektów na oryginalnych obrazach uzyskano Accuracy 0.954545, 
+Precision 0.972766, Recall 0.954545 i F1-score 0.961567, natomiast po modyfikacji tła wartości te spadły do 0.698017, 0.951014, 0.698017 i 0.799677.
+
+\begin{table}
+	\centering
+	\begin{tabular}{|c|c|c|c|c|c|}
+		\hline
+		\textbf{Object Size} & \textbf{Dataset Type} & \textbf{Accuracy} & \textbf{Precision} & \textbf{Recall} & \textbf{F1-score} \\
+		\hline
+		Large & Original & 0.932353 & 0.974247 & 0.932353 & 0.952076 \\
+		\hline
+		Large & Modified & 0.838610 & 0.970077 & 0.838610 & 0.897830 \\
+		\hline
+		Medium & Original & 0.943333 & 0.970287 & 0.943333 & 0.955907 \\
+		\hline
+		Medium & Modified & 0.834545 & 0.959503 & 0.834545 & 0.888990 \\
+		\hline
+		Small & Original & 0.954545 & 0.972766 & 0.954545 & 0.961567 \\
+		\hline
+		Small & Modified & 0.698017 & 0.951014 & 0.698017 & 0.799677 \\
+		\hline
+	\end{tabular}
+	\caption{Metryki porównawcze modelu ConvNeXt w zależności od wielkości obiektu}
+	\label{tab:convnext_object_size_metrics}
+\end{table}
+
+Analiza wyników pokazuje, że modyfikacja tła wpływa na skuteczność klasyfikacji obrazów dla obu modeli, ale wpływ ten jest zróżnicowany w 
+zależności od wielkości obiektu. W przypadku małych obiektów, procentowo jest więcej tła niż w przypadku dużych czy średnich obiektów, co może 
+prowadzić do większych spadków w Accuracy i innych metrykach. Model ResNet wykazuje znaczący spadek skuteczności dla małych obiektów po 
+modyfikacji tła, co sugeruje, że większa ilość tła może wprowadzać większe zakłócenia w procesie klasyfikacji. To samo zjawisko obserwowane 
+jest w przypadku modelu ConvNeXt, choć ten model wykazuje lepszą odporność na zmiany tła niż ResNet, zwłaszcza dla małych obiektów.
+
+Wyniki te podkreślają znaczenie rozważania wielkości obiektów przy projektowaniu i ocenie modeli klasyfikacyjnych, szczególnie w kontekście 
+modyfikacji tła. Modele mogą wymagać dodatkowego dostrajania lub augmentacji danych, aby poprawić ich odporność na zmiany tła, co jest 
+szczególnie istotne dla zastosowań, gdzie obiekty mogą występować w różnych skalach i warunkach środowiskowych. Zrozumienie, że większy udział 
+tła przy małych obiektach może prowadzić do większych zakłóceń, jest kluczowe dla opracowywania bardziej efektywnych algorytmów klasyfikacyjnych, 
+które mogą niezawodnie działać w zmiennych warunkach.
+
+\begin{table}
+	\centering
+	\begin{tabular}{|c|c|c|c|}
+		\hline
+		\textbf{Object Size} & \textbf{Average Score} & \textbf{Correct Score} & \textbf{Incorrect Score} \\
+		\hline
+		Large & 76.437807 & 85.211125 & 43.360151 \\
+		\hline
+		Medium & 76.371553 & 85.131233 & 47.133278 \\
+		\hline
+		Small & 65.538042 & 82.538231 & 42.420987 \\
+		\hline
+	\end{tabular}
+	\caption{Confidence scores dla modelu ResNet w zależności od wielkości obiektu oraz poprawności predykcji}
+	\label{tab:resnet_confidence_scores}
+\end{table}
+
+\begin{table}
+	\centering
+	\begin{tabular}{|c|c|c|c|}
+		\hline
+		\textbf{Object Size} & \textbf{Average Score} & \textbf{Correct Score} & \textbf{Incorrect Score} \\
+		\hline
+		Large & 63.942224 & 69.166578 & 35.149080 \\
+		\hline
+		Medium & 60.220167 & 64.178825 & 38.865913 \\
+		\hline
+		Small & 51.048190 & 57.051329 & 35.657851 \\
+		\hline
+	\end{tabular}
+	\caption{Confidence scores dla modelu ConvNeXt w zależności od wielkości obiektu oraz poprawności predykcji}
+	\label{tab:convnext_confidence_scores}
+\end{table}
+
+Analiza confidence scores dla modeli ResNet i ConvNeXt w zależności od wielkości obiektu dostarcza cennych informacji o zachowaniu tych modeli. 
+Dla modelu ResNet, średnie confidence scores wynoszą 76.437807 dla dużych obiektów, 76.371553 dla obiektów średniej wielkości i 65.538042 dla 
+małych obiektów. Dla poprawnych klasyfikacji confidence scores są odpowiednio wyższe, wynosząc 85.211125, 85.131233 i 82.538231. Dla niepoprawnych 
+klasyfikacji wartości te są znacznie niższe: 43.360151, 47.133278 i 42.420987.
+
+W przypadku modelu ConvNeXt, średnie confidence scores są niższe i wynoszą 63.942224 dla dużych obiektów, 60.220167 dla obiektów średniej 
+wielkości i 51.048190 dla małych obiektów. Confidence scores dla poprawnych klasyfikacji wynoszą 69.166578, 64.178825 i 57.051329, a dla 
+niepoprawnych klasyfikacji są to 35.149080, 38.865913 i 35.657851.
+
+yniki te wskazują, że confidence scores dla poprawnych klasyfikacji są wyższe niż dla niepoprawnych w obu modelach, co jest oczekiwane, 
+ponieważ modele mają większą pewność przy poprawnych decyzjach. Jednakże, spadki confidence scores dla małych obiektów są bardziej wyraźne, 
+co może wynikać z większego udziału tła w tych obrazach, co prowadzi do większych zakłóceń i trudności w klasyfikacji.
+
+Porównując oba modele, ResNet wykazuje wyższe średnie confidence scores zarówno dla poprawnych, jak i niepoprawnych klasyfikacji w porównaniu 
+do ConvNeXt. To sugeruje, że ResNet jest bardziej pewny swoich decyzji, niezależnie od wielkości obiektu.
+
+\section*{Wyniki względem typu modyfikacji tła}
+
+W tej sekcji przeanalizowano wpływ różnych typów modyfikacji tła na skuteczność klasyfikacji obrazów oraz wartości confidence scores dla dwóch 
+modeli głębokiego uczenia: ResNet i ConvNeXt. Analiza obejmuje metryki klasyfikacji takie jak accuracy, precision, recall i F1-score oraz 
+średnie wartości confidence scores zarówno dla poprawnych, jak i niepoprawnych klasyfikacji. Taka analiza jest kluczowa dla zrozumienia, jak 
+różne scenariusze modyfikacji tła wpływają na pewność i skuteczność modeli klasyfikacyjnych.
+
+\begin{table}
+	\centering
+	\begin{tabular}{|c|c|c|c|c|}
+		\hline
+		\textbf{Modification Type} & \textbf{Accuracy} & \textbf{Precision} & \textbf{Recall} & \textbf{F1-score} \\
+		\hline
+		Desert & 0.7582 & 0.956658 & 0.7582 & 0.844717 \\
+		\hline
+		Low & 0.7835 & 0.957333 & 0.7835 & 0.859445 \\
+		\hline
+		City & 0.7620 & 0.955729 & 0.7620 & 0.845955 \\
+		\hline
+		Sky & 0.7577 & 0.951998 & 0.7577 & 0.840614 \\
+		\hline
+		Jungle & 0.7736 & 0.952716 & 0.7736 & 0.846911 \\
+		\hline
+		No & 0.1935 & 0.857598 & 0.1935 & 0.260654 \\
+		\hline
+		High & 0.7757 & 0.952540 & 0.7757 & 0.852606 \\
+		\hline
+		Water & 0.7198 & 0.950886 & 0.7198 & 0.812003 \\
+		\hline
+		Snow & 0.7462 & 0.961568 & 0.7462 & 0.833842 \\
+		\hline
+		Indoor & 0.6990 & 0.950477 & 0.6990 & 0.801644 \\
+		\hline
+		Mountain & 0.6980 & 0.959372 & 0.6980 & 0.800749 \\
+		\hline
+	\end{tabular}
+	\caption{Metryki według typu modyfikacji dla ResNet}
+	\label{tab:resnet_metrics_modification}
+\end{table}
+
+\begin{table}
+	\centering
+	\begin{tabular}{|c|c|c|c|}
+		\hline
+		\textbf{Modification Type} & \textbf{Average Score} & \textbf{Correct Score} & \textbf{Incorrect Score} \\
+		\hline
+		Desert & 75.954396 & 84.304869 & 49.770241 \\
+		\hline
+		Low & 77.879677 & 86.411184 & 47.004688 \\
+		\hline
+		City & 73.458863 & 84.253234 & 38.898736 \\
+		\hline
+		Sky & 76.063737 & 84.893389 & 48.452397 \\
+		\hline
+		Jungle & 77.082096 & 85.830222 & 47.190088 \\
+		\hline
+		No & 41.084428 & 67.091235 & 34.844729 \\
+		\hline
+		High & 77.275950 & 86.369482 & 45.827655 \\
+		\hline
+		Water & 70.044268 & 80.529769 & 43.108282 \\
+		\hline
+		Snow & 76.379893 & 85.181503 & 50.502187 \\
+		\hline
+		Indoor & 72.859840 & 83.005442 & 49.299121 \\
+		\hline
+		Mountain & 70.556246 & 82.283334 & 43.451917 \\
+		\hline
+	\end{tabular}
+	\caption{Confidence Scores według typu modyfikacji dla ResNet}
+	\label{tab:resnet_confidence_modification}
+\end{table}
+
+\begin{table}
+	\centering
+	\begin{tabular}{|c|c|c|c|c|}
+		\hline
+		\textbf{Modification Type} & \textbf{Accuracy} & \textbf{Precision} & \textbf{Recall} & \textbf{F1-score} \\
+		\hline
+		Desert & 0.8234 & 0.965246 & 0.8234 & 0.885689 \\
+		\hline
+		Low & 0.8897 & 0.965665 & 0.8897 & 0.925404 \\
+		\hline
+		City & 0.8392 & 0.967133 & 0.8392 & 0.894941 \\
+		\hline
+		Sky & 0.8259 & 0.958754 & 0.8259 & 0.886533 \\
+		\hline
+		Jungle & 0.8621 & 0.963912 & 0.8621 & 0.909624 \\
+		\hline
+		No & 0.2572 & 0.921080 & 0.2572 & 0.343413 \\
+		\hline
+		High & 0.8707 & 0.964345 & 0.8707 & 0.913518 \\
+		\hline
+		Water & 0.8593 & 0.960770 & 0.8593 & 0.906849 \\
+		\hline
+		Snow & 0.8567 & 0.966667 & 0.8567 & 0.902537 \\
+		\hline
+		Indoor & 0.7797 & 0.965780 & 0.7797 & 0.859119 \\
+		\hline
+		Mountain & 0.8357 & 0.964700 & 0.8357 & 0.891118 \\
+		\hline
+	\end{tabular}
+	\caption{Metryki według typu modyfikacji dla ConvNeXt}
+	\label{tab:convnext_metrics_modification}
+\end{table}
+
+\begin{table}
+	\centering
+	\begin{tabular}{|c|c|c|c|}
+		\hline
+		\textbf{Modification Type} & \textbf{Average Score} & \textbf{Correct Score} & \textbf{Incorrect Score} \\
+		\hline
+		Desert & 61.750625 & 65.260020 & 45.388021 \\
+		\hline
+		Low & 57.798021 & 61.428446 & 28.514347 \\
+		\hline
+		City & 58.404538 & 62.933008 & 34.770883 \\
+		\hline
+		Sky & 56.927464 & 60.928925 & 37.945228 \\
+		\hline
+		Jungle & 60.313014 & 63.350853 & 41.321559 \\
+		\hline
+		No & 38.674228 & 56.533386 & 32.490362 \\
+		\hline
+		High & 57.146265 & 61.220278 & 29.712060 \\
+		\hline
+		Water & 57.189347 & 60.885762 & 34.614159 \\
+		\hline
+		Snow & 61.818994 & 65.527449 & 39.648495 \\
+		\hline
+		Indoor & 61.650110 & 66.519692 & 44.415372 \\
+		\hline
+		Mountain & 61.306386 & 66.316218 & 35.824236 \\
+		\hline
+	\end{tabular}
+	\caption{Confidence według typu modyfikacji dla ConvNeXt}
+	\label{tab:convnext_confidence_modification}
+\end{table}
+
+Analiza wyników pokazuje, że typ modyfikacji tła ma znaczący wpływ na skuteczność klasyfikacji obrazów oraz wartości confidence scores dla obu 
+modeli. Modele osiągały najwyższą skuteczność i pewność klasyfikacji w scenariuszach, gdzie tło było bardziej uporządkowane lub zawierało mniej 
+zakłócających elementów (np. "high", "low", "jungle"). Największe spadki skuteczności i pewności klasyfikacji obserwowano w scenariuszu "no", 
+gdzie tło było całkowicie usunięte, co sugeruje, że brak tła może utrudniać modelom identyfikację istotnych cech obiektów.
+
+Wyniki te podkreślają znaczenie uwzględniania różnych typów tła podczas trenowania i oceny modeli klasyfikacyjnych. Zrozumienie, jak różne 
+modyfikacje tła wpływają na skuteczność i pewność klasyfikacji, może prowadzić do opracowania bardziej odpornych modeli, które lepiej radzą 
+sobie w zróżnicowanych warunkach. Dalsze badania mogą skoncentrować się na metodach augmentacji danych, które mogą poprawić wydajność modeli w 
+scenariuszach z różnorodnymi tłami.
 \begin{figure}
-	\centering\includegraphics[width=.9\textwidth]{img/13}
-	\caption{Metryki}
-	\label{rys:13}
+	\centering\includegraphics[width=.9\textwidth]{img/korelacja_resnet_typ}
+	\caption{Tabela korelacji dla ResNet dla typów modyfikacji}  
+    \label{rys:corelation_resnet_type}
 \end{figure}
 
 \begin{figure}
-	\centering\includegraphics[width=.9\textwidth]{img/15}
-	\caption{Metryki}
-	\label{rys:15}
+	\centering\includegraphics[width=.9\textwidth]{img/korelacja_convnext_typ}
+	\caption{Tabela korelacji dla ConvNeXt dla typów modyfikacji}  
+    \label{rys:corelation_convnext_type}
 \end{figure}
 
-\begin{figure}
-	\centering\includegraphics[width=.9\textwidth]{img/94}
-	\caption{Metryki}
-	\label{rys:94}
-\end{figure}
-
-\begin{figure}
-	\centering\includegraphics[width=.9\textwidth]{img/229}
-	\caption{Metryki}
-	\label{rys:229}
-\end{figure}
-
-\begin{figure}
-	\centering\includegraphics[width=.9\textwidth]{img/235}
-	\caption{Metryki}
-	\label{rys:235}
-\end{figure}
-
-\begin{figure}
-	\centering\includegraphics[width=.9\textwidth]{img/238}
-	\caption{Metryki}
-	\label{rys:238}
-\end{figure}
-
-\begin{figure}
-	\centering\includegraphics[width=.9\textwidth]{img/283}
-	\caption{Metryki}
-	\label{rys:283}
-\end{figure}
-
-\begin{figure}
-	\centering\includegraphics[width=.9\textwidth]{img/285}
-	\caption{Metryki}
-	\label{rys:285}
-\end{figure}
-
-\begin{figure}
-	\centering\includegraphics[width=.9\textwidth]{img/348}
-	\caption{Metryki}
-	\label{rys:348}
-\end{figure}
-
-\begin{figure}
-	\centering\includegraphics[width=.9\textwidth]{img/349}
-	\caption{Metryki}
-	\label{rys:349}
-\end{figure}
-
-\begin{figure}
-	\centering\includegraphics[width=.9\textwidth]{img/correlation_matrix_res}
-	\caption{Correlation matrix ResNet confidence}  
-    \label{rys:correlation_resnet}
-\end{figure}
-
-\begin{figure}
-	\centering\includegraphics[width=.9\textwidth]{img/correlation_matrix_conv}
-	\caption{Correlation matrix ConvNeXt confidence}  
-    \label{rys:correlation_convnext}
-\end{figure}
+\section*{Wyniki względem klas}
