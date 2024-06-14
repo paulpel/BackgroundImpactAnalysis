@@ -417,6 +417,33 @@ scenariuszach z różnorodnymi tłami.
     \label{rys:corelation_resnet_type}
 \end{figure}
 
+Macierz korelacji dla modelu ResNet pokazuje, jak różne typy modyfikacji tła wpływają 
+na wzajemne relacje między wskaźnikami skuteczności (accuracy). Typy modyfikacji 
+takie jak "desert", "low", "city", "sky", "high" i "water" wykazują wysoką dodatnią 
+korelację między sobą (od 0.67 do 0.80). Oznacza to, że jeżeli model osiąga wysoką 
+skuteczność w jednym z tych scenariuszy, prawdopodobnie osiągnie też wysoką 
+skuteczność w innych złożonych scenariuszach tła. Z kolei scenariusz "no" 
+(bez obiektu, tylko tło) wykazuje niską lub ujemną korelację z innymi typami 
+modyfikacji, z korelacjami wahającymi się od -0.13 do 0.12. To wskazuje, że obecność 
+tylko tła, bez obiektu, ma zupełnie odmienny wpływ na skuteczność modelu w porównaniu 
+do innych scenariuszy tła. Wysoka korelacja (0.80) między "low" a "high" sugeruje, 
+że model działa podobnie w obu tych typach modyfikacji, które mimo różnic w 
+strukturze tła mają podobny wpływ na jego skuteczność.
+
+Macierz korelacji dla modelu ConvNeXt również pokazuje, jak różne typy modyfikacji 
+tła wpływają na wzajemne relacje między wskaźnikami skuteczności (accuracy). 
+Typy modyfikacji takie jak "desert", "low", "city", "sky", "jungle", "high", "water", 
+"snow" i "mountain" wykazują wysoką dodatnią korelację (od 0.64 do 0.81). 
+Sugeruje to, że model ConvNeXt ma zdolność adaptacji do różnych złożonych środowisk, 
+osiągając zbliżone wyniki w różnych warunkach tła. Z kolei scenariusz "no" 
+(bez obiektu, tylko tło) wykazuje ujemną korelację z innymi typami modyfikacji, 
+szczególnie z "desert", "city" i "mountain" (od -0.17 do -0.15), co oznacza, że 
+obecność tylko tła znacząco obniża skuteczność modelu ConvNeXt. Wysoka korelacja 
+(0.81) między "low" a "high", podobnie jak w modelu ResNet, sugeruje, że ConvNeXt 
+działa dobrze w scenariuszach z minimalnymi zakłóceniami w tle. Jednak model ten 
+wykazuje również wysoką korelację między "city" a "mountain" (0.80), co wskazuje na 
+jego zdolność do adaptacji w bardziej różnorodnych i strukturalnych warunkach tła.
+
 \begin{figure}
 	\centering\includegraphics[width=.9\textwidth]{img/korelacja_convnext_typ}
 	\caption{Tabela korelacji dla ConvNeXt dla typów modyfikacji}  
@@ -424,3 +451,703 @@ scenariuszach z różnorodnymi tłami.
 \end{figure}
 
 \section*{Wyniki względem klas}
+
+\begin{table}
+	\centering
+	\begin{tabular}{|c|c|c|c|}
+		\hline
+		\textbf{Modification Type} & \textbf{Accuracy} & \textbf{Avg Confidence} & \textbf{Most Mistaken} \\
+		\hline
+		Original & 0.781 & 80.888742 & Bighorn, bighorn sheep \\
+		\hline
+		Desert & 0.662 & 73.618091 & Bighorn, bighorn sheep \\
+		\hline
+		Low & 0.637 & 72.533478 & Bighorn, bighorn sheep \\
+		\hline
+		City & 0.691 & 71.055787 & Bighorn, bighorn sheep \\
+		\hline
+		Sky & 0.752 & 74.196770 & Bighorn, bighorn sheep \\
+		\hline
+		Jungle & 0.825 & 76.201070 & Bighorn, bighorn sheep \\
+		\hline
+		No & 0.136 & 38.340821 & American black bear, black bear \\
+		\hline
+		High & 0.735 & 73.587178 & Bighorn, bighorn sheep \\
+		\hline
+		Water & 0.780 & 72.729140 & Bighorn, bighorn sheep \\
+		\hline
+		Snow & 0.601 & 76.547279 & Bighorn, bighorn sheep \\
+		\hline
+		Indoor & 0.683 & 71.596914 & Bighorn, bighorn sheep \\
+		\hline
+		Mountain & 0.613 & 74.327448 & Bighorn, bighorn sheep \\
+		\hline
+	\end{tabular}
+	\caption{Metrics and Confidence Scores for Class 348 (ram, tup) - ResNet}
+	\label{tab:metrics_confidence_class_348_resnet}
+\end{table}
+
+\begin{table}
+	\centering
+	\begin{tabular}{|c|c|c|c|}
+		\hline
+		\textbf{Modification Type} & \textbf{Accuracy} & \textbf{Avg Confidence} & \textbf{Most Mistaken} \\
+		\hline
+		Original & 0.801 & 64.573134 & Bighorn, bighorn sheep \\
+		\hline
+		Desert & 0.589 & 59.293923 & Bighorn, bighorn sheep \\
+		\hline
+		Low & 0.752 & 57.574512 & Bighorn, bighorn sheep \\
+		\hline
+		City & 0.604 & 57.563126 & Bighorn, bighorn sheep \\
+		\hline
+		Sky & 0.717 & 57.364283 & Bighorn, bighorn sheep \\
+		\hline
+		Jungle & 0.747 & 60.548807 & Bighorn, bighorn sheep \\
+		\hline
+		No & 0.274 & 36.891416 & American black bear, black bear \\
+		\hline
+		High & 0.706 & 56.227286 & Bighorn, bighorn sheep \\
+		\hline
+		Water & 0.745 & 57.906020 & Bighorn, bighorn sheep \\
+		\hline
+		Snow & 0.580 & 59.995922 & Bighorn, bighorn sheep \\
+		\hline
+		Indoor & 0.556 & 59.476196 & Bighorn, bighorn sheep \\
+		\hline
+		Mountain & 0.588 & 61.288639 & Bighorn, bighorn sheep \\
+		\hline
+	\end{tabular}
+	\caption{Metrics and Confidence Scores for Class 348 (ram, tup) - ConvNeXt}
+	\label{tab:metrics_confidence_class_348_convnext}
+\end{table}
+
+\begin{table}
+	\centering
+	\begin{tabular}{|c|c|c|c|}
+		\hline
+		\textbf{Modification Type} & \textbf{Accuracy} & \textbf{Avg Confidence} & \textbf{Most Mistaken For} \\
+		\hline
+		Original & 0.746 & 69.254460 & EntleBucher \\
+		\hline
+		Desert & 0.751 & 71.670600 & EntleBucher \\
+		\hline
+		Low & 0.628 & 66.772043 & EntleBucher \\
+		\hline
+		City & 0.720 & 70.455594 & Appenzeller \\
+		\hline
+		Sky & 0.693 & 67.656871 & EntleBucher \\
+		\hline
+		Jungle & 0.680 & 66.612556 & EntleBucher \\
+		\hline
+		No & 0.009 & 29.458587 & American black bear, black bear \\
+		\hline
+		High & 0.632 & 65.697515 & Appenzeller \\
+		\hline
+		Water & 0.679 & 65.613398 & Appenzeller \\
+		\hline
+		Snow & 0.748 & 71.034704 & EntleBucher \\
+		\hline
+		Indoor & 0.750 & 71.739733 & EntleBucher \\
+		\hline
+		Mountain & 0.605 & 63.748537 & EntleBucher \\
+		\hline
+	\end{tabular}
+	\caption{Metrics and Confidence Scores for Class 238 (Greater Swiss Mountain Dog) - ResNet}
+	\label{tab:metrics_confidence_class_238_resnet}
+\end{table}
+
+\begin{table}
+	\centering
+	\begin{tabular}{|c|c|c|c|}
+		\hline
+		\textbf{Modification Type} & \textbf{Accuracy} & \textbf{Avg Confidence} & \textbf{Most Mistaken For} \\
+		\hline
+		Original & 0.918 & 67.297499 & EntleBucher \\
+		\hline
+		Desert & 0.812 & 53.915638 & EntleBucher \\
+		\hline
+		Low & 0.857 & 53.678023 & Appenzeller \\
+		\hline
+		City & 0.845 & 55.105653 & Appenzeller \\
+		\hline
+		Sky & 0.784 & 52.714931 & EntleBucher \\
+		\hline
+		Jungle & 0.853 & 57.766105 & Appenzeller \\
+		\hline
+		No & 0.036 & 31.021854 & Labrador retriever \\
+		\hline
+		High & 0.790 & 49.376622 & Appenzeller \\
+		\hline
+		Water & 0.868 & 55.700216 & Appenzeller \\
+		\hline
+		Snow & 0.893 & 61.105172 & EntleBucher \\
+		\hline
+		Indoor & 0.815 & 61.047711 & Bookcase \\
+		\hline
+		Mountain & 0.850 & 61.289471 & Appenzeller \\
+		\hline
+	\end{tabular}
+	\caption{Metrics and Confidence Scores for Class 238 (Greater Swiss Mountain Dog) - ConvNeXt}
+	\label{tab:metrics_confidence_class_238_convnext}
+\end{table}
+
+\begin{table}
+	\centering
+	\begin{tabular}{|c|c|c|c|}
+		\hline
+		\textbf{Modification Type} & \textbf{Accuracy} & \textbf{Avg Confidence} & \textbf{Most Mistaken For} \\
+		\hline
+		Original & 0.963 & 95.023629 & Jacamar \\
+		\hline
+		Desert & 0.677 & 73.851502 & Seashore, coast \\
+		\hline
+		Low & 0.836 & 83.892216 & Kite \\
+		\hline
+		City & 0.649 & 63.584482 & Flagpole, flagstaff \\
+		\hline
+		Sky & 0.789 & 81.238139 & Volcano \\
+		\hline
+		Jungle & 0.796 & 80.272471 & Greenhouse, nursery \\
+		\hline
+		No & 0.744 & 69.953177 & Vulture \\
+		\hline
+		High & 0.782 & 79.808579 & Kite \\
+		\hline
+		Water & 0.525 & 60.158964 & Albatross, mollymawk \\
+		\hline
+		Snow & 0.543 & 63.296984 & Snowmobile \\
+		\hline
+		Indoor & 0.565 & 66.628743 & File, file cabinet \\
+		\hline
+		Mountain & 0.456 & 54.866228 & Lakeside, lakeshore \\
+		\hline
+	\end{tabular}
+	\caption{Metrics and Confidence Scores for Class 94 (Hummingbird) - ResNet}
+	\label{tab:metrics_confidence_class_94_resnet}
+\end{table}
+
+\begin{table}
+	\centering
+	\begin{tabular}{|c|c|c|c|}
+		\hline
+		\textbf{Modification Type} & \textbf{Accuracy} & \textbf{Avg Confidence} & \textbf{Most Mistaken For} \\
+		\hline
+		Original & 0.995 & 72.907262 & Jacamar \\
+		\hline
+		Desert & 0.805 & 63.267602 & Arabian camel, dromedary \\
+		\hline
+		Low & 0.928 & 57.850450 & Matchstick \\
+		\hline
+		City & 0.826 & 56.319503 & Traffic light, traffic signal \\
+		\hline
+		Sky & 0.848 & 57.166515 & Parachute, chute \\
+		\hline
+		Jungle & 0.859 & 61.211524 & Cliff, drop \\
+		\hline
+		No & 0.868 & 67.694296 & Jacamar \\
+		\hline
+		High & 0.911 & 56.167147 & Kite \\
+		\hline
+		Water & 0.821 & 56.428329 & Albatross, mollymawk \\
+		\hline
+		Snow & 0.801 & 60.554314 & Lakeside, lakeshore \\
+		\hline
+		Indoor & 0.718 & 57.200175 & File, file cabinet \\
+		\hline
+		Mountain & 0.774 & 59.565332 & Valley, vale \\
+		\hline
+	\end{tabular}
+	\caption{Metrics and Confidence Scores for Class 94 (Hummingbird) - ConvNeXt}
+	\label{tab:metrics_confidence_class_94_convnext}
+\end{table}
+
+\begin{table}
+	\centering
+	\begin{tabular}{|c|c|c|c|}
+		\hline
+		\textbf{Modification Type} & \textbf{Accuracy} & \textbf{Avg Confidence} & \textbf{Most Mistaken For} \\
+		\hline
+		Original & 0.782 & 73.471966 & Tabby, tabby cat \\
+		\hline
+		Desert & 0.825 & 76.229713 & Tabby, tabby cat \\
+		\hline
+		Low & 0.821 & 78.051673 & Tabby, tabby cat \\
+		\hline
+		City & 0.763 & 71.972776 & Tabby, tabby cat \\
+		\hline
+		Sky & 0.766 & 71.577528 & Tabby, tabby cat \\
+		\hline
+		Jungle & 0.698 & 70.001732 & Tiger cat \\
+		\hline
+		No & 0.260 & 33.898078 & Quilt, comforter \\
+		\hline
+		High & 0.794 & 77.981898 & Tabby, tabby cat \\
+		\hline
+		Water & 0.846 & 75.972695 & Tabby, tabby cat \\
+		\hline
+		Snow & 0.647 & 67.339146 & Tiger cat \\
+		\hline
+		Indoor & 0.743 & 74.809806 & Tabby, tabby cat \\
+		\hline
+		Mountain & 0.730 & 67.302426 & Tabby, tabby cat \\
+		\hline
+	\end{tabular}
+	\caption{Metrics and Confidence Scores for Class 285 (Egyptian Cat) - ResNet}
+	\label{tab:metrics_confidence_class_285_resnet}
+\end{table}
+
+\begin{table}
+	\centering
+	\begin{tabular}{|c|c|c|c|}
+		\hline
+		\textbf{Modification Type} & \textbf{Accuracy} & \textbf{Avg Confidence} & \textbf{Most Mistaken For} \\
+		\hline
+		Original & 0.875 & 67.470651 & Tabby, tabby cat \\
+		\hline
+		Desert & 0.840 & 64.843979 & Tabby, tabby cat \\
+		\hline
+		Low & 0.842 & 60.234300 & Tabby, tabby cat \\
+		\hline
+		City & 0.788 & 58.385278 & Tabby, tabby cat \\
+		\hline
+		Sky & 0.783 & 55.255898 & Tabby, tabby cat \\
+		\hline
+		Jungle & 0.816 & 59.110254 & Tabby, tabby cat \\
+		\hline
+		No & 0.301 & 36.188940 & Schipperke \\
+		\hline
+		High & 0.816 & 60.301645 & Tabby, tabby cat \\
+		\hline
+		Water & 0.862 & 58.187896 & Tabby, tabby cat \\
+		\hline
+		Snow & 0.823 & 59.457130 & Tabby, tabby cat \\
+		\hline
+		Indoor & 0.724 & 62.997077 & Bookcase \\
+		\hline
+		Mountain & 0.829 & 58.399331 & Tabby, tabby cat \\
+		\hline
+	\end{tabular}
+	\caption{Metrics and Confidence Scores for Class 285 (Egyptian Cat) - ConvNeXt}
+	\label{tab:metrics_confidence_class_285_convnext}
+\end{table}
+
+\begin{table}
+	\centering
+	\begin{tabular}{|c|c|c|c|}
+		\hline
+		\textbf{Modification Type} & \textbf{Accuracy} & \textbf{Avg Confidence} & \textbf{Most Mistaken For} \\
+		\hline
+		Original & 0.857 & 76.879462 & Ram, tup \\
+		\hline
+		Desert & 0.644 & 65.576020 & Seashore, coast \\
+		\hline
+		Low & 0.707 & 62.688885 & Ram, tup \\
+		\hline
+		City & 0.583 & 57.522109 & Ram, tup \\
+		\hline
+		Sky & 0.501 & 61.268969 & Ram, tup \\
+		\hline
+		Jungle & 0.471 & 59.756806 & Ram, tup \\
+		\hline
+		No & 0.300 & 46.576951 & American black bear, black bear \\
+		\hline
+		High & 0.583 & 59.381386 & Ram, tup \\
+		\hline
+		Water & 0.457 & 58.803368 & Ram, tup \\
+		\hline
+		Snow & 0.783 & 72.009580 & Alp \\
+		\hline
+		Indoor & 0.467 & 60.394391 & Ram, tup \\
+		\hline
+		Mountain & 0.725 & 66.198482 & Ram, tup \\
+		\hline
+	\end{tabular}
+	\caption{Metrics and Confidence Scores for Class 349 (Bighorn Sheep) - ResNet}
+	\label{tab:metrics_confidence_class_349_resnet}
+\end{table}
+
+\begin{table}
+	\centering
+	\begin{tabular}{|c|c|c|c|}
+		\hline
+		\textbf{Modification Type} & \textbf{Accuracy} & \textbf{Avg Confidence} & \textbf{Most Mistaken For} \\
+		\hline
+		Original & 0.908 & 56.144302 & Ram, tup \\
+		\hline
+		Desert & 0.739 & 53.343471 & Arabian camel, dromedary \\
+		\hline
+		Low & 0.792 & 43.160569 & Ram, tup \\
+		\hline
+		City & 0.814 & 48.102590 & Traffic light, traffic signal \\
+		\hline
+		Sky & 0.660 & 44.070363 & Ram, tup \\
+		\hline
+		Jungle & 0.709 & 47.144147 & Ram, tup \\
+		\hline
+		No & 0.369 & 41.866028 & American black bear, black bear \\
+		\hline
+		High & 0.786 & 42.740627 & Ram, tup \\
+		\hline
+		Water & 0.714 & 44.812545 & Ram, tup \\
+		\hline
+		Snow & 0.878 & 55.639899 & Lakeside, lakeshore \\
+		\hline
+		Indoor & 0.715 & 51.461317 & File, file cabinet \\
+		\hline
+		Mountain & 0.826 & 53.093244 & Valley, vale \\
+		\hline
+	\end{tabular}
+	\caption{Metrics and Confidence Scores for Class 349 (Bighorn Sheep) - ConvNeXt}
+	\label{tab:metrics_confidence_class_349_convnext}
+\end{table}
+
+\begin{table}
+	\centering
+	\begin{tabular}{|c|c|c|c|}
+		\hline
+		\textbf{Modification Type} & \textbf{Accuracy} & \textbf{Avg Confidence} & \textbf{Most Mistaken For} \\
+		\hline
+		Original & 0.941 & 88.632230 & Tibetan terrier, chrysanthemum dog \\
+		\hline
+		Desert & 0.801 & 80.359347 & Seashore, coast \\
+		\hline
+		Low & 0.785 & 77.904651 & Sealyham terrier, Sealyham \\
+		\hline
+		City & 0.765 & 74.680369 & Cab, hack \\
+		\hline
+		Sky & 0.718 & 74.347288 & Volcano \\
+		\hline
+		Jungle & 0.782 & 75.977385 & Greenhouse, nursery \\
+		\hline
+		No & 0.071 & 31.629389 & American black bear, black bear \\
+		\hline
+		High & 0.760 & 75.577558 & Sealyham terrier, Sealyham \\
+		\hline
+		Water & 0.758 & 76.056336 & Albatross, mollymawk \\
+		\hline
+		Snow & 0.803 & 80.582623 & Alp \\
+		\hline
+		Indoor & 0.824 & 84.001364 & File, file cabinet \\
+		\hline
+		Mountain & 0.715 & 70.130826 & Valley, vale \\
+		\hline
+	\end{tabular}
+	\caption{Metrics and Confidence Scores for Class 229 (Old English Sheepdog) - ResNet}
+	\label{tab:metrics_confidence_class_229_resnet}
+\end{table}
+
+\begin{table}
+	\centering
+	\begin{tabular}{|c|c|c|c|}
+		\hline
+		\textbf{Modification Type} & \textbf{Accuracy} & \textbf{Avg Confidence} & \textbf{Most Mistaken For} \\
+		\hline
+		Original & 0.987 & 74.735155 & Collie \\
+		\hline
+		Desert & 0.871 & 66.845438 & Arabian camel, dromedary \\
+		\hline
+		Low & 0.910 & 60.380093 & Matchstick \\
+		\hline
+		City & 0.882 & 63.133430 & Traffic light, traffic signal \\
+		\hline
+		Sky & 0.824 & 56.268607 & Volcano \\
+		\hline
+		Jungle & 0.890 & 64.798835 & Cliff, drop \\
+		\hline
+		No & 0.109 & 32.475152 & Newfoundland, Newfoundland dog \\
+		\hline
+		High & 0.891 & 59.879026 & Matchstick \\
+		\hline
+		Water & 0.879 & 60.280609 & Grey whale, gray whale \\
+		\hline
+		Snow & 0.896 & 64.967973 & Lakeside, lakeshore \\
+		\hline
+		Indoor & 0.867 & 69.414455 & Bookcase \\
+		\hline
+		Mountain & 0.856 & 62.675450 & Valley, vale \\
+		\hline
+	\end{tabular}
+	\caption{Metrics and Confidence Scores for Class 229 (Old English Sheepdog) - ConvNeXt}
+	\label{tab:metrics_confidence_class_229_convnext}
+\end{table}
+
+\begin{table}
+	\centering
+	\begin{tabular}{|c|c|c|c|}
+		\hline
+		\textbf{Modification Type} & \textbf{Accuracy} & \textbf{Avg Confidence} & \textbf{Most Mistaken For} \\
+		\hline
+		Original & 0.964 & 93.028729 & Angora, Angora rabbit \\
+		\hline
+		Desert & 0.848 & 83.349976 & Seashore, coast \\
+		\hline
+		Low & 0.855 & 83.713232 & Tabby, tabby cat \\
+		\hline
+		City & 0.877 & 84.163735 & Tabby, tabby cat \\
+		\hline
+		Sky & 0.821 & 82.203083 & Volcano \\
+		\hline
+		Jungle & 0.831 & 81.888781 & Greenhouse, nursery \\
+		\hline
+		No & 0.025 & 23.772934 & Quilt, comforter \\
+		\hline
+		High & 0.853 & 84.050749 & Tabby, tabby cat \\
+		\hline
+		Water & 0.821 & 79.093091 & Albatross, mollymawk \\
+		\hline
+		Snow & 0.829 & 82.849727 & Alp \\
+		\hline
+		Indoor & 0.879 & 87.654082 & File, file cabinet \\
+		\hline
+		Mountain & 0.794 & 77.893145 & Valley, vale \\
+		\hline
+	\end{tabular}
+	\caption{Metrics and Confidence Scores for Class 283 (Persian Cat) - ResNet}
+	\label{tab:metrics_confidence_class_283_resnet}
+\end{table}
+
+\begin{table}
+	\centering
+	\begin{tabular}{|c|c|c|c|}
+		\hline
+		\textbf{Modification Type} & \textbf{Accuracy} & \textbf{Avg Confidence} & \textbf{Most Mistaken For} \\
+		\hline
+		Original & 0.991 & 75.141474 & Feather boa, boa \\
+		\hline
+		Desert & 0.914 & 70.630613 & Arabian camel, dromedary \\
+		\hline
+		Low & 0.947 & 66.190509 & Matchstick \\
+		\hline
+		City & 0.936 & 68.423853 & Traffic light, traffic signal \\
+		\hline
+		Sky & 0.887 & 63.020165 & Volcano \\
+		\hline
+		Jungle & 0.925 & 67.672465 & Cliff, drop \\
+		\hline
+		No & 0.061 & 25.145970 & Schipperke \\
+		\hline
+		High & 0.942 & 68.444946 & Corkscrew, bottle screw \\
+		\hline
+		Water & 0.906 & 59.895699 & Grey whale, gray whale \\
+		\hline
+		Snow & 0.925 & 67.393982 & Lakeside, lakeshore \\
+		\hline
+		Indoor & 0.907 & 72.101543 & Bookcase \\
+		\hline
+		Mountain & 0.916 & 67.004423 & Valley, vale \\
+		\hline
+	\end{tabular}
+	\caption{Metrics and Confidence Scores for Class 283 (Persian Cat) - ConvNeXt}
+	\label{tab:metrics_confidence_class_283_convnext}
+\end{table}
+
+\begin{table}
+	\centering
+	\begin{tabular}{|c|c|c|c|}
+		\hline
+		\textbf{Modification Type} & \textbf{Accuracy} & \textbf{Avg Confidence} & \textbf{Most Mistaken For} \\
+		\hline
+		Original & 0.976 & 95.314826 & House finch, linnet \\
+		\hline
+		Desert & 0.839 & 81.161059 & Seashore, coast \\
+		\hline
+		Low & 0.877 & 86.390556 & Brambling, Fringilla montifringilla \\
+		\hline
+		City & 0.842 & 75.437180 & House finch, linnet \\
+		\hline
+		Sky & 0.842 & 83.426079 & Volcano \\
+		\hline
+		Jungle & 0.920 & 90.342285 & Bittern \\
+		\hline
+		No & 0.362 & 51.447448 & Water ouzel, dipper \\
+		\hline
+		High & 0.896 & 87.080903 & Kite \\
+		\hline
+		Water & 0.716 & 61.873004 & Albatross, mollymawk \\
+		\hline
+		Snow & 0.831 & 83.117293 & Snowmobile \\
+		\hline
+		Indoor & 0.676 & 68.064425 & File, file cabinet \\
+		\hline
+		Mountain & 0.797 & 76.813323 & Lakeside, lakeshore \\
+		\hline
+	\end{tabular}
+	\caption{Metrics and Confidence Scores for Class 13 (Junco, Snowbird) - ResNet}
+	\label{tab:metrics_confidence_class_13_resnet}
+\end{table}
+
+\begin{table}
+	\centering
+	\begin{tabular}{|c|c|c|c|}
+		\hline
+		\textbf{Modification Type} & \textbf{Accuracy} & \textbf{Avg Confidence} & \textbf{Most Mistaken For} \\
+		\hline
+		Original & 1.000 & 68.830393 & None \\
+		\hline
+		Desert & 0.915 & 64.330613 & Arabian camel, dromedary \\
+		\hline
+		Low & 0.982 & 58.656551 & Chickadee \\
+		\hline
+		City & 0.888 & 58.006623 & Traffic light, traffic signal \\
+		\hline
+		Sky & 0.935 & 60.091004 & Parachute, chute \\
+		\hline
+		Jungle & 0.954 & 60.319277 & Cliff, drop \\
+		\hline
+		No & 0.460 & 37.770219 & Magpie \\
+		\hline
+		High & 0.983 & 58.033862 & Brambling, Fringilla montifringilla \\
+		\hline
+		Water & 0.935 & 58.536078 & Albatross, mollymawk \\
+		\hline
+		Snow & 0.929 & 61.614732 & Lakeside, lakeshore \\
+		\hline
+		Indoor & 0.837 & 59.676453 & File, file cabinet \\
+		\hline
+		Mountain & 0.930 & 64.416702 & Valley, vale \\
+		\hline
+	\end{tabular}
+	\caption{Metrics and Confidence Scores for Class 13 (Junco, Snowbird) - ConvNeXt}
+	\label{tab:metrics_confidence_class_13_convnext}
+\end{table}
+
+\begin{table}
+	\centering
+	\begin{tabular}{|c|c|c|c|}
+		\hline
+		\textbf{Modification Type} & \textbf{Accuracy} & \textbf{Avg Confidence} & \textbf{Most Mistaken For} \\
+		\hline
+		Original & 0.874 & 82.761220 & Malinois (40) \\
+		\hline
+		Desert & 0.705 & 72.608107 & Norwegian elkhound, elkhound (103) \\
+		\hline
+		Low & 0.806 & 77.606469 & Malinois (41) \\
+		\hline
+		City & 0.821 & 77.924239 & Malinois (41) \\
+		\hline
+		Sky & 0.787 & 75.390463 & Norwegian elkhound, elkhound (38) \\
+		\hline
+		Jungle & 0.788 & 76.892591 & Malinois (53) \\
+		\hline
+		No & 0.005 & 36.099894 & Egyptian cat (140) \\
+		\hline
+		High & 0.819 & 80.306382 & Malinois (39) \\
+		\hline
+		Water & 0.814 & 76.923269 & Malinois (45) \\
+		\hline
+		Snow & 0.780 & 78.109030 & Malinois (52) \\
+		\hline
+		Indoor & 0.725 & 74.028374 & Norwegian elkhound, elkhound (54) \\
+		\hline
+		Mountain & 0.666 & 65.790195 & Malinois (65) \\
+		\hline
+	\end{tabular}
+	\caption{Metrics and Confidence Scores for Class 235 (German Shepherd) - ResNet}
+	\label{tab:metrics_confidence_class_235_resnet}
+\end{table}
+
+\begin{table}
+	\centering
+	\begin{tabular}{|c|c|c|c|}
+		\hline
+		\textbf{Modification Type} & \textbf{Accuracy} & \textbf{Avg Confidence} & \textbf{Most Mistaken For} \\
+		\hline
+		Original & 0.961 & 69.949959 & Malinois (10) \\
+		\hline
+		Desert & 0.844 & 62.162412 & Arabian camel, dromedary (83) \\
+		\hline
+		Low & 0.919 & 61.204567 & Malinois (17) \\
+		\hline
+		City & 0.867 & 59.458822 & Traffic light, traffic signal (23) \\
+		\hline
+		Sky & 0.873 & 62.404542 & Norwegian elkhound, elkhound (30) \\
+		\hline
+		Jungle & 0.908 & 64.776667 & Cliff, drop (14) \\
+		\hline
+		No & 0.042 & 38.284114 & Schipperke (239) \\
+		\hline
+		High & 0.919 & 61.661308 & Malinois (17) \\
+		\hline
+		Water & 0.922 & 62.505798 & Norwegian elkhound, elkhound (14) \\
+		\hline
+		Snow & 0.890 & 63.506425 & Norwegian elkhound, elkhound (29) \\
+		\hline
+		Indoor & 0.800 & 64.582883 & Bookcase (65) \\
+		\hline
+		Mountain & 0.847 & 61.401422 & Norwegian elkhound, elkhound (36) \\
+		\hline
+	\end{tabular}
+	\caption{Metrics and Confidence Scores for Class 235 (German Shepherd) - ConvNeXt}
+	\label{tab:metrics_confidence_class_235_convnext}
+\end{table}
+
+\begin{table}
+	\centering
+	\begin{tabular}{|c|c|c|c|}
+		\hline
+		\textbf{Modification Type} & \textbf{Accuracy} & \textbf{Avg Confidence} & \textbf{Most Mistaken For} \\
+		\hline
+		Original & 0.981 & 96.633280 & Hummingbird (2) \\
+		\hline
+		Desert & 0.830 & 81.119547 & Seashore, coast (87) \\
+		\hline
+		Low & 0.883 & 89.243569 & Brambling, Fringilla montifringilla (27) \\
+		\hline
+		City & 0.909 & 87.792362 & Obelisk (11) \\
+		\hline
+		Sky & 0.908 & 89.332178 & Volcano (15) \\
+		\hline
+		Jungle & 0.945 & 92.875282 & Greenhouse, nursery (12) \\
+		\hline
+		No & 0.023 & 49.667002 & Magpie (226) \\
+		\hline
+		High & 0.903 & 89.287356 & Kite (16) \\
+		\hline
+		Water & 0.802 & 73.219416 & Snorkel (23) \\
+		\hline
+		Snow & 0.897 & 88.912560 & Snowmobile (49) \\
+		\hline
+		Indoor & 0.678 & 69.680563 & File, file cabinet (85) \\
+		\hline
+		Mountain & 0.879 & 88.491847 & Lakeside, lakeshore (33) \\
+		\hline
+	\end{tabular}
+	\caption{Metrics and Confidence Scores for Class 15 (American Robin) - ResNet}
+	\label{tab:metrics_confidence_class_15_resnet}
+\end{table}
+
+\begin{table}
+	\centering
+	\begin{tabular}{|c|c|c|c|}
+		\hline
+		\textbf{Modification Type} & \textbf{Accuracy} & \textbf{Avg Confidence} & \textbf{Most Mistaken For} \\
+		\hline
+		Original & 0.997 & 68.229925 & Worm fence, snake fence (1) \\
+		\hline
+		Desert & 0.905 & 58.872557 & Arabian camel, dromedary (73) \\
+		\hline
+		Low & 0.968 & 59.050634 & House finch, linnet (4) \\
+		\hline
+		City & 0.942 & 59.546505 & Traffic light, traffic signal (34) \\
+		\hline
+		Sky & 0.948 & 60.918330 & Parachute, chute (20) \\
+		\hline
+		Jungle & 0.960 & 59.782053 & Cliff, drop (17) \\
+		\hline
+		No & 0.052 & 39.404290 & Magpie (482) \\
+		\hline
+		High & 0.963 & 58.630182 & Water ouzel, dipper (7) \\
+		\hline
+		Water & 0.941 & 57.640282 & Grey whale, gray whale (15) \\
+		\hline
+		Snow & 0.952 & 63.954396 & Snowmobile (17) \\
+		\hline
+		Indoor & 0.858 & 58.543296 & Bookcase (62) \\
+		\hline
+		Mountain & 0.941 & 63.929843 & Valley, vale (14) \\
+		\hline
+	\end{tabular}
+	\caption{Metrics and Confidence Scores for Class 15 (American Robin) - ConvNeXt}
+	\label{tab:metrics_confidence_class_15_convnext}
+\end{table}
