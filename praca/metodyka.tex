@@ -2,21 +2,27 @@
 
 \section*{Wprowadzenie do metodyki badań}
 
-Niniejszy rozdział poświęcony jest metodyce badań, mającej na celu zbadanie wpływu tła na klasyfikację obrazów zwierząt 
-przy użyciu zaawansowanych modeli głębokiego uczenia, takich jak ResNet i ConvNeXt. Badania te koncentrują się na 
-analizie wyników klasyfikacji przed i po modyfikacjach tła z zastosowaniem różnych metryk oceny jakości, co pozwoli na 
-zrozumienie, w jakim stopniu tło wpływa na wydajność modeli klasyfikacyjnych oraz jakie techniki mogą być stosowane do 
-minimalizacji negatywnego wpływu tła. W pierwszej części rozdziału zostaną omówione narzędzia i oprogramowanie użyte do 
-badań, konfiguracja sprzętowa i programowa, a także biblioteki i frameworki niezbędne do realizacji eksperymentów. 
-Następnie przedstawione zostaną wybrane modele klasyfikacyjne, ResNet i ConvNeXt, wraz z uzasadnieniem ich wyboru oraz 
-krótkim opisem ich architektur i specyfikacji. Kolejna sekcja skupi się na metrykach oceny jakości, z wyjaśnieniem, 
-dlaczego właśnie te miary zostały wybrane oraz jak będą interpretowane wyniki. Opisany zostanie również zbiór danych 
-wykorzystany w badaniach, jego źródło, struktura, etykiety oraz sposób przygotowania i przetwarzania danych przed 
-użyciem w modelach. Kluczowym elementem rozdziału będzie szczegółowy plan przeprowadzenia badań, obejmujący wszystkie 
-etapy, od segmentacji obrazów i usunięcia tła, poprzez modyfikację tła, aż po ocenę wyników modeli przed i po 
-modyfikacjach. Całość zakończy krótkie podsumowanie metodyki badań, podkreślające główne kroki i decyzje podjęte w celu 
-realizacji badań, co umożliwi systematyczną analizę wpływu tła na wyniki klasyfikacji obrazów oraz identyfikację 
-najlepszych praktyk i metod poprawiających wydajność modeli klasyfikacyjnych.
+Niniejszy rozdział poświęcony jest metodyce badań, mającej na celu zbadanie wpływu tła na klasyfikację 
+obrazów zwierząt przy użyciu zaawansowanych modeli głębokiego uczenia, takich jak ResNet i ConvNeXt. 
+Badania te koncentrują się na analizie wyników klasyfikacji przed i po modyfikacjach tła z 
+zastosowaniem różnych metryk oceny jakości, co pozwoli na zrozumienie, w jakim stopniu tło wpływa 
+na wydajność modeli klasyfikacyjnych oraz jakie techniki mogą być stosowane do minimalizacji 
+negatywnego wpływu tła. W pierwszej części rozdziału zostaną omówione narzędzia i oprogramowanie 
+użyte do badań, konfiguracja sprzętowa i programowa, a także biblioteki i frameworki niezbędne do 
+realizacji eksperymentów. Następnie przedstawione zostaną wybrane modele klasyfikacyjne, ResNet i 
+ConvNeXt, wraz z uzasadnieniem ich wyboru oraz krótkim opisem ich architektur i specyfikacji. 
+Kolejna sekcja skupi się na metrykach oceny jakości, z wyjaśnieniem, dlaczego właśnie te miary 
+zostały wybrane oraz jak będą interpretowane wyniki. Opisany zostanie również zbiór danych 
+wykorzystany w badaniach, jego źródło, struktura, etykiety oraz sposób przygotowania i 
+przetwarzania danych przed użyciem w modelach. Kluczowym elementem rozdziału będzie szczegółowy 
+plan przeprowadzenia badań, obejmujący wszystkie etapy, od segmentacji obrazów i usunięcia tła, 
+poprzez modyfikację tła, aż po ocenę wyników modeli przed i po modyfikacjach. Dodatkowo, omówione 
+zostaną technikalia implementacji, w tym jak poszczególne etapy zostały zaimplementowane w kodzie, 
+jakie narzędzia programistyczne i techniki kodowania zostały użyte oraz jak zapewniono 
+replikowalność wyników eksperymentów. Całość zakończy krótkie podsumowanie metodyki badań, 
+podkreślające główne kroki i decyzje podjęte w celu realizacji badań, co umożliwi systematyczną 
+analizę wpływu tła na wyniki klasyfikacji obrazów oraz identyfikację najlepszych praktyk i metod 
+poprawiających wydajność modeli klasyfikacyjnych.
 
 \section*{Przygotowanie środowiska}
 
@@ -173,13 +179,16 @@ modeli klasyfikacyjnych.
 
 \section*{Wybrane metryki}
 
-W celu analizy wyników klasyfikacji przed i po modyfikacjach tła, zastosowano dwie kluczowe metryki, dokładności 
-(accuracy) oraz pewności klasyfikacji (confidence scores). Analizowana będzie również macierz pomyłek w celu zbadania
-najczęsciej mylących się klas, oraz zbdania jakie błędy zostały popełnione. Metryki te zostały wybrane ze względu na ich zdolność do 
-dostarczania wartościowych informacji na temat wydajności modeli w różnych warunkach. W niniejszym rozdziale szczegółowo 
-omówimy te metryki, przedstawimy odpowiednie wzory oraz wyjaśnimy, dlaczego zostały wybrane do analizy. Metryki będą 
-analizowane całościowo, jak również osobno dla każdej klasy, dla każdej różnej modyfikacji tła oraz dla różnych 
-percentyli wielkości obiektu na obrazie.
+W celu analizy wyników klasyfikacji przed i po modyfikacjach tła, zastosowano cztery kluczowe 
+metryki: dokładność (accuracy), pewność klasyfikacji (confidence scores), precyzję (precision), 
+recall oraz F1 score. Analizowana będzie również macierz korelacji w celu zbadania wzajemnych 
+zależności między klasami czy modyfikacjami oraz identyfikacji potencjalnych źródeł błędów. Metryki te zostały wybrane 
+ze względu na ich zdolność do dostarczania wartościowych informacji na temat wydajności modeli w 
+różnych warunkach. W niniejszym rozdziale szczegółowo omówimy te metryki, przedstawimy odpowiednie 
+wzory oraz wyjaśnimy, dlaczego zostały wybrane do analizy. Metryki będą analizowane całościowo, jak 
+również osobno dla każdej klasy, dla każdej różnej modyfikacji tła oraz dla różnych percentyli 
+wielkości obiektu na obrazie.
+
 
 \subsection*{Dokładność (Accuracy)}
 
@@ -203,6 +212,39 @@ gdzie:
 
 Dokładność została wybrana jako podstawowa metryka oceny modeli, ponieważ daje ogólny obraz wydajności modelu.
 
+\subsection*{Precyzja (Precision)}
+Precyzja (precision) jest metryką oceniającą dokładność pozytywnych predykcji modelu. 
+Definiuje się ją jako stosunek liczby prawdziwie pozytywnych przypadków do sumy liczby prawdziwie 
+ozytywnych i fałszywie pozytywnych przypadków. Wzór na precyzję jest następujący:
+
+\[
+\text{Precision} = \frac{TP}{TP + FP}
+\]
+
+Precyzja jest ważna, gdy koszty fałszywie pozytywnych klasyfikacji są wysokie.
+
+\subsection*{Recall}
+Recall, zwany również czułością lub TPR (True Positive Rate), mierzy zdolność modelu do wykrywania 
+wszystkich pozytywnych przypadków. Jest definiowany jako stosunek liczby prawdziwie pozytywnych 
+przypadków do sumy liczby prawdziwie pozytywnych i fałszywie negatywnych przypadków. Wzór na recall 
+jest następujący:
+
+\[
+\text{Recall} = \frac{TP}{TP + FN}
+\]
+
+Recall jest istotny, gdy koszty fałszywie negatywnych klasyfikacji są wysokie.
+
+\subsection*{F1 Score}
+F1 score jest harmoniczną średnią precyzji i recall. Jest używany jako pojedyncza metryka oceniająca 
+wydajność modelu, która uwzględnia zarówno precyzję, jak i recall. Wzór na F1 score jest następujący:
+
+\[
+\text{F1 Score} = 2 \times \frac{\text{Precision} \times \text{Recall}}{\text{Precision} + \text{Recall}}
+\]
+
+F1 score jest użyteczny, gdy istnieje nierównowaga między liczbą pozytywnych i negatywnych przypadków.
+
 \subsection*{Pewność klasyfikacji (Confidence Scores)}
 
 Pewność klasyfikacji (confidence scores) odnosi się do stopnia pewności modelu co do przypisania danego przykładu do 
@@ -211,19 +253,6 @@ predykcji. Wyższe wartości pewności oznaczają większe zaufanie modelu do sw
 
 Analiza pewności klasyfikacji pozwala na ocenę, jak model radzi sobie z przypadkami trudnymi do sklasyfikowania oraz 
 czy zmiany tła wpływają na pewność predykcji.
-
-\subsection*{Macierz pomyłek}
-
-Macierz pomyłek (confusion matrix) jest narzędziem używanym do oceny wydajności modeli klasyfikacyjnych poprzez 
-pokazanie, jak często poszczególne klasy są mylone z innymi. Macierz pomyłek przedstawia liczbę prawdziwie pozytywnych, 
-prawdziwie negatywnych, fałszywie pozytywnych i fałszywie negatywnych klasyfikacji dla każdej klasy.
-
-W przypadku klasyfikacji wieloklasowej, macierz pomyłek rozszerza się do macierzy n×n, gdzie n to liczba klas. 
-Każda komórka Cij​ w macierzy pomyłek przedstawia liczbę przypadków należących do klasy i, które zostały 
-sklasyfikowane jako klasa j.
-
-Analiza macierzy pomyłek pozwala na identyfikację, które klasy są najczęściej mylone, co może dostarczyć cennych 
-informacji na temat specyficznych wyzwań związanych z klasyfikacją w kontekście zmodyfikowanych teł.
 
 \section*{Opis wykorzystanego zbioru danych}
 
@@ -262,10 +291,6 @@ ImageNet1k jest jednym z najczęściej używanych zestawów danych w badaniach n
 jego dużej skali, różnorodności i realistycznego charakteru. Wiele przełomowych modeli, takich jak AlexNet, VGG, 
 ResNet i Inception, zostało przetestowanych i zweryfikowanych przy użyciu tego zestawu danych. Popularność ImageNet1k 
 sprawia, że wyniki uzyskane na tym zbiorze są łatwo porównywalne z wynikami innych badań, co umożliwia ocenę postępów i 
-innowacji w dziedzinie przetwarzania obrazów.
-
-Ze względu na ograniczoną dostępność klas w modelu segmentacyjnym DeepLabv3,
-który był trenowany na innym zbiorze danych, do badań wybrano 10 klas zwierząt, które można skutecznie wysegmentować 
 przy użyciu tego modelu. Wybór tych klas pozwolił na przeprowadzenie dokładnych analiz i eksperymentów przy zachowaniu 
 rozsądnego czasu przetwarzania.
 
@@ -374,6 +399,24 @@ rozmiarach obiektów można zobaczyć na Rys. \ref*{rys:size_comp}
 	\caption{Przykładowe zdjęcia o różnych rozmiarach obiektów dla klasy "hummingbird"}  \label{rys:size_comp}
 \end{figure}
 
+\subsection*{Implementacja}
+
+Całość implementacji została wykonana w języku Python, który dzięki swojej elastyczności i szerokiej 
+gamie bibliotek doskonale nadaje się do realizacji złożonych projektów związanych z uczeniem 
+maszynowym. Większość funkcjonalności została zaimplementowana w formie skryptów, podczas gdy same 
+badania, czyli opracowywanie wyników, są dostępne w formie interaktywnych notebooków Jupyter. Taki 
+podział pozwala na łatwe uruchamianie skryptów oraz jednoczesną analizę i wizualizację wyników.
+
+Skrypty są nazwane zgodnie ze swoją funkcjonalnością, co ułatwia nawigację i zrozumienie ich 
+przeznaczenia. Każdy skrypt zawiera funkcje z dobrze opisanymi nazwami, a każda funkcja posiada 
+docstringi, które szczegółowo wyjaśniają jej działanie.
+
+Dodatkowo, cała implementacja wraz z dokładnym opisem znajduje się na GitHubie, 
+gdzie można znaleźć pełen kod oraz plik README zawierający instrukcje dotyczące uruchamiania 
+skryptów i analizy wyników. 
+
+Link do repozytorium GitHub: \href{https://github.com/paulpel/BackgroundImpactAnalysis}{link do repozytorium}
+
 \subsection*{Analiza wyników}
 
 Wyniki zostały poddane szczegółowej analizie w kilku aspektach:
@@ -386,7 +429,10 @@ Wyniki zostały poddane szczegółowej analizie w kilku aspektach:
 
 \subsection*{Wnioski i dalsze kierunki rozwoju}
 
-Na podstawie przeprowadzonych analiz wyciągnięto wnioski dotyczące wpływu tła na wyniki klasyfikacji obrazów zwierząt. Ponadto zaproponowano dalsze kierunki rozwoju, mające na celu optymalizację modeli klasyfikacyjnych w kontekście zmieniających się warunków tła.
+Na podstawie przeprowadzonych analiz wyciągnięto wnioski dotyczące wpływu tła na wyniki klasyfikacji 
+obrazów zwierząt. Ponadto zaproponowano dalsze kierunki rozwoju, mające na celu optymalizację modeli 
+klasyfikacyjnych w kontekście zmieniających się warunków tła. Wnioski oraz dalsze kierunki rozwoju 
+znajdują się w kolejnym rozdziale. 
 
 \subsection*{Podsumowanie}
 

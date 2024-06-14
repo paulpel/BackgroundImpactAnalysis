@@ -283,37 +283,58 @@ wyniki klasyfikacji obrazów.
 
 \section*{Wpływ tła na klasyfikację obrazów}
 
-Wpływ tła na klasyfikację obrazów jest istotnym zagadnieniem w dziedzinie przetwarzania obrazów i 
-głębokiego uczenia. Tło może wprowadzać szumy, zakłócenia i nieistotne informacje, które mogą 
-negatywnie wpływać na wyniki klasyfikacji, zwłaszcza w kontekście złożonych scen i różnorodnych 
-warunków oświetleniowych. W ramach tego przeglądu literatury omówione zostaną badania dotyczące 
-wpływu tła na dokładność modeli klasyfikacyjnych, techniki usuwania i modyfikacji tła oraz ich 
-zastosowanie w praktyce.
+Badania nad wpływem tła na klasyfikację obrazów konwolucyjnymi sieciami neuronowymi (CNN) wykazały, 
+że tło może znacząco wpływać na skuteczność i proces uczenia tych modeli. Rajnoha i współpracownicy 
+(2018) przeprowadzili badania nad klasyfikacją binarną osób, gdzie pokazali, że usunięcie zbędnego 
+tła z obrazów może znacząco poprawić proces uczenia sieci neuronowych, szczególnie w przypadkach 
+ograniczonej liczby próbek treningowych. Eksperymenty wykazały, że sieci trenowane na obrazach bez 
+tła były w stanie szybciej rozpocząć proces konwergencji, podczas gdy sieci trenowane na pełnych 
+brazach miały z tym problemy, szczególnie gdy tło stanowiło ponad 50\% obrazu. Wyniki te sugerują, 
+że usunięcie tła może znacznie zwiększyć efektywność procesu uczenia w przypadkach, gdy stosunek 
+sygnału do szumu jest niski.
 
-\subsection*{Badania dotyczące wpływu tła}
+Z kolei Sehwag i in. (2020) analizowali 32 różne architektury sieci neuronowych, od małych sieci do 
+dużych modeli trenowanych na miliardzie obrazów, aby zbadać wpływ cech tła na dokładność klasyfikacji. 
+Badania te wykazały, że wraz ze wzrostem mocy obliczeniowej sieci, tendencja do wykorzystywania 
+informacji z tła również wzrasta. W eksperymentach, w których maskowano treść pierwszoplanową i 
+pozostawiano jedynie tło, sieci nadal były w stanie dokonywać poprawnych predykcji w wielu 
+przypadkach. Ponadto, zmiana tła na jednorodne lub teksturalne prowadziła do znacznego spadku 
+dokładności, co podkreśla, że obecne sieci neuronowe silnie polegają na informacjach z tła do 
+dokonywania klasyfikacji.
 
-Wiele badań wykazało, że tło może znacząco wpłynąć na wyniki klasyfikacji obrazów. Pierwsze prace w 
-tym zakresie koncentrowały się na analizie, jak obecność złożonych i zmiennych teł wpływa na 
-dokładność klasyfikacji. Na przykład, badania pokazują, że modele głębokiego uczenia, takie jak CNN, 
-mogą niekiedy mylić obiekty z tłem, co prowadzi do błędnej klasyfikacji. Prace takie jak te 
-przeprowadzone przez Torralba i Efros (2011) sugerują, że kontekst sceny, w tym tło, może wpływać na 
-percepcję i klasyfikację obiektów.
-\textcolor{red}{TO DO}
+W badaniach dotyczących klasyfikacji obrazów liści roślin, wykorzystano kombinację segmentacji 
+krawędziowej, morfologicznej oraz odejmowania tła, co pozwoliło na poprawę dokładności klasyfikacji 
+w przypadku zdjęć z niejednorodnym tłem. W eksperymentach zastosowano sieci DenseNet121, 
+InceptionV3 i inne, osiągając dokładność do 98.7\% na czystych zbiorach danych. Segmentacja pomogła 
+w izolacji liści w pierwszym planie, usuwając niepożądane elementy takie jak inne części roślin, 
+gleba czy części ciała ludzi, co znacznie poprawiło precyzję klasyfikacji.
 
-\subsection*{Techniki usuwania i modyfikacji tła}
 
-W celu zminimalizowania negatywnego wpływu tła na klasyfikację obrazów, opracowano różne techniki 
-usuwania i modyfikacji tła. Jednym z podstawowych podejść jest wykorzystanie segmentacji obrazów do 
-wyodrębnienia obiektów z tła. Modele takie jak U-Net i Mask R-CNN są szeroko stosowane do precyzyjnej 
-segmentacji obiektów, co pozwala na usunięcie tła przed klasyfikacją. Dzięki temu modele 
-klasyfikacyjne mogą skupić się na cechach obiektów, a nie na nieistotnych elementach tła.
+Dalsze badania, takie jak te przeprowadzone przez Zhou i in. (2021), koncentrowały się na 
+zrozumieniu, w jakim stopniu obecne sieci neuronowe wykorzystują informacje z tła. Autorzy sugerują, 
+że obecne funkcje strat, takie jak funkcja entropii krzyżowej, nie zachęcają do inwariancji względem 
+tła, co powoduje, że sieci te wykorzystują wszelkie istniejące korelacje między tłem a predykcjami 
+wyjściowymi. Badania wykazały, że zwiększenie różnorodności tła w zbiorze danych treningowych może 
+zwiększyć inwariancję tła sieci, jednak bardziej efektywnym podejściem może być poprawa funkcji 
+strat, aby karać za korelacje z tłem.
 
-Kolejnym podejściem jest modyfikacja tła, polegająca na zastąpieniu oryginalnego tła jednolitym 
-kolorem lub losowo wygenerowanym wzorem. Badania pokazują, że takie podejście może poprawić dokładność 
-klasyfikacji, zwłaszcza w przypadku obiektów trudnych do rozróżnienia od złożonego tła. Przykładem 
-jest praca wykonana przez Zhu et al. (2017), w której zastąpienie tła prostymi wzorami lub kolorami 
-prowadziło do poprawy wyników klasyfikacji.
-\textcolor{red}{TO DO}
+
+Podobnie, w badaniach nad klasyfikacją obrazów w rolnictwie, Kamal i in. (2023) pokazali, 
+że wykorzystanie segmentacji i odejmowania tła może znacząco poprawić dokładność klasyfikacji 
+obrazów roślin. W eksperymentach użyto technik takich jak segmentacja krawędziowa, morfologiczna i 
+odejmowanie tła, co pozwoliło na izolację liści roślin w pierwszym planie. Zastosowanie tych 
+technik w połączeniu z sieciami neuronowymi, takimi jak DenseNet121 i InceptionV3, pozwoliło na 
+osiągnięcie bardzo wysokiej dokładności klasyfikacji nawet w przypadkach, gdy obrazy były zrobione 
+w niejednorodnym tle.
+
+
+Wszystkie te badania podkreślają znaczenie manipulacji tłem w procesie trenowania i klasyfikacji 
+obrazów przy użyciu sieci neuronowych. Usunięcie lub manipulacja tłem może nie tylko poprawić 
+dokładność, ale również pomóc sieciom w lepszym zrozumieniu i generalizacji cech istotnych dla 
+danego zadania. W przyszłości badania te mogą prowadzić do opracowania bardziej zaawansowanych 
+technik segmentacji i manipulacji tłem, które będą kluczowe dla dalszego rozwoju i optymalizacji 
+sieci neuronowych w różnych dziedzinach zastosowań, takich jak rolnictwo, medycyna, czy systemy 
+monitoringu.
 
 \subsection*{Wyzwania i przyszłe kierunki badań}
 
