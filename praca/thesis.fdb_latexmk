@@ -1,15 +1,15 @@
 # Fdb version 4
-["bibtex thesis"] 1718451442 "thesis.aux" "thesis.bbl" "thesis" 1718451461 2
+["bibtex thesis"] 1718470190 "thesis.aux" "thesis.bbl" "thesis" 1718470190 2
   "./bibliography.bib" 1667406266 7658 5591de0fdbab55f3dbaf76484607137a ""
   "./dyplom.bst" 1667406266 28164 46ab484c700c9e84870468f09126caf9 ""
-  "thesis.aux" 1718451461 26972 c9b9bb6692ef4f339a876a2ba95ae989 "pdflatex"
+  "thesis.aux" 1718470190 32 3985256e7290058c681f74d7a3565a19 "pdflatex"
   (generated)
   "thesis.bbl"
   "thesis.blg"
   (rewritten before read)
-["pdflatex"] 1718451459 "/home/paul/Coding/Studies/Magisterka/BackgroundImpactAnalysis/praca/thesis.tex" "thesis.pdf" "thesis" 1718451461 2
+["pdflatex"] 1718470136 "/home/paul/Coding/Studies/Magisterka/BackgroundImpactAnalysis/praca/thesis.tex" "thesis.pdf" "thesis" 1718470138 2
   "/etc/texmf/web2c/texmf.cnf" 1705921983 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/paul/Coding/Studies/Magisterka/BackgroundImpactAnalysis/praca/thesis.tex" 1718362278 1808 a2cad5951edc658a367c977af594c141 ""
+  "/home/paul/Coding/Studies/Magisterka/BackgroundImpactAnalysis/praca/thesis.tex" 1718470136 1739 20fdcb78bf8c9412d5fc23bc13037253 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1246382020 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
@@ -223,7 +223,7 @@
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1717418787 4643645 d2d1d8b8ba87ed005f4aaf1ce646a79e ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1717418845 7905929 8bfbfa711891aceed5c6fc6e1e673ad0 ""
   "abstract.tex" 1717700562 100 dad3d9aebc6d86c8674615855c746613 ""
-  "badania.tex" 1718450280 78063 825f3fa1313defde6724c5a164c8cf2e ""
+  "badania.tex" 1718469894 77982 cd2c9039188adcf0562ef15d20ec9bea ""
   "dyplom.cls" 1667406266 8259 99a73e2a96fd0fff1710ee85f336e449 ""
   "img/classes.png" 1717708098 1171762 decf0703da47426d40935faf3971264d ""
   "img/confidence_avg.png" 1718368539 96841 1f834a665a76d7d41fbc73f2b57afe68 ""
@@ -236,19 +236,18 @@
   "img/resnet.png" 1717711237 7038 b96dcbda6bc8acfc54b8f2a0c6955809 ""
   "img/resnet_conf_distro.png" 1718017663 40019 e3dccd20027fda33ccc25599fe30921f ""
   "img/size_comp.png" 1717709865 219420 73797d9179778f99bd58b4f31a761e35 ""
-  "introduction.tex" 1718451459 5214 3192c52847f338536cedd33775e2c8d6 ""
+  "introduction.tex" 1718464192 5214 3192c52847f338536cedd33775e2c8d6 ""
   "literature.tex" 1718360613 29930 183a274bc6321db14d057def56d8f0e8 ""
-  "metodyka.tex" 1718363002 29674 670263316c3a2ea6fee04d1653edfded ""
+  "metodyka.tex" 1718469835 30343 eb2cd3a594f2b904b885a98cfd2a867e ""
   "summary.tex" 1717422816 96 d7566dd8c6d0b7a5b0a674d5502f902a ""
-  "thesis.aux" 1718451461 26972 c9b9bb6692ef4f339a876a2ba95ae989 "pdflatex"
-  "thesis.bbl" 1718451442 0 d41d8cd98f00b204e9800998ecf8427e "bibtex thesis"
-  "thesis.lof" 1718451461 1567 b559f4b4a3209c09618451d872ac54d8 "pdflatex"
-  "thesis.lop" 1718451461 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
-  "thesis.lot" 1718451461 4453 75e6846f15b7f5c84ff3abe7af723a34 "pdflatex"
-  "thesis.out" 1718451461 20031 da0f484723df4beb39212010fdee02cc "pdflatex"
-  "thesis.pyg" 1718362825 1508 91cea5142f689f5242a07f04c8d9eb46 ""
-  "thesis.tex" 1718362278 1808 a2cad5951edc658a367c977af594c141 ""
-  "thesis.toc" 1718451461 8106 a004207193cc8d1f839c40fea6b2df90 "pdflatex"
+  "thesis.aux" 1718470190 32 3985256e7290058c681f74d7a3565a19 "pdflatex"
+  "thesis.bbl" 1718470190 0 d41d8cd98f00b204e9800998ecf8427e "bibtex thesis"
+  "thesis.lof" 0 -1 0 "pdflatex"
+  "thesis.lop" 1718470138 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+  "thesis.lot" 0 -1 0 "pdflatex"
+  "thesis.out" 0 -1 0 "pdflatex"
+  "thesis.tex" 1718470136 1739 20fdcb78bf8c9412d5fc23bc13037253 ""
+  "thesis.toc" 0 -1 0 "pdflatex"
   (generated)
   "thesis.aux"
   "thesis.lof"
