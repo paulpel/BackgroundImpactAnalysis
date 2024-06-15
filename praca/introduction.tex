@@ -3,69 +3,41 @@
 
 \chapter*{Wprowadznie}
 
-W ostatnich latach technologia głębokiego uczenia maszynowego zrewolucjonizowała dziedzinę
-przetwarzania obrazów, w tym klasyfikację i segmentację obrazów. Klasyfikacja obrazów, 
-czyli proces przypisywania etykiet do obiektów przedstawionych na obrazach, jest fundamentalnym
-zagadnieniem w komputerowym rozpoznawaniu wzorców. Pomimo znaczących postępów, istnieje wiele 
-czynników, które mogą wpływać na dokładność i niezawodność modeli klasyfikacyjnych, a jednym z 
-kluczowych elementów jest tło obrazu.
+W ostatnich latach technologie głębokiego uczenia maszynowego zrewolucjonizowały obszar przetwarzania obrazów, w tym procesy takie jak klasyfikacja i segmentacja obrazów. Fundamentalnym zagadnieniem w komputerowym rozpoznawaniu wzorców 
+jest klasyfikacja obrazów, czyli proces przypisywania etykiet do obiektów przedstawionych na obrazach. Pomimo ogromnych postępów, dokładność i niezawodność modeli klasyfikacyjnych są uzależnione od wielu czynników, z których jednym z 
+kluczowych jest tło obrazu.
 
-Tło obrazu może dostarczać zbędnych informacji lub wprowadzać modele w błąd, co może prowadzić 
-do błędnej klasyfikacji obiektów. Między innymi w kontekście klasyfikacji zwierząt, obecność 
-złożonego lub niestandardowego tła może znacząco wpłynąć na wyniki klasyfikacji. Dlatego analiza 
-wpływu tła na wyniki klasyfikacji obrazów jest niezwykle istotna dla poprawy efektywności modeli.
+Tło obrazu może zawierać niepotrzebne dane lub wprowadzać modele w błąd, co może powodować błędne klasyfikacje obiektów. W przypadku klasyfikacji zwierząt, obecność złożonego lub nietypowego tła może mieć znaczący wpływ na wyniki klasyfikacji. 
+W związku z tym analiza wpływu tła na wyniki klasyfikacji obrazów jest bardzo ważna dla poprawy efektywności modeli.
 
-Segmentacja obrazów, czyli proces podziału obrazu na mniejsze, znaczące fragmenty, jest jednym z 
-podejść umożliwiających radzenie sobie z problemem tła. Dzięki segmentacji możliwe jest wydzielenie 
-obiektu z tła, co może prowadzić do poprawy wyników klasyfikacji. W niniejszej pracy zostaną 
-wykorzystane gotowe modele do segmentacji obrazów, w celu usunięcia tła, w celu przeprowadzenia 
-późniejszych modyfikacji tła.
+Jednym ze sposobów rozwiązania problemu tła jest segmentacja obrazów, czyli podział obrazu na mniejsze części i przydzielenie im etykiet. Segmentacja pozwala wydzielić obiekt z tła, co może prowadzić do poprawy wyniku klasyfikacji.
 
-Wyzwania związane z klasyfikacją obrazów i segmentacją obejmują m.in. różnorodność danych, 
-obecność zakłócających elementów w tle, zmienność oświetlenia oraz różnice w skalach obiektów. 
-Zastosowanie zaawansowanych technik segmentacji i analizy wpływu tła może jednak znacząco poprawić
-wyniki klasyfikacji.
+Obecność zakłócających elementów w tle, zmienność oświetlenia, różnice w skalach obiektów i różnorodność danych to problemy, z którymi algorytmy klasyfikacji czy segmentacji musza sobie poradzić.  
 
-Niniejsza praca wnosi istotny wkład do dziedziny przetwarzania obrazów, oferując nowe spostrzeżenia
-na temat wpływu tła na klasyfikację oraz oceniając skuteczność różnych modeli głębokiego uczenia w 
-kontekście zmiennych warunków tła. Przeprowadzone badania mają na celu pogłębienie wiedzy na temat 
-optymalizacji modeli klasyfikacyjnych w złożonych i zmiennych środowiskach.
+Niniejsza praca skupia się na zbadaniu wpływu tła na klasyfikację oraz ocenę skuteczności modeli głębokiego uczenia w warunkach zmiennego tła. Przeprowadzone badania mają na celu poszerzenie wiedzy odnośnie optymalizacji modeli klasyfikacyjnych
+w warunkach zmiennego i nieprzewidywalnego tła, czyli takiego jakie często występuje w rzeczywistych warunkach.
 
 \section*{Cel pracy}
 
-Celem niniejszej pracy jest zbadanie wpływu tła na klasyfikację zwierząt na obrazach przy 
-użyciu zaawansowanych modeli głębokiego uczenia, takich jak ResNet i ConvNeXt. Kluczowym aspektem 
-tego badania jest ocena, w jaki sposób usunięcie i modyfikacja tła wpływają na wydajność tych modeli 
-klasyfikacyjnych. Poprzez analizę wyników przed i po modyfikacji tła, praca ta ma na celu:
+Celem niniejszej pracy jest zbadanie wpływu tła na klasyfikację zwierząt na obrazach przy użyciu zaawansowanych modeli głębokiego uczenia, takich jak ResNet i ConvNeXt. Jednym z kluczowych elementów tego badania jest ocena, w jaki sposób 
+usunięcie, czy modyfikacja tła wpływają na wydajność tych modeli klasyfikacyjnych. Poprzez analizę wyników za równo przed i po modyfikacji tła, praca ta ma na celu:
 
 \begin{itemize}
-    \item \textbf{Ocena wrażliwości modeli na tło:} Sprawdzenie, jak różne rodzaje tła wpływają na 
-    dokładność klasyfikacji obrazów zwierząt. Analiza ta pozwoli zrozumieć, w jakim stopniu obecność 
-    tła zakłóca proces klasyfikacji i jakie rodzaje czy modyfikacje tła mają największy wpływ na wyniki.
-    \item \textbf{Optymalizacja procesu klasyfikacji:} Zidentyfikowanie najlepszych praktyk i metod 
-    usuwania oraz modyfikacji tła, które mogą poprawić wydajność modeli klasyfikacyjnych. Badanie to 
-    pozwoli określić, które techniki segmentacji i modyfikacji tła są najbardziej efektywne w 
-    kontekście różnych modeli klasyfikacyjnych.
-    \item \textbf{Porównanie wydajności modeli:} Porównanie jakości klasyfikacji przy użyciu różnych 
-    modeli głębokiego uczenia w kontekście zmiennych warunków tła. Analiza ta pozwoli zidentyfikować, 
-    który model lepiej radzi sobie z problemem tła i jest bardziej odporny na jego zmiany.
-    \item \textbf{Praktyczne implikacje:} Dostarczenie praktycznych wskazówek i rekomendacji 
-    dotyczących zastosowania modeli głębokiego uczenia w zadaniach klasyfikacji obrazów w warunkach 
-    rzeczywistych, gdzie tło może być zmienne i nieprzewidywalne. Wnioski z tego badania mogą być 
-    użyteczne dla badaczy i praktyków zajmujących się rozpoznawaniem obrazów w różnych dziedzinach, 
-    takich jak ekologia, bezpieczeństwo czy medycyna.
+    \item \textbf{Ocena wrażliwości modeli na tło:} Sprawdzenie, jak różne rodzaje tła wpływają na dokładność (accuracy) klasyfikacji obrazów zwierząt. Analiza ta pozwoli zrozumieć, w jakim stopniu obecność tła zakłóca proces klasyfikacji i
+    jakie rodzaje czy modyfikacje tła mają największy wpływ na wyniki.
+    \item \textbf{Optymalizacja procesu klasyfikacji:} Stwierdzenie jakie modyfikacje tła mogą pozytywnie wpłynąć na efektywnośc klasyfikacji i okazać się przydatne przy preprocessingu danych.
+    \item \textbf{Porównanie wydajności modeli:} Porównanie dwóch różnych modeli klasyfikacyjnych w celu zrozumienia jak różne architektury czy założenia modeli mogą być mniej lub bardziej odporne na zakłócenia.
 \end{itemize}
 
 \section*{Zakres pracy}
 
-Zakres pracy obejmuję kilka kluczowych aspektów, a mianowicie:
+Zakres niniejszej pracy obejmuję kilka głównych aspektów, a mianowicie:
 
 \begin{enumerate}
     \item \textbf{Przygotowanie środowiska badawczego:}
     \begin{itemize}
-        \item Konfiguracja niezbędnego oprogramowania i bibliotek do przetwarzania obrazów 
-        oraz uczenia maszynowego.
-        \item Ustalenie parametrów eksperymentalnych i kryteriów oceny.
+        \item Konfiguracja niezbędnego oprogramowania i bibliotek do przetwarzania obrazów oraz uczenia maszynowego, w celu stworzenia przystępnego środowiska do prowadzenia badań. 
+        \item Ustalenie wykorzystywanych narzędzi.
     \end{itemize}
     \item \textbf{Przygotowanie danych:}
     \begin{itemize}
@@ -74,7 +46,7 @@ Zakres pracy obejmuję kilka kluczowych aspektów, a mianowicie:
     \end{itemize}
     \item \textbf{Wykorzystanie gotowych modeli klasyfikacyjnych:}
     \begin{itemize}
-        \item Wykorzystanie istniejących, wytrenowanych modeli do klasyfikacji obrazów.
+        \item Wykorzystanie wcześniej już przetrenowachych modeli do klasyfikacji obrazów.
         \item Przeprowadzenie wstępnych ocen wydajności modeli na oryginalnych obrazach z różnym tłem.
     \end{itemize}
     \item \textbf{Segmentacja obrazów:}
@@ -84,9 +56,7 @@ Zakres pracy obejmuję kilka kluczowych aspektów, a mianowicie:
     \end{itemize}
     \item \textbf{Modyfikacja tła obrazów:}
     \begin{itemize}
-        \item Zastosowanie różnych technik modyfikacji tła w celu stworzenia zestawów danych z różnymi 
-        wariantami tła.
-        \item Analiza wpływu tych modyfikacji na jakość klasyfikacji.
+        \item Zastosowanie wybranych technik modyfikacji tła w celu stworzenia zestawów danych gotowych do przeprowadzania analiz klasyfikacji i możliwości porównania z wynikami na oryginalnych zdjęciach. 
     \end{itemize}
     \item \textbf{Ocena i analiza wyników:}
     \begin{itemize}
