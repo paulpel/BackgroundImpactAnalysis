@@ -112,12 +112,6 @@ This script is the entry point of the project. It orchestrates the creation of d
 - **Classes**: A list of class labels to process.
 - **Target Per Class**: The number of images to process per class.
 
-### Execution:
-
-To run the script, execute the following command in your terminal:
-```bash
-python -m analysis.main
-```
 ### Segmentation Script: `analysis/seg_model_1.py`
 
 This script provides the necessary functions to load the segmentation model, process images, and save the results. It includes functions for model loading, image transformation, segmentation, and saving the segmentation outputs as mask and overlay images.
@@ -171,19 +165,6 @@ This script analyzes mask images to identify the most common nonzero grayscale v
 
 - **Masks Directory**: The default directory containing mask images is set to `"data/masks"`. This can be changed by passing a different directory path to the function.
 
-### Execution:
-
-1. **Analyze Mask Images:**
-    ```python
-    class_to_grayscale_map, exceptions_dic = analyze_masks_and_list_exceptions("path/to/masks")
-    ```
-
-2. **Example Output:**
-    ```
-    Class: n02106662, Most Common Nonzero Grayscale Value (by presence): 128, Presence Count: 900
-        Images without the most common grayscale value (128): ['image1.png', 'image2.png']
-    ```
-
 This script helps in ensuring that the mask images are consistent in terms of the grayscale values they use for each class, and highlights any discrepancies for further inspection.
 
 ### BackgroundRemoval Script: `remove_bg.py`
@@ -223,28 +204,6 @@ This script removes the background from images using specified grayscale values 
 - **Input Directory**: The directory containing the original images. Default is `"data/train"`.
 - **Mask Directory**: The directory containing the mask images. Default is `"data/masks"`.
 - **Output Directory**: The directory to save the images with the background removed. Default is `"data/modified/no_bg"`.
-
-### Execution:
-
-1. **Remove Background and Save Images:**
-    ```python
-    input_directory = "data/train"
-    mask_directory = "data/masks"
-    output_directory = "data/modified/no_bg"
-
-    grayscale_values = analyze_masks_and_list_exceptions()
-
-    remove_background_and_save(
-        input_directory, mask_directory, output_directory, grayscale_values
-    )
-    ```
-
-2. **Example Output:**
-    ```
-    Processed class n02106662
-    Skipping already processed data/modified/no_bg/n02106662/image1.png
-    No original image found for image2.png in n02106662, skipping.
-    ```
 
 This script facilitates the removal of backgrounds from images based on mask information, providing a streamlined process for preparing modified images for further analysis or use.
 
@@ -290,31 +249,6 @@ This script analyzes the colors in images within a directory to find dominant co
 
 - **Base Directory**: The base directory containing the images with backgrounds removed. Default is `"data/modified/no_bg"`.
 
-### Execution:
-
-1. **Analyze Colors and Save Results:**
-    ```python
-    base_dir = "data/modified/no_bg"
-    classes = [
-        d for d in os.listdir(base_dir) if os.path.isdir(os.path.join(base_dir, d))
-    ]
-    color_dict = defaultdict(dict)
-
-    for class_name in classes:
-        class_dir = os.path.join(base_dir, class_name)
-        color_dict[class_name] = analyze_colors(class_dir)
-
-    with open("class_colors.json", "w") as file:
-        json.dump(color_dict, file, indent=4)
-
-    print("Color analysis data saved to 'class_colors.json'.")
-    ```
-
-2. **Example Output:**
-    ```
-    Color analysis data saved to 'class_colors.json'.
-    ```
-
 This script helps in analyzing and determining high and low contrast colors for images in different classes, providing valuable color information for further use or analysis.
 
 ### Foreground Script: `remove_foreground.py`
@@ -359,28 +293,6 @@ This script saves images with only the background, removing the foreground based
 - **Input Directory**: The directory containing the original images. Default is `"data/train"`.
 - **Mask Directory**: The directory containing the mask images. Default is `"data/masks"`.
 - **Output Directory**: The directory to save the images with only the background. Default is `"data/modified/no_foreground"`.
-
-### Execution:
-
-1. **Save Background Only and Save Images:**
-    ```python
-    input_directory = "data/train"
-    mask_directory = "data/masks"
-    output_directory = "data/modified/no_foreground"
-
-    grayscale_values = analyze_masks_and_list_exceptions()
-
-    save_background_only(
-        input_directory, mask_directory, output_directory, grayscale_values
-    )
-    ```
-
-2. **Example Output:**
-    ```
-    Processed class n02106662
-    Skipping already processed data/modified/no_foreground/n02106662/image1.png
-    No original image found for image2.png in n02106662, skipping.
-    ```
 
 This script helps in extracting and saving the background from images based on mask information, providing a streamlined process for preparing modified images for further analysis or use.
 
@@ -430,35 +342,6 @@ This script applies contrast backgrounds to images using masks and saves them. I
 - **Mask Directory**: The directory containing the mask images. Default is `"data/masks"`.
 - **Output Directory**: The base directory to save the processed images with contrast backgrounds. Default is `"data/modified"`.
 - **Color Configuration Path**: Path to the JSON file containing contrast color configurations. Default is `"class_colors.json"`.
-
-### Execution:
-
-1. **Apply Contrast Background and Save Images:**
-    ```python
-    input_directory = "data/modified/no_bg"
-    mask_directory = "data/masks"
-    output_directory = "data/modified"
-    color_config_path = "class_colors.json"
-
-    with open(color_config_path, "r") as file:
-        contrast_colors = json.load(file)
-
-    grayscale_values = analyze_masks_and_list_exceptions()
-
-    apply_contrast_background(
-        input_directory,
-        mask_directory,
-        output_directory,
-        contrast_colors,
-        grayscale_values,
-    )
-    ```
-
-2. **Example Output:**
-    ```
-    Processed images for class n02106662 with low and high contrast backgrounds.
-    No mask found for image2.png in n02106662, skipping.
-    ```
 
 This script facilitates the application of contrast backgrounds to images based on mask information and pre-defined color configurations, providing a streamlined process for generating visually distinct images for each class.
 
@@ -519,46 +402,6 @@ This script applies different scenic backgrounds to images using masks, skipping
         "mountain": "mountain.jpg",
         "snow": "snow.jpg",
     }
-    ```
-
-### Execution:
-
-1. **Apply Scenic Backgrounds and Save Images:**
-    ```python
-    input_directory = "data/train"
-    mask_directory = "data/masks"
-    output_directory = "data/modified"
-    background_directory = "data/scenarios"
-
-    backgrounds_info = {
-        "city": "city.jpg",
-        "jungle": "jungle.jpg",
-        "desert": "desert.jpg",
-        "water": "water.jpg",
-        "sky": "sky.jpg",
-        "indoor": "indoor.jpg",
-        "mountain": "mountain.jpg",
-        "snow": "snow.jpg",
-    }
-
-    grayscale_values = analyze_masks_and_list_exceptions()
-
-    apply_scenic_backgrounds(
-        input_directory,
-        mask_directory,
-        output_directory,
-        background_directory,
-        backgrounds_info,
-        grayscale_values,
-    )
-    ```
-
-2. **Example Output:**
-    ```
-    Processed and saved data/modified/city/n02106662/image1.png
-    Processed and saved data/modified/jungle/n02106662/image1.png
-    Skipping already processed data/modified/desert/n02106662/image1.png
-    No original image found for image2.png in n02106662, skipping.
     ```
 
 This script helps in applying various scenic backgrounds to images based on mask information and pre-defined background scenarios, providing a streamlined process for generating visually distinct images for each class.
@@ -630,40 +473,6 @@ This script compares original images with their modified versions using a pre-tr
 - **Modifications Root Directory**: The root directory containing the modified images. Default is `"data/modified"`.
 - **Output CSV**: The path to save the CSV file with the results. Default is `"image_confidence_scores_resnet.csv"`.
 
-### Execution:
-
-1. **Compare Images and Save Results:**
-    ```python
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    model = load_model(device)
-    transform = get_transform()
-
-    original_images_dir = "data/train"
-    modifications_root_dir = "data/modified"
-    output_csv = "image_confidence_scores_resnet.csv"
-
-    _, exceptions_dic = analyze_masks_and_list_exceptions()
-
-    compare_images_and_save_results(
-        original_images_dir,
-        modifications_root_dir,
-        model,
-        device,
-        transform,
-        output_csv,
-        exceptions_dic,
-        target_per_class=1000,
-    )
-    ```
-
-2. **Example Output:**
-    ```
-    Starting image comparison...
-    Found modification types: ['city', 'jungle', 'desert', 'water', 'sky', 'indoor', 'mountain', 'snow']
-    Processing image 1 of 1000 (image1)
-    Processed image1 and saved results.
-    ```
-
 This script helps in comparing original and modified images, providing insights into how modifications affect the classification results, and saves the results for further analysis.
 
 ### Convnext Script: `convnext.py`
@@ -732,39 +541,5 @@ This script compares original images with their modified versions using a pre-tr
 - **Original Images Directory**: The directory containing the original images. Default is `"data/train"`.
 - **Modifications Root Directory**: The root directory containing the modified images. Default is `"data/modified"`.
 - **Output CSV**: The path to save the CSV file with the results. Default is `"image_confidence_scores_convnext.csv"`.
-
-### Execution:
-
-1. **Compare Images and Save Results:**
-    ```python
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    model = load_model(device)
-    transform = get_transform()
-
-    original_images_dir = "data/train"
-    modifications_root_dir = "data/modified"
-    output_csv = "image_confidence_scores_convnext.csv"
-
-    _, exceptions_dic = analyze_masks_and_list_exceptions()
-
-    compare_images_and_save_results(
-        original_images_dir,
-        modifications_root_dir,
-        model,
-        device,
-        transform,
-        output_csv,
-        exceptions_dic,
-        target_per_class=1000,
-    )
-    ```
-
-2. **Example Output:**
-    ```
-    Starting image comparison...
-    Found modification types: ['city', 'jungle', 'desert', 'water', 'sky', 'indoor', 'mountain', 'snow']
-    Processing image 1 of 1000 (image1)
-    Processed image1 and saved results.
-    ```
 
 This script helps in comparing original and modified images, providing insights into how modifications affect the classification results, and saves the results for further analysis.
