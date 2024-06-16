@@ -688,18 +688,19 @@ modyfikacji tła na klasyfikację klasy 285 (Egyptian cat) przy użyciu modeli R
 
 \subsection*{Model ResNet}
 
-Dla 5 typów modyfikacji uzyskano lepsze wyniki niż dla oryginalnych zdjęć. W przypadku pozostawienia tła czarnego poprawiono dokładność aż o 7 punktów procentowych, z 78\% do 85\%. Najczęściej myloną klasą, prawie dla każdej modyfikacji była klasas "Tabby cat", która podobnie jak
+Dla 5 typów modyfikacji uzyskano lepsze wyniki niż dla oryginalnych zdjęć. W przypadku pozostawienia tła czarnego poprawiono dokładność aż o 7 punktów procentowych, z 78\% do 85\%. Najczęściej myloną klasą, prawie dla każdej modyfikacji była klasa "Tabby cat", która podobnie jak
 we wcześniejszym przypadku jest bardzo podobna do klasy przewidywanej. Ciekawym zauważonym zjawiskiem była pomyłka modelu dla scenerii śnieżnej oraz dżungli, gdzie pomylono się na klasę "Tiger cat". Po analizie dostępnych zdjęć treningowych dla klasy tiger cat zauważyłem, że w ich skład 
 wchodzą zarówno zdjęcia przedstawiające kota domowego jak i zdjęcia tygrysa. Przykłady zdjęć widnieją na obrazku \ref*{label}
 
 \begin{figure}
 	\centering\includegraphics[width=.9\textwidth]{img/285}
-	\caption{}
+	\caption{Zdjęcia przedstawiające klasę Egyptian cat oraz klasy na które modele często się myliły}
 	\label{rys:285}
 \end{figure}
 
 \subsection*{Model ConvNeXt}
 
+Model ConvNext zachowywał się w bardzo podobny sposób jak wcześniejszy model, lecz osiągnął lepsze wyniki dokładności o około dwa punkty procentowe dla każdego typu modyfikacji.
 
 \begin{table}
 	\centering
@@ -777,14 +778,18 @@ wchodzą zarówno zdjęcia przedstawiające kota domowego jak i zdjęcia tygrysa
 
 \section*{Wnioski dla klasy 349 (Bighorn sheep)}
 
-Na podstawie wyników przedstawionych w Tabeli X i Tabeli Y, można wyciągnąć następujące wnioski dotyczące wpływu różnych modyfikacji tła na klasyfikację klasy 349 (Bighorn sheep) przy użyciu modeli ResNet i ConvNeXt:
+Na podstawie wyników dwóch modeli przedstawionych w \ref*{metrics_confidence_class_285_resnet} i \ref*{metrics_confidence_class_238_convnext}, można wyciągnąć następujące wnioski dotyczące wpływu różnych 
+modyfikacji tła na klasyfikację klasy 349 (Bighorn sheep) przy użyciu modeli ResNet i ConvNeXt:
 
 \subsection*{Model ResNet}
 
+Po przeanalizowaniu tej klasy, po raz kolejny można dostrzec łatwość tego modelu do mylenia dwóch klas "ram. tup" oraz "bighorn sheep". Wszystkie modyfikacje spowodowały pogorszenie predykcji klasyfikatora, a w niektórych przypadkach spadek wynosił aż 40 punktów procentowych, co świadczy o 
+podatności na zakłócenia przy predykowaniu tej klasy.
 
 \subsection*{Model ConvNeXt}
 
-
+ConvNeXt okazał się bardziej odporny na modyfikacje i przy każdej kategorii, dokładność wyniosła przynajmniej 70\%. Również najczęściej myloną klasą była klasa "ram, tup" dla większości modyfikacji. W niektórych przypadkach wystąpiło ponownie zjawisko bardziej ogólnego spojrzenia modelu
+na zdjęcie i zakwalifikowanie obiektu po prostu jako elementu krajobrazu "lakeshore". Sceneria pustynna również mocno wpłyneła na decyzję modelu i spowodowała że owca została zpredykowana jako więlbłąd w więcej niż 20\% przypadków.
 
 \begin{table}
 	\centering
@@ -862,14 +867,17 @@ Na podstawie wyników przedstawionych w Tabeli X i Tabeli Y, można wyciągnąć
 
 \section*{Wnioski dla klasy 229 (Old English sheepdog)}
 
-Na podstawie wyników przedstawionych w Tabeli X i Tabeli Y, można wyciągnąć następujące wnioski dotyczące wpływu różnych modyfikacji tła na klasyfikację klasy 229 (Old English sheepdog) przy użyciu modeli ResNet i ConvNeXt:
+Na podstawie wyników dwóch modeli przedstawionych w \ref*{metrics_confidence_class_229_resnet} i \ref*{metrics_confidence_class_229_convnext}, można wyciągnąć następujące wnioski dotyczące wpływu różnych 
+modyfikacji tła na klasyfikację klasy 229 (Old English sheepdog) przy użyciu modeli ResNet i ConvNeXt:
 
 \subsection*{Model ResNet}
+
+Wyniki klasyfikacji były najlepsze dla oryginalnych zdjęc, na drugiej pozycji znalazy się wyniki ze scenerii wnętrzna domu, lecz nadal były o 12 punktów procentowych niższe. Błędy popełniane przez model były zróżnicowane, ponieważ liczebność najczęsniej mylonej klasy nie była duża.
 
 
 \subsection*{Model ConvNeXt}
 
-
+Ten model poradził sobie z tą klasą zdecydowanie lepiej niż ResNet. Mimo pogorszenia metryk dla każdej modyfikacji, wyniki nadal były całkiem zadowalające. 
 
 \begin{table}
 	\centering
@@ -1141,12 +1149,7 @@ Na podstawie wyników przedstawionych w Tabeli X i Tabeli Y, można wyciągnąć
 		\hline
 		Jungle & 0.788 & 76.892591 & Malinois (53) \\
 		\hline
-		No Background & 0.705 & 67.817178 & Coyot
-		Model ResNet osiągnął wysoką dokładność 0.981 na oryginalnych obrazach, co wskazuje na jego skuteczność w klasyfikacji klasy 15 w standardowych warunkach. Średnia pewność wynosiła 96.633280, co jest bardzo wysoką wartością, potwierdzającą pewność modelu przy klasyfikacji.
-		
-		Znaczący spadek dokładności został zanotowany przy modyfikacjach tła. Najniższa dokładność została zanotowana przy modyfikacji "No Foreground" (0.023), co wskazuje na dużą trudność modelu w klasyfikacji obiektów bez tła. Inne modyfikacje, takie jak "Desert" (0.830), "Low Contrast" (0.883), i "City" (0.909), również obniżyły dokładność modelu, co sugeruje, że zmiany w tle mogą negatywnie wpływać na wydajność modelu.
-		
-		Model najczęściej mylił klasę 15 z "Hummingbird" przy większości modyfikacji tła. Wyjątek stanowiła modyfikacja "No Foreground", gdzie model najczęściej mylił klasę z "Magpie".e, prairie wolf (32) \\
+		No Background & 0.705 & 67.817178 & Coyot (32) \\
 		\hline
 		High Contrast & 0.819 & 80.306382 & Malinois (39) \\
 		\hline
