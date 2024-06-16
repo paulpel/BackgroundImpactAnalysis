@@ -109,8 +109,8 @@ z pewnością na zdjęciach oryginalnych. Można z tego wnioskować, że modyfik
 \section*{Wyniki względem kategorii wielkości obiektu}
 
 Kolejną częścia analizy było zbadanie metryk modeli w kontekście różnych rozmiarów obiektu na zdjęciu. Analiza wpływu wielkości obiektu na skuteczność klasyfikacji obrazów jest istotnym elementem badań, ponieważ różne rozmiary obiektów mogą 
-znacząco wpływać na wydajność modeli głębokiego uczenia. Obiekty o różnych wielkościach mogą być różnie traktowane przez modele klasyfikacyjne ze względu na różną ilość "zakłóceń" jakim jest tło. Dlatego też, zrozumienie, jak zmienia się 
-dokładność modeli ResNet i ConvNeXt w zależności od wielkości obiektu, jest kluczowe dla optymalizacji i poprawy tych modeli w rzeczywistych zastosowaniach.
+znacząco wpływać na wydajność modeli głębokiego uczenia. Zdjęcia z obiektami o różnych wielkościach mogą być różnie traktowane przez modele klasyfikacyjne ze względu na różną ilość "zakłóceń" jakim jest tło. Dlatego też, zrozumienie, jak 
+zmienia się dokładność modeli ResNet i ConvNeXt w zależności od wielkości obiektu, jest kluczowe dla optymalizacji i poprawy tych modeli w rzeczywistych zastosowaniach.
 
 
 
@@ -213,60 +213,54 @@ bardziej efektywnych algorytmów klasyfikacyjnych, które mogą niezawodnie dzia
 	\label{tab:convnext_confidence_scores}
 \end{table}
 
-Analiza confidence scores dla modeli ResNet i ConvNeXt w zależności od wielkości obiektu dostarcza cennych informacji o zachowaniu tych modeli. 
-Dla modelu ResNet, średnie confidence scores wynoszą 76.437807 dla dużych obiektów, 76.371553 dla obiektów średniej wielkości i 65.538042 dla 
-małych obiektów. Dla poprawnych klasyfikacji confidence scores są odpowiednio wyższe, wynosząc 85.211125, 85.131233 i 82.538231. Dla niepoprawnych 
-klasyfikacji wartości te są znacznie niższe: 43.360151, 47.133278 i 42.420987.
+Dla modelu ResNet, średnie confidence scores wynoszą 76.790632 dla dużych obiektów, 76.564846 dla obiektów średniej wielkości i 65.356645 dla małych obiektów. Dla poprawnych klasyfikacji confidence scores są odpowiednio wyższe, wynosząc 
+85.228727, 85.185492 i 82.693992. Dla niepoprawnych klasyfikacji wartości te są znacznie niższe: 43.843488, 47.188400 i 42.576619.
 
-W przypadku modelu ConvNeXt, średnie confidence scores są niższe i wynoszą 63.942224 dla dużych obiektów, 60.220167 dla obiektów średniej 
-wielkości i 51.048190 dla małych obiektów. Confidence scores dla poprawnych klasyfikacji wynoszą 69.166578, 64.178825 i 57.051329, a dla 
-niepoprawnych klasyfikacji są to 35.149080, 38.865913 i 35.657851.
+W przypadku modelu ConvNeXt, średnie confidence scores są niższe i wynoszą 64.332577 dla dużych obiektów, 60.275503 dla obiektów średniej wielkości i 50.455171 dla małych obiektów. Confidence scores dla poprawnych klasyfikacji wynoszą 
+69.300610, 64.107149 i 56.473165, a dla niepoprawnych klasyfikacji są to 35.502391, 38.802715 i 34.618265.
 
-yniki te wskazują, że confidence scores dla poprawnych klasyfikacji są wyższe niż dla niepoprawnych w obu modelach, co jest oczekiwane, 
-ponieważ modele mają większą pewność przy poprawnych decyzjach. Jednakże, spadki confidence scores dla małych obiektów są bardziej wyraźne, 
-co może wynikać z większego udziału tła w tych obrazach, co prowadzi do większych zakłóceń i trudności w klasyfikacji.
+Wraz ze wzrostem wielkości obiektu na badanych zdjęcia wzrasta pewność obu modeli. Największy spadek pewności występuje dla małych obiektów.
 
-Porównując oba modele, ResNet wykazuje wyższe średnie confidence scores zarówno dla poprawnych, jak i niepoprawnych klasyfikacji w porównaniu 
-do ConvNeXt. To sugeruje, że ResNet jest bardziej pewny swoich decyzji, niezależnie od wielkości obiektu.
+Porównując oba modele, ResNet wykazuje wyższe średnie confidence scores zarówno dla poprawnych, jak i niepoprawnych klasyfikacji w porównaniu do ConvNeXt. To sugeruje, że ResNet jest bardziej pewny swoich decyzji, niezależnie od wielkości 
+obiektu.
 
 \section*{Wyniki względem typu modyfikacji tła}
 
-W tej sekcji przeanalizowano wpływ różnych typów modyfikacji tła na skuteczność klasyfikacji obrazów oraz wartości confidence scores dla dwóch 
-modeli głębokiego uczenia: ResNet i ConvNeXt. Analiza obejmuje metryki klasyfikacji takie jak accuracy, precision, recall i F1-score oraz 
-średnie wartości confidence scores zarówno dla poprawnych, jak i niepoprawnych klasyfikacji. Taka analiza jest kluczowa dla zrozumienia, jak 
-różne scenariusze modyfikacji tła wpływają na pewność i skuteczność modeli klasyfikacyjnych.
+W tej sekcji przeanalizowano wpływ różnych typów modyfikacji tła na skuteczność klasyfikacji obrazów. Obliczono również podstawowe metryki, pewności predykcji oraz przedstawiono macierze korelacji dla obu modeli. 
 
 \begin{table}
-	\centering
-	\begin{tabular}{|c|c|c|c|c|}
-		\hline
-		\textbf{Modification Type} & \textbf{Accuracy} & \textbf{Precision} & \textbf{Recall} & \textbf{F1-score} \\
-		\hline
-		Desert & 0.7582 & 0.956658 & 0.7582 & 0.844717 \\
-		\hline
-		Low Contrast & 0.7835 & 0.957333 & 0.7835 & 0.859445 \\
-		\hline
-		City & 0.7620 & 0.955729 & 0.7620 & 0.845955 \\
-		\hline
-		Sky & 0.7577 & 0.951998 & 0.7577 & 0.840614 \\
-		\hline
-		Jungle & 0.7736 & 0.952716 & 0.7736 & 0.846911 \\
-		\hline
-		No Foreground & 0.1935 & 0.857598 & 0.1935 & 0.260654 \\
-		\hline
-		High Contrast & 0.7757 & 0.952540 & 0.7757 & 0.852606 \\
-		\hline
-		Water & 0.7198 & 0.950886 & 0.7198 & 0.812003 \\
-		\hline
-		Snow & 0.7462 & 0.961568 & 0.7462 & 0.833842 \\
-		\hline
-		Indoor & 0.6990 & 0.950477 & 0.6990 & 0.801644 \\
-		\hline
-		Mountain & 0.6980 & 0.959372 & 0.6980 & 0.800749 \\
-		\hline
-	\end{tabular}
-	\caption{Metryki według typu modyfikacji dla ResNet}
-	\label{tab:resnet_metrics_modification}
+    \centering
+    \begin{tabular}{|c|c|c|c|c|}
+        \hline
+        \textbf{Modification Type} & \textbf{Accuracy} & \textbf{Precision} & \textbf{Recall} & \textbf{F1-score} \\
+        \hline
+        Desert & 0.7582 & 0.956658 & 0.7582 & 0.844717 \\
+        \hline
+        Low Contrast & 0.7835 & 0.957333 & 0.7835 & 0.859445 \\
+        \hline
+        City & 0.7620 & 0.955729 & 0.7620 & 0.845955 \\
+        \hline
+        Sky & 0.7577 & 0.951998 & 0.7577 & 0.840614 \\
+        \hline
+        Jungle & 0.7736 & 0.952716 & 0.7736 & 0.846911 \\
+        \hline
+        No Background & 0.7629 & 0.948944 & 0.7629 & 0.843935 \\
+        \hline
+        High Contrast & 0.7757 & 0.952540 & 0.7757 & 0.852606 \\
+        \hline
+        No Foreground & 0.1935 & 0.857598 & 0.1935 & 0.260654 \\
+        \hline
+        Water & 0.7198 & 0.950886 & 0.7198 & 0.812003 \\
+        \hline
+        Snow & 0.7462 & 0.961568 & 0.7462 & 0.833842 \\
+        \hline
+        Indoor & 0.6990 & 0.950477 & 0.6990 & 0.801644 \\
+        \hline
+        Mountain & 0.6980 & 0.959372 & 0.6980 & 0.800749 \\
+        \hline
+    \end{tabular}
+    \caption{Metryki według typu modyfikacji dla ResNet}
+    \label{tab:resnet_metrics_modification}
 \end{table}
 
 \begin{table}
@@ -374,113 +368,51 @@ różne scenariusze modyfikacji tła wpływają na pewność i skuteczność mod
 	\label{tab:convnext_confidence_scores_modification}
 \end{table}
 
-Analiza wyników pokazuje, że typ modyfikacji tła ma znaczący wpływ na skuteczność klasyfikacji obrazów oraz wartości confidence scores dla obu 
-modeli. Modele osiągały najwyższą skuteczność i pewność klasyfikacji w scenariuszach, gdzie tło było bardziej uporządkowane lub zawierało mniej 
-zakłócających elementów (np. "high", "low", "jungle"). Największe spadki skuteczności i pewności klasyfikacji obserwowano w scenariuszu "no", 
-gdzie tło było całkowicie usunięte, co sugeruje, że brak tła może utrudniać modelom identyfikację istotnych cech obiektów.
+Analiza wyników pokazuje, że typ modyfikacji tła ma znaczący wpływ na skuteczność klasyfikacji obrazów oraz wartości confidence scores dla obu modeli. Oba modele osiągały najlepsze wyniki głównie na modyfikacjach, które były jednokolorowe, a mianowicie na "no\_background", "high\_contrast"
+oraz "low\_contrast". W pierwszym przypadku tło było całkowicie czarne, a w pozostałych kolor był dobrany na podstawie dominujących kolorów w obiektach danej klasy. Najlepsze wyniki oba modele uzyskały na tle o kolorze niskokontrastowym do obiektu. Zarówno ResNet jak i ConvNext
+osiągneły nieco gorsze wyniki dla sceneri wodnej, wnętrza domu oraz scenerii górzystej. Dokładne wartośći można zaobserwawać w tabelach \ref*{resnet_confidence_scores_modification} oraz \ref*{convnext_metrics_modification}. Wyższa dokładność na modyfikacjach jednokolorowych prawdopodobnie wynika z powodu mniejszej liczby elementów na 
+zdjęciach, które mogą być mylące dla modeli. Oba modele poardziły sobie fatalnie w sytuacji gdy ze zdjęcia został usunięty obiekt i pozostawione zostało tło, jednak model ConvNext był bardziej odporny i lepiej radził sobie z analizowaniem samego pozostawionego kształtu obiektu. Dla modelu
+ConvNeXt jedyną modyfikacją (poza usunięciem obiektu), na której uzyskał wartość dokładnośći poniżej 80 \% jest sceneria z wnętrznem domu. Wysoką wartość accuracy uzyskała również sceneria dżungli dla obu modeli, może to wynikać z faktu iż ta sceneria posiada dużo zielonych roślin,
+które często mogą występować przy rzeczywistych zdjęciach wybranych zwierząt.
 
-Wyniki te podkreślają znaczenie uwzględniania różnych typów tła podczas trenowania i oceny modeli klasyfikacyjnych. Zrozumienie, jak różne 
-modyfikacje tła wpływają na skuteczność i pewność klasyfikacji, może prowadzić do opracowania bardziej odpornych modeli, które lepiej radzą 
-sobie w zróżnicowanych warunkach. Dalsze badania mogą skoncentrować się na metodach augmentacji danych, które mogą poprawić wydajność modeli w 
-scenariuszach z różnorodnymi tłami.
-\begin{figure}
-	\centering\includegraphics[width=.9\textwidth]{img/korelacja_resnet_typ}
-	\caption{Tabela korelacji dla ResNet dla typów modyfikacji}  
-    \label{rys:corelation_resnet_type}
-\end{figure}
+Jeżeli chodzi o pewnośc modeli co do swoich decyzji to, dla modelu ResNet oscylowała w okolicach 70-75 \% dla wszystkich modyfikacji, poza scenariuszem usunięcia obiektu ze zdjęcia gdzie wyniosła 40 \%. Model ConvNext posiada mniejszą pewność, która wynosi około 60 \% oraz 40 \% dla 
+sytuacji bez obiektu.
 
-Macierz korelacji dla modelu ResNet pokazuje, jak różne typy modyfikacji tła wpływają 
-na wzajemne relacje między wskaźnikami skuteczności (accuracy). Typy modyfikacji 
-takie jak "desert", "low", "city", "sky", "high" i "water" wykazują wysoką dodatnią 
-korelację między sobą (od 0.67 do 0.80). Oznacza to, że jeżeli model osiąga wysoką 
-skuteczność w jednym z tych scenariuszy, prawdopodobnie osiągnie też wysoką 
-skuteczność w innych złożonych scenariuszach tła. Z kolei scenariusz "no" 
-(bez obiektu, tylko tło) wykazuje niską lub ujemną korelację z innymi typami 
-modyfikacji, z korelacjami wahającymi się od -0.13 do 0.12. To wskazuje, że obecność 
-tylko tła, bez obiektu, ma zupełnie odmienny wpływ na skuteczność modelu w porównaniu 
-do innych scenariuszy tła. Wysoka korelacja (0.80) między "low" a "high" sugeruje, 
-że model działa podobnie w obu tych typach modyfikacji, które mimo różnic w 
-strukturze tła mają podobny wpływ na jego skuteczność.
-
-Macierz korelacji dla modelu ConvNeXt również pokazuje, jak różne typy modyfikacji 
-tła wpływają na wzajemne relacje między wskaźnikami skuteczności (accuracy). 
-Typy modyfikacji takie jak "desert", "low", "city", "sky", "jungle", "high", "water", 
-"snow" i "mountain" wykazują wysoką dodatnią korelację (od 0.64 do 0.81). 
-Sugeruje to, że model ConvNeXt ma zdolność adaptacji do różnych złożonych środowisk, 
-osiągając zbliżone wyniki w różnych warunkach tła. Z kolei scenariusz "no" 
-(bez obiektu, tylko tło) wykazuje ujemną korelację z innymi typami modyfikacji, 
-szczególnie z "desert", "city" i "mountain" (od -0.17 do -0.15), co oznacza, że 
-obecność tylko tła znacząco obniża skuteczność modelu ConvNeXt. Wysoka korelacja 
-(0.81) między "low" a "high", podobnie jak w modelu ResNet, sugeruje, że ConvNeXt 
-działa dobrze w scenariuszach z minimalnymi zakłóceniami w tle. Jednak model ten 
-wykazuje również wysoką korelację między "city" a "mountain" (0.80), co wskazuje na 
-jego zdolność do adaptacji w bardziej różnorodnych i strukturalnych warunkach tła.
-
-\begin{figure}
-	\centering\includegraphics[width=.9\textwidth]{img/korelacja_convnext_typ}
-	\caption{Tabela korelacji dla ConvNeXt dla typów modyfikacji}  
-    \label{rys:corelation_convnext_type}
-\end{figure}
+Wyniki te podkreślają znaczenie uwzględniania różnych typów tła podczas trenowania i oceny modeli klasyfikacyjnych. Zrozumienie, jak różne modyfikacje tła wpływają na skuteczność i pewność klasyfikacji, może prowadzić do opracowania bardziej odpornych modeli, które lepiej radzą 
+sobie w zróżnicowanych warunkach. Dalsze badania mogą skoncentrować się na metodach augmentacji danych, które mogą poprawić wydajność modeli w scenariuszach z różnorodnymi tłami. Tła o mniejszej ilości rozpraszających elementów lub te przypominające naturalne warunki występowania zwięrzat
+na rzeczywistych zdjęciach radziły sobie lepiej z problemem klasyfikacji. 
 
 \section*{Wyniki względem klas}
 
-W niniejszym podrozdziale przedstawiono wyniki badań dotyczących wpływu tła na skuteczność klasyfikacji obrazów przy użyciu 
-dwóch modeli głębokiego uczenia: ResNet i ConvNeXt. Celem badań było zrozumienie, jak różne modyfikacje tła wpływają na 
-dokładność (accuracy), średnią pewność klasyfikacji (avg confidence scores) oraz jakie obiekty są najczęściej mylnie 
-klasyfikowane w wyniku tych zmian. Badania obejmowały analizę dziesięciu różnych klas obiektów, takich jak "ram, tup", 
-"Greater Swiss Mountain dog", "hummingbird", "Egyptian cat", "bighorn sheep", "Old English sheepdog", "Persian cat", "junco, 
-snowbird", "German shepherd" i "American robin".
-
-Eksperymenty przeprowadzono poprzez modyfikowanie tła obrazów w różnych warunkach, takich jak "desert", "low contrast", 
-"city", "sky", "jungle", "no background", "high contrast", "no foreground", "water", "snow", "indoor" oraz "mountain". 
-Następnie, zbadano wpływ tych modyfikacji na skuteczność obu modeli, oceniając dokładność klasyfikacji oraz średnią pewność 
-modeli. Dodatkowo, analizowano również najczęściej mylnie klasyfikowane obiekty dla każdej z modyfikacji, co pozwalało 
-zidentyfikować potencjalne słabości obu modeli w kontekście różnorodnych warunków tła.
-
-Wyniki przedstawione w tabelach stanowią podstawę do dalszej analizy, która pomoże zrozumieć, jak modyfikacje tła wpływają na 
-wydajność modeli głębokiego uczenia oraz jakie są najczęstsze błędy klasyfikacji. W kolejnych sekcjach przedstawione zostaną 
-szczegółowe wnioski dla każdej z analizowanych klas obiektów, bazując na uzyskanych wynikach.
+W niniejszym podrozdziale przedstawiono wyniki badań dotyczących wpływu tła na skuteczność klasyfikacji względem już konkretnych klas. W tych badaniach skupiono się na analizie średniej dokładności oraz średniej pewności względem typu modyfiakcji dla każdej klasy osobno. Sprawdzano 
+również jakie błędy są najczęściej podejmowane, czyli z jaką klasą jest najczęściej mylona. Badania obejmowały analizę dziesięciu różnych klas obiektów, takich jak "ram, tup", "Greater Swiss Mountain dog", "hummingbird", "Egyptian cat", "bighorn sheep", "Old English sheepdog", 
+"Persian cat", "junco, snowbird", "German shepherd" i "American robin". Klasy te reprezentują trzy rasy psów, dwie rasy kotów, trzy rasy ptaków oraz dwie rasy owiec. 
 
 \section*{Wnioski dla klasy 348 (ram, tup)}
 
-Na podstawie wyników przedstawionych w Tabeli 11 i Tabeli 12, można wyciągnąć następujące wnioski dotyczące wpływu różnych 
+Na podstawie wyników dwóch modeli przedstawionych w \ref*{metrics_confidence_class_348_resnet} i \ref*{metrics_confidence_class_348_convnext}, można wyciągnąć następujące wnioski dotyczące wpływu różnych 
 modyfikacji tła na klasyfikację klasy 348 (ram, tup) przy użyciu modeli ResNet i ConvNeXt:
 
 \subsection*{Model ResNet}
 
-Model ResNet osiągnął wysoką dokładność 0.781 na oryginalnych obrazach, co wskazuje na jego skuteczność w klasyfikacji klasy 
-348 w standardowych warunkach. Średnia pewność wynosiła 80.888742, co jest stosunkowo wysoką wartością, potwierdzającą pewność 
-modelu przy klasyfikacji.
+Model ResNet osiągnął dosyć niską dokładność 0.781 na oryginalnych obrazach, co wskazuje na dosyć problematyczną klasę. Średnia pewność wynosiła 80.888742, co jest stosunkowo wysoką wartością, potwierdzającą pewność modelu przy klasyfikacji. Najczęściej myloną klasą była klasa 
+"Bighorn sheep" dla wszystkich typów modyfikacji. Te dwie klasy są niemal identyczne nawet dla ludzkiego oka, co można zaobserwować na \ref*{348}.
 
-Jednakże, znaczący spadek dokładności został zanotowany przy modyfikacjach tła. Najniższa dokładność została zanotowana przy 
-modyfikacji "No Foreground" (0.136), co wskazuje na dużą trudność modelu w klasyfikacji obiektów bez tła. Inne modyfikacje, 
-takie jak "Desert" (0.662), "Low Contrast" (0.637), i "City" (0.691), również znacząco obniżyły dokładność modelu, co sugeruje, 
-że zmiany w tle mogą negatywnie wpływać na wydajność modelu.
+Dla większości modyfikacji wartości accuracy się obniżyły. Dla jednego typu modyfikacji udało się polepszeć metrykę dokładności o około 5 punktów procentowych, a mianowicie dla scenerii dżungli. Największe spadki uzsykano dla scenerii górzystych i śnieżnych, dla których znacznie wzrosła
+liczba przypadków gdzie pomylono się z klasą "bighorn sheep". Podejrzewam, że tereny górzyste czy śnieżne są miejscem, w którym klasa "bighorn sheep" znajduję się częsciej niż przewidywana klasa "ram, tup", natomiast sceneria dżungli pomaga modelowi rozróżnić te dwie klasy, gdzie
+liczba pomyłek jest znacznie niższa.
 
-Model najczęściej mylił klasę 348 z "Bighorn, bighorn sheep" przy większości modyfikacji tła. Wyjątek stanowiła modyfikacja 
-"No Foreground", gdzie model najczęściej mylił klasę z "American black bear, black bear".
+
+\begin{figure}
+	\centering\includegraphics[width=.9\textwidth]{img/348}
+	\caption{Po lewej "ram, tup" (true\_class), natomiast po prawej "bighorn sheep"}
+	\label{rys:348}
+\end{figure}
 
 \subsection*{Model ConvNeXt}
 
-Model ConvNeXt osiągnął wyższą dokładność (0.801) na oryginalnych obrazach w porównaniu do ResNet, co sugeruje lepszą 
-wydajność w standardowych warunkach. Średnia pewność wynosiła 64.573134, co jest niższą wartością w porównaniu do ResNet, 
-ale nadal stosunkowo wysoką.
-
-Podobnie jak w przypadku ResNet, modyfikacja "No Foreground" znacząco obniżyła dokładność modelu ConvNeXt (0.274). 
-Inne modyfikacje, takie jak "Desert" (0.589) i "City" (0.604), również wpłynęły negatywnie na dokładność, choć model ConvNeXt 
-radził sobie nieco lepiej niż ResNet w tych warunkach.
-
-Podobnie jak w przypadku ResNet, model ConvNeXt najczęściej mylił klasę 348 z "Bighorn, bighorn sheep" przy większości 
-modyfikacji tła. Wyjątek stanowiła modyfikacja "No Foreground", gdzie model najczęściej mylił klasę z "American black bear, 
-black bear".
-
-\subsection*{Podsumowanie}
-
-Oba modele, ResNet i ConvNeXt, wykazały wysoką skuteczność w klasyfikacji klasy 348 (ram, tup) na oryginalnych obrazach. 
-Jednakże, modyfikacje tła, takie jak "Desert", "Low Contrast", i "No Foreground", znacząco obniżyły dokładność klasyfikacji. 
-Modele najczęściej myliły klasę 348 z "Bighorn, bighorn sheep" przy większości modyfikacji tła. Wyniki te sugerują, że tło ma 
-istotny wpływ na wydajność modeli klasyfikacyjnych, a modyfikacje tła mogą wprowadzać znaczące trudności w prawidłowej 
-klasyfikacji.
+Model ConvNeXt osiągnął nieco wyższą dokładność dla oryginalnych zdjęć niż ResNet, lecz nie udało się uzyskać lepszych metryk dla żadnej modyfikacji. Spośród modyfikacji wyniki również były najlepsze dla scenerii dżungli oraz wody, podobnie jak dla wcześniejszego modelu. Relatywnie 
+wysokie wartości uzyskano także dla tła o niskim kontraście. Ten model zdecydowanie był bardziej wrażliwy na modyfikację tła, ponieważ w większej liczbie kategorii uzyskał znacznie gorsze wyniki. Więcej typów modyfikacji przyczyniło się do pomyłki z klasą "bighorn sheep". 
 
 \begin{table}
 	\centering
@@ -558,28 +490,25 @@ klasyfikacji.
 
 \section*{Wnioski dla klasy 238 (Greater Swiss Mountain dog)}
 
-Na podstawie wyników przedstawionych w Tabeli X i Tabeli Y, można wyciągnąć następujące wnioski dotyczące wpływu różnych modyfikacji tła na klasyfikację klasy 238 (Greater Swiss Mountain dog) przy użyciu modeli ResNet i ConvNeXt:
+Na podstawie wyników dwóch modeli przedstawionych w \ref*{metrics_confidence_class_238_resnet} i \ref*{metrics_confidence_class_238_convnext}, można wyciągnąć następujące wnioski dotyczące wpływu różnych 
+modyfikacji tła na klasyfikację klasy 238 (Greater Swiss Mountain dog) przy użyciu modeli ResNet i ConvNeXt:
 
 \subsection*{Model ResNet}
 
-Model ResNet osiągnął wysoką dokładność 0.746 na oryginalnych obrazach, co wskazuje na jego skuteczność w klasyfikacji klasy 238 w standardowych warunkach. Średnia pewność wynosiła 69.254460, co jest stosunkowo wysoką wartością, potwierdzającą pewność modelu przy klasyfikacji.
+Dla modelu ResNet udało się minimalnie polepszyć wyniki klasyfikacji dla trzech scenerii: pustynnej, śnieżnej oraz wnętrza domu, dla reszty modyfikacji wyniki były gorsze. Model najczęściej mylił się z dwoma klasami, w zależności od typu modyfikacji. Wszystkie trzy klasy są bardzo do siebie
+podobne co można zaobserwować na rysunku \ref*{238}  
 
-Znaczący spadek dokładności został zanotowany przy modyfikacjach tła. Najniższa dokładność została zanotowana przy modyfikacji "No Foreground" (0.009), co wskazuje na dużą trudność modelu w klasyfikacji obiektów bez tła. Inne modyfikacje, takie jak "Desert" (0.751), "Low Contrast" (0.628), i "City" (0.720), również obniżyły dokładność modelu, co sugeruje, że zmiany w tle mogą negatywnie wpływać na wydajność modelu.
-
-Model najczęściej mylił klasę 238 z "EntleBucher" przy większości modyfikacji tła. Wyjątek stanowiła modyfikacja "No Foreground", gdzie model najczęściej mylił klasę z "American black bear, black bear".
+\begin{figure}
+	\centering\includegraphics[width=.9\textwidth]{img/238}
+	\caption{Od lewej "Greater Swiss Mountain dog" (true\_class), "Appenzeller", "EntleBucher"}
+	\label{rys:238}
+\end{figure}
 
 \subsection*{Model ConvNeXt}
 
-Model ConvNeXt osiągnął wyższą dokładność (0.918) na oryginalnych obrazach w porównaniu do ResNet, co sugeruje lepszą wydajność w standardowych warunkach. Średnia pewność wynosiła 67.297499, co jest niższą wartością w porównaniu do ResNet, ale nadal stosunkowo wysoką.
-
-Podobnie jak w przypadku ResNet, modyfikacja "No Foreground" znacząco obniżyła dokładność modelu ConvNeXt (0.036). Inne modyfikacje, takie jak "Desert" (0.812) i "City" (0.604), również wpłynęły negatywnie na dokładność, choć model ConvNeXt radził sobie nieco lepiej niż ResNet w tych warunkach.
-
-Podobnie jak w przypadku ResNet, model ConvNeXt najczęściej mylił klasę 238 z "EntleBucher" przy większości modyfikacji tła. Wyjątek stanowiła modyfikacja "No Foreground", gdzie model najczęściej mylił klasę z "American black bear, black bear".
-
-\subsection*{Podsumowanie}
-
-Oba modele, ResNet i ConvNeXt, wykazały wysoką skuteczność w klasyfikacji klasy 238 (Greater Swiss Mountain dog) na oryginalnych obrazach. Jednakże, modyfikacje tła, takie jak "Desert", "Low Contrast", i "No Foreground", znacząco obniżyły dokładność klasyfikacji. Modele najczęściej myliły klasę 238 z "EntleBucher" przy większości modyfikacji tła. Wyniki te sugerują, że tło ma istotny wpływ na wydajność modeli klasyfikacyjnych, a modyfikacje tła mogą wprowadzać znaczące trudności w prawidłowej klasyfikacji.
-
+Model o nowszej architekturze znacznie lepiej poradził sobie w przypadku tej klasy. Wynik dokładności polepszył się o około 15 punktów procentowych. Jeżeli chodzi o modyfiakcje, to dla wszystkich uzyskano gorsze wyniki, szczególnie dla scenerii nieba oraz modyfikacji o wysokim kontraście, gdzie
+metryki spadły poniżej 80\%. Podobnie jak wcześniej najczęstsze pomyłki dzieliły się między podobne rasy psów Appenzeller oraz EntleBucher. Ciekawym zjawiskiem jest najczęstsza pomyłka tego modelu dla scenerii wnętrza domu, gdzie model najczęściej mylił sie klasyfikując zdjęcie jako
+półkę z książkami. Dowodzi to że różne niechciane obiekty znajdujące się w tle mogą zakłócać proces klasyfikacji. 
 
 \begin{table}
 	\centering
@@ -655,29 +584,28 @@ Oba modele, ResNet i ConvNeXt, wykazały wysoką skuteczność w klasyfikacji kl
 	\label{tab:metrics_confidence_class_238_convnext}
 \end{table}
 
-\section*{Wnioski dla klasy 94 (hummingbird)}
+\section*{Wnioski dla klasy 94 (Hummingbird)}
 
-Na podstawie wyników przedstawionych w Tabeli X i Tabeli Y, można wyciągnąć następujące wnioski dotyczące wpływu różnych modyfikacji tła na klasyfikację klasy 94 (hummingbird) przy użyciu modeli ResNet i ConvNeXt:
+Na podstawie wyników dwóch modeli przedstawionych w \ref*{metrics_confidence_class_94_resnet} i \ref*{metrics_confidence_class_94_convnext}, można wyciągnąć następujące wnioski dotyczące wpływu różnych 
+modyfikacji tła na klasyfikację klasy 94 (Hummingbird) przy użyciu modeli ResNet i ConvNeXt:
 
 \subsection*{Model ResNet}
 
-Model ResNet osiągnął wysoką dokładność 0.963 na oryginalnych obrazach, co wskazuje na jego skuteczność w klasyfikacji klasy 94 w standardowych warunkach. Średnia pewność wynosiła 95.023629, co jest bardzo wysoką wartością, potwierdzającą pewność modelu przy klasyfikacji.
+Model ResNet okazał się bardzo podatny na niektóre typy modyfikacji, szczególnie dla scenerii wodnych, śnieżnych, górzystych oraz wnętrza domu. Dokładność dla tych modyfikacji spadła do około 50\% z poziomu oryginalnej wartości 96\%. Ciekawym zjawiskiem było częste mylenie zdjęć kolibra z krajobrazem "seashore" oraz
+"lakeshore" dla modyfikacji o scenerii pustynnej oraz górzystej. W tych dwóch przypadkach porządany obiekt jakim był koliber, został potraktowany przez model jako element większej scenerii jaką są krajobrazy. Na rysynku \ref*{94} można zaobserwować przykładowe zdjęcie po modyfikacji "desert",
+oraz przykładowe zdjęcia z klasy "lakeshore" oraz "seashore". Jeżeli chodzi o scenerie wodną model aż w 15\% przypadków pomylił się z klasą "Albatross", która znacznie różni się wyglądem od klasy "hummingbird", przypominającej wyglądem mewę. Jest to ptak wodny, fotografowany często z tłem wody.
+Pokazuję to jaką istotną rolę pełni tło w procesie klasyfikacji. Mimo wyraźnych róźnic w wyglądzie ptaków udało się nakłonić model do pomyłek poprzez prostą zmianę tła na wodne.
 
-Znaczący spadek dokładności został zanotowany przy modyfikacjach tła. Najniższa dokładność została zanotowana przy modyfikacji "No Foreground" (0.744), co wskazuje na dużą trudność modelu w klasyfikacji obiektów bez tła. Inne modyfikacje, takie jak "Desert" (0.677), "Low Contrast" (0.836), i "City" (0.649), również obniżyły dokładność modelu, co sugeruje, że zmiany w tle mogą negatywnie wpływać na wydajność modelu.
-
-Model najczęściej mylił klasę 94 z "Jacamar" przy większości modyfikacji tła. Wyjątek stanowiła modyfikacja "No Foreground", gdzie model najczęściej mylił klasę z "American black bear, black bear".
+\begin{figure}
+	\centering\includegraphics[width=.9\textwidth]{img/94}
+	\caption{Od lewej "hummingbird", "lakeshore", "seashore"}
+	\label{rys:94}
+\end{figure}
 
 \subsection*{Model ConvNeXt}
 
-Model ConvNeXt osiągnął wyższą dokładność (0.995) na oryginalnych obrazach w porównaniu do ResNet, co sugeruje lepszą wydajność w standardowych warunkach. Średnia pewność wynosiła 72.907262, co jest niższą wartością w porównaniu do ResNet, ale nadal stosunkowo wysoką.
-
-Podobnie jak w przypadku ResNet, modyfikacja "No Foreground" znacząco obniżyła dokładność modelu ConvNeXt (0.460). Inne modyfikacje, takie jak "Desert" (0.805) i "City" (0.604), również wpłynęły negatywnie na dokładność, choć model ConvNeXt radził sobie nieco lepiej niż ResNet w tych warunkach.
-
-Podobnie jak w przypadku ResNet, model ConvNeXt najczęściej mylił klasę 94 z "Jacamar" przy większości modyfikacji tła. Wyjątek stanowiła modyfikacja "No Foreground", gdzie model najczęściej mylił klasę z "American black bear, black bear".
-
-\subsection*{Podsumowanie}
-
-Oba modele, ResNet i ConvNeXt, wykazały wysoką skuteczność w klasyfikacji klasy 94 (hummingbird) na oryginalnych obrazach. Jednakże, modyfikacje tła, takie jak "Desert", "Low Contrast", i "No Foreground", znacząco obniżyły dokładność klasyfikacji. Modele najczęściej myliły klasę 94 z "Jacamar" przy większości modyfikacji tła. Wyniki te sugerują, że tło ma istotny wpływ na wydajność modeli klasyfikacyjnych, a modyfikacje tła mogą wprowadzać znaczące trudności w prawidłowej klasyfikacji.
+Model ConvNeXt okazał się zdecydowanie bardziej odporny na modyfikację w kontekście tej klasy. Ciekawym zjawiskiem było częste (15\%) klasyfikowanie ptaka jako wielbłąda dla scenerii pustynnych, co ponownie pokazuję istotny wpływ tła na klasyfikację. Model również traktował inne obiekty 
+na zdjęciach jako te porządane, np. dla scenerii miejskiej często klasyfikował zdjęcia tej klasy jako sygnalizacje swietlną, co może wynikać z wysokiego prawdopodobieństwa, że model podczas uczenia widział zdjęcia sygnalizacji świetlnej, na których również występowały ptaki. 
 
 \begin{table}
 	\centering
@@ -755,27 +683,22 @@ Oba modele, ResNet i ConvNeXt, wykazały wysoką skuteczność w klasyfikacji kl
 
 \section*{Wnioski dla klasy 285 (Egyptian cat)}
 
-Na podstawie wyników przedstawionych w Tabeli X i Tabeli Y, można wyciągnąć następujące wnioski dotyczące wpływu różnych modyfikacji tła na klasyfikację klasy 285 (Egyptian cat) przy użyciu modeli ResNet i ConvNeXt:
+Na podstawie wyników dwóch modeli przedstawionych w \ref*{metrics_confidence_class_285_resnet} i \ref*{metrics_confidence_class_238_convnext}, można wyciągnąć następujące wnioski dotyczące wpływu różnych 
+modyfikacji tła na klasyfikację klasy 285 (Egyptian cat) przy użyciu modeli ResNet i ConvNeXt:
 
 \subsection*{Model ResNet}
 
-Model ResNet osiągnął wysoką dokładność 0.782 na oryginalnych obrazach, co wskazuje na jego skuteczność w klasyfikacji klasy 285 w standardowych warunkach. Średnia pewność wynosiła 73.471966, co jest stosunkowo wysoką wartością, potwierdzającą pewność modelu przy klasyfikacji.
+Dla 5 typów modyfikacji uzyskano lepsze wyniki niż dla oryginalnych zdjęć. W przypadku pozostawienia tła czarnego poprawiono dokładność aż o 7 punktów procentowych, z 78\% do 85\%. Najczęściej myloną klasą, prawie dla każdej modyfikacji była klasas "Tabby cat", która podobnie jak
+we wcześniejszym przypadku jest bardzo podobna do klasy przewidywanej. Ciekawym zauważonym zjawiskiem była pomyłka modelu dla scenerii śnieżnej oraz dżungli, gdzie pomylono się na klasę "Tiger cat". Po analizie dostępnych zdjęć treningowych dla klasy tiger cat zauważyłem, że w ich skład 
+wchodzą zarówno zdjęcia przedstawiające kota domowego jak i zdjęcia tygrysa. Przykłady zdjęć widnieją na obrazku \ref*{label}
 
-Znaczący spadek dokładności został zanotowany przy modyfikacjach tła. Najniższa dokładność została zanotowana przy modyfikacji "No Foreground" (0.260), co wskazuje na dużą trudność modelu w klasyfikacji obiektów bez tła. Inne modyfikacje, takie jak "Desert" (0.825), "Low Contrast" (0.821), i "City" (0.763), również obniżyły dokładność modelu, co sugeruje, że zmiany w tle mogą negatywnie wpływać na wydajność modelu.
-
-Model najczęściej mylił klasę 285 z "Tabby, tabby cat" przy większości modyfikacji tła. Wyjątek stanowiła modyfikacja "No Foreground", gdzie model najczęściej mylił klasę z "Quilt, comforter".
+\begin{figure}
+	\centering\includegraphics[width=.9\textwidth]{img/285}
+	\caption{}
+	\label{rys:285}
+\end{figure}
 
 \subsection*{Model ConvNeXt}
-
-Model ConvNeXt osiągnął wyższą dokładność (0.875) na oryginalnych obrazach w porównaniu do ResNet, co sugeruje lepszą wydajność w standardowych warunkach. Średnia pewność wynosiła 67.470651, co jest niższą wartością w porównaniu do ResNet, ale nadal stosunkowo wysoką.
-
-Podobnie jak w przypadku ResNet, modyfikacja "No Foreground" znacząco obniżyła dokładność modelu ConvNeXt (0.301). Inne modyfikacje, takie jak "Desert" (0.840) i "City" (0.788), również wpłynęły negatywnie na dokładność, choć model ConvNeXt radził sobie nieco lepiej niż ResNet w tych warunkach.
-
-Podobnie jak w przypadku ResNet, model ConvNeXt najczęściej mylił klasę 285 z "Tabby, tabby cat" przy większości modyfikacji tła. Wyjątek stanowiła modyfikacja "No Foreground", gdzie model najczęściej mylił klasę z "Schipperke".
-
-\subsection*{Podsumowanie}
-
-Oba modele, ResNet i ConvNeXt, wykazały wysoką skuteczność w klasyfikacji klasy 285 (Egyptian cat) na oryginalnych obrazach. Jednakże, modyfikacje tła, takie jak "Desert", "Low Contrast", i "No Foreground", znacząco obniżyły dokładność klasyfikacji. Modele najczęściej myliły klasę 285 z "Tabby, tabby cat" przy większości modyfikacji tła. Wyniki te sugerują, że tło ma istotny wpływ na wydajność modeli klasyfikacyjnych, a modyfikacje tła mogą wprowadzać znaczące trudności w prawidłowej klasyfikacji.
 
 
 \begin{table}
@@ -858,23 +781,9 @@ Na podstawie wyników przedstawionych w Tabeli X i Tabeli Y, można wyciągnąć
 
 \subsection*{Model ResNet}
 
-Model ResNet osiągnął wysoką dokładność 0.857 na oryginalnych obrazach, co wskazuje na jego skuteczność w klasyfikacji klasy 349 w standardowych warunkach. Średnia pewność wynosiła 76.879462, co jest stosunkowo wysoką wartością, potwierdzającą pewność modelu przy klasyfikacji.
-
-Znaczący spadek dokładności został zanotowany przy modyfikacjach tła. Najniższa dokładność została zanotowana przy modyfikacji "No Foreground" (0.300), co wskazuje na dużą trudność modelu w klasyfikacji obiektów bez tła. Inne modyfikacje, takie jak "Desert" (0.644), "Low Contrast" (0.707), i "City" (0.583), również obniżyły dokładność modelu, co sugeruje, że zmiany w tle mogą negatywnie wpływać na wydajność modelu.
-
-Model najczęściej mylił klasę 349 z "Ram, tup" przy większości modyfikacji tła. Wyjątek stanowiła modyfikacja "No Foreground", gdzie model najczęściej mylił klasę z "American black bear, black bear".
 
 \subsection*{Model ConvNeXt}
 
-Model ConvNeXt osiągnął wyższą dokładność (0.908) na oryginalnych obrazach w porównaniu do ResNet, co sugeruje lepszą wydajność w standardowych warunkach. Średnia pewność wynosiła 56.144302, co jest niższą wartością w porównaniu do ResNet, ale nadal stosunkowo wysoką.
-
-Podobnie jak w przypadku ResNet, modyfikacja "No Foreground" znacząco obniżyła dokładność modelu ConvNeXt (0.369). Inne modyfikacje, takie jak "Desert" (0.739) i "City" (0.604), również wpłynęły negatywnie na dokładność, choć model ConvNeXt radził sobie nieco lepiej niż ResNet w tych warunkach.
-
-Podobnie jak w przypadku ResNet, model ConvNeXt najczęściej mylił klasę 349 z "Ram, tup" przy większości modyfikacji tła. Wyjątek stanowiła modyfikacja "No Foreground", gdzie model najczęściej mylił klasę z "American black bear, black bear".
-
-\subsection*{Podsumowanie}
-
-Oba modele, ResNet i ConvNeXt, wykazały wysoką skuteczność w klasyfikacji klasy 349 (Bighorn sheep) na oryginalnych obrazach. Jednakże, modyfikacje tła, takie jak "Desert", "Low Contrast", i "No Foreground", znacząco obniżyły dokładność klasyfikacji. Modele najczęściej myliły klasę 349 z "Ram, tup" przy większości modyfikacji tła. Wyniki te sugerują, że tło ma istotny wpływ na wydajność modeli klasyfikacyjnych, a modyfikacje tła mogą wprowadzać znaczące trudności w prawidłowej klasyfikacji.
 
 
 \begin{table}
@@ -957,23 +866,9 @@ Na podstawie wyników przedstawionych w Tabeli X i Tabeli Y, można wyciągnąć
 
 \subsection*{Model ResNet}
 
-Model ResNet osiągnął wysoką dokładność 0.941 na oryginalnych obrazach, co wskazuje na jego skuteczność w klasyfikacji klasy 229 w standardowych warunkach. Średnia pewność wynosiła 88.632230, co jest stosunkowo wysoką wartością, potwierdzającą pewność modelu przy klasyfikacji.
-
-Znaczący spadek dokładności został zanotowany przy modyfikacjach tła. Najniższa dokładność została zanotowana przy modyfikacji "No Foreground" (0.071), co wskazuje na dużą trudność modelu w klasyfikacji obiektów bez tła. Inne modyfikacje, takie jak "Desert" (0.801), "Low Contrast" (0.785), i "City" (0.765), również obniżyły dokładność modelu, co sugeruje, że zmiany w tle mogą negatywnie wpływać na wydajność modelu.
-
-Model najczęściej mylił klasę 229 z "Tibetan terrier, chrysanthemum dog" przy większości modyfikacji tła. Wyjątek stanowiła modyfikacja "No Foreground", gdzie model najczęściej mylił klasę z "American black bear, black bear".
 
 \subsection*{Model ConvNeXt}
 
-Model ConvNeXt osiągnął wyższą dokładność (0.987) na oryginalnych obrazach w porównaniu do ResNet, co sugeruje lepszą wydajność w standardowych warunkach. Średnia pewność wynosiła 74.735155, co jest niższą wartością w porównaniu do ResNet, ale nadal stosunkowo wysoką.
-
-Podobnie jak w przypadku ResNet, modyfikacja "No Foreground" znacząco obniżyła dokładność modelu ConvNeXt (0.109). Inne modyfikacje, takie jak "Desert" (0.871) i "City" (0.882), również wpłynęły negatywnie na dokładność, choć model ConvNeXt radził sobie nieco lepiej niż ResNet w tych warunkach.
-
-Podobnie jak w przypadku ResNet, model ConvNeXt najczęściej mylił klasę 229 z "Tibetan terrier, chrysanthemum dog" przy większości modyfikacji tła. Wyjątek stanowiła modyfikacja "No Foreground", gdzie model najczęściej mylił klasę z "Newfoundland, Newfoundland dog".
-
-\subsection*{Podsumowanie}
-
-Oba modele, ResNet i ConvNeXt, wykazały wysoką skuteczność w klasyfikacji klasy 229 (Old English sheepdog) na oryginalnych obrazach. Jednakże, modyfikacje tła, takie jak "Desert", "Low Contrast", i "No Foreground", znacząco obniżyły dokładność klasyfikacji. Modele najczęściej myliły klasę 229 z "Tibetan terrier, chrysanthemum dog" przy większości modyfikacji tła. Wyniki te sugerują, że tło ma istotny wpływ na wydajność modeli klasyfikacyjnych, a modyfikacje tła mogą wprowadzać znaczące trudności w prawidłowej klasyfikacji.
 
 
 \begin{table}
@@ -1056,23 +951,9 @@ Na podstawie wyników przedstawionych w Tabeli X i Tabeli Y, można wyciągnąć
 
 \subsection*{Model ResNet}
 
-Model ResNet osiągnął wysoką dokładność 0.964 na oryginalnych obrazach, co wskazuje na jego skuteczność w klasyfikacji klasy 283 w standardowych warunkach. Średnia pewność wynosiła 93.028729, co jest bardzo wysoką wartością, potwierdzającą pewność modelu przy klasyfikacji.
-
-Znaczący spadek dokładności został zanotowany przy modyfikacjach tła. Najniższa dokładność została zanotowana przy modyfikacji "No Foreground" (0.025), co wskazuje na dużą trudność modelu w klasyfikacji obiektów bez tła. Inne modyfikacje, takie jak "Desert" (0.848), "Low Contrast" (0.855), i "City" (0.877), również obniżyły dokładność modelu, co sugeruje, że zmiany w tle mogą negatywnie wpływać na wydajność modelu.
-
-Model najczęściej mylił klasę 283 z "Angora, Angora rabbit" przy większości modyfikacji tła. Wyjątek stanowiła modyfikacja "No Foreground", gdzie model najczęściej mylił klasę z "Quilt, comforter".
 
 \subsection*{Model ConvNeXt}
 
-Model ConvNeXt osiągnął wyższą dokładność (0.991) na oryginalnych obrazach w porównaniu do ResNet, co sugeruje lepszą wydajność w standardowych warunkach. Średnia pewność wynosiła 75.141474, co jest niższą wartością w porównaniu do ResNet, ale nadal stosunkowo wysoką.
-
-Podobnie jak w przypadku ResNet, modyfikacja "No Foreground" znacząco obniżyła dokładność modelu ConvNeXt (0.061). Inne modyfikacje, takie jak "Desert" (0.914) i "City" (0.936), również wpłynęły negatywnie na dokładność, choć model ConvNeXt radził sobie nieco lepiej niż ResNet w tych warunkach.
-
-Podobnie jak w przypadku ResNet, model ConvNeXt najczęściej mylił klasę 283 z "Angora, Angora rabbit" przy większości modyfikacji tła. Wyjątek stanowiła modyfikacja "No Foreground", gdzie model najczęściej mylił klasę z "Schipperke".
-
-\subsection*{Podsumowanie}
-
-Oba modele, ResNet i ConvNeXt, wykazały wysoką skuteczność w klasyfikacji klasy 283 (Persian cat) na oryginalnych obrazach. Jednakże, modyfikacje tła, takie jak "Desert", "Low Contrast", i "No Foreground", znacząco obniżyły dokładność klasyfikacji. Modele najczęściej myliły klasę 283 z "Angora, Angora rabbit" przy większości modyfikacji tła. Wyniki te sugerują, że tło ma istotny wpływ na wydajność modeli klasyfikacyjnych, a modyfikacje tła mogą wprowadzać znaczące trudności w prawidłowej klasyfikacji.
 
 \begin{table}
 	\centering
@@ -1154,23 +1035,8 @@ Na podstawie wyników przedstawionych w Tabeli X i Tabeli Y, można wyciągnąć
 
 \subsection*{Model ResNet}
 
-Model ResNet osiągnął wysoką dokładność 0.976 na oryginalnych obrazach, co wskazuje na jego skuteczność w klasyfikacji klasy 13 w standardowych warunkach. Średnia pewność wynosiła 95.314826, co jest bardzo wysoką wartością, potwierdzającą pewność modelu przy klasyfikacji.
-
-Znaczący spadek dokładności został zanotowany przy modyfikacjach tła. Najniższa dokładność została zanotowana przy modyfikacji "No Foreground" (0.362), co wskazuje na dużą trudność modelu w klasyfikacji obiektów bez tła. Inne modyfikacje, takie jak "Desert" (0.839), "Low Contrast" (0.877), i "City" (0.842), również obniżyły dokładność modelu, co sugeruje, że zmiany w tle mogą negatywnie wpływać na wydajność modelu.
-
-Model najczęściej mylił klasę 13 z "House finch, linnet" przy większości modyfikacji tła. Wyjątek stanowiła modyfikacja "No Foreground", gdzie model najczęściej mylił klasę z "Water ouzel, dipper".
 
 \subsection*{Model ConvNeXt}
-
-Model ConvNeXt osiągnął wyższą dokładność (1.000) na oryginalnych obrazach w porównaniu do ResNet, co sugeruje lepszą wydajność w standardowych warunkach. Średnia pewność wynosiła 68.830393, co jest niższą wartością w porównaniu do ResNet, ale nadal stosunkowo wysoką.
-
-Podobnie jak w przypadku ResNet, modyfikacja "No Foreground" znacząco obniżyła dokładność modelu ConvNeXt (0.460). Inne modyfikacje, takie jak "Desert" (0.915) i "City" (0.888), również wpłynęły negatywnie na dokładność, choć model ConvNeXt radził sobie nieco lepiej niż ResNet w tych warunkach.
-
-Podobnie jak w przypadku ResNet, model ConvNeXt najczęściej mylił klasę 13 z "House finch, linnet" przy większości modyfikacji tła. Wyjątek stanowiła modyfikacja "No Foreground", gdzie model najczęściej mylił klasę z "Magpie".
-
-\subsection*{Podsumowanie}
-
-Oba modele, ResNet i ConvNeXt, wykazały wysoką skuteczność w klasyfikacji klasy 13 (junco, snowbird) na oryginalnych obrazach. Jednakże, modyfikacje tła, takie jak "Desert", "Low Contrast", i "No Foreground", znacząco obniżyły dokładność klasyfikacji. Modele najczęściej myliły klasę 13 z "House finch, linnet" przy większości modyfikacji tła. Wyniki te sugerują, że tło ma istotny wpływ na wydajność modeli klasyfikacyjnych, a modyfikacje tła mogą wprowadzać znaczące trudności w prawidłowej klasyfikacji.
 
 
 \begin{table}
@@ -1253,23 +1119,8 @@ Na podstawie wyników przedstawionych w Tabeli X i Tabeli Y, można wyciągnąć
 
 \subsection*{Model ResNet}
 
-Model ResNet osiągnął wysoką dokładność 0.874 na oryginalnych obrazach, co wskazuje na jego skuteczność w klasyfikacji klasy 235 w standardowych warunkach. Średnia pewność wynosiła 82.761220, co jest stosunkowo wysoką wartością, potwierdzającą pewność modelu przy klasyfikacji.
-
-Znaczący spadek dokładności został zanotowany przy modyfikacjach tła. Najniższa dokładność została zanotowana przy modyfikacji "No Foreground" (0.005), co wskazuje na dużą trudność modelu w klasyfikacji obiektów bez tła. Inne modyfikacje, takie jak "Desert" (0.705), "Low Contrast" (0.806), i "City" (0.821), również obniżyły dokładność modelu, co sugeruje, że zmiany w tle mogą negatywnie wpływać na wydajność modelu.
-
-Model najczęściej mylił klasę 235 z "Malinois" przy większości modyfikacji tła. Wyjątek stanowiła modyfikacja "No Foreground", gdzie model najczęściej mylił klasę z "Egyptian cat".
 
 \subsection*{Model ConvNeXt}
-
-Model ConvNeXt osiągnął wyższą dokładność (0.961) na oryginalnych obrazach w porównaniu do ResNet, co sugeruje lepszą wydajność w standardowych warunkach. Średnia pewność wynosiła 69.949959, co jest niższą wartością w porównaniu do ResNet, ale nadal stosunkowo wysoką.
-
-Podobnie jak w przypadku ResNet, modyfikacja "No Foreground" znacząco obniżyła dokładność modelu ConvNeXt (0.042). Inne modyfikacje, takie jak "Desert" (0.844) i "City" (0.867), również wpłynęły negatywnie na dokładność, choć model ConvNeXt radził sobie nieco lepiej niż ResNet w tych warunkach.
-
-Podobnie jak w przypadku ResNet, model ConvNeXt najczęściej mylił klasę 235 z "Malinois" przy większości modyfikacji tła. Wyjątek stanowiła modyfikacja "No Foreground", gdzie model najczęściej mylił klasę z "Schipperke".
-
-\subsection*{Podsumowanie}
-
-Oba modele, ResNet i ConvNeXt, wykazały wysoką skuteczność w klasyfikacji klasy 235 (German shepherd) na oryginalnych obrazach. Jednakże, modyfikacje tła, takie jak "Desert", "Low Contrast", i "No Foreground", znacząco obniżyły dokładność klasyfikacji. Modele najczęściej myliły klasę 235 z "Malinois" przy większości modyfikacji tła. Wyniki te sugerują, że tło ma istotny wpływ na wydajność modeli klasyfikacyjnych, a modyfikacje tła mogą wprowadzać znaczące trudności w prawidłowej klasyfikacji.
 
 
 \begin{table}
@@ -1290,7 +1141,12 @@ Oba modele, ResNet i ConvNeXt, wykazały wysoką skuteczność w klasyfikacji kl
 		\hline
 		Jungle & 0.788 & 76.892591 & Malinois (53) \\
 		\hline
-		No Background & 0.705 & 67.817178 & Coyote, prairie wolf (32) \\
+		No Background & 0.705 & 67.817178 & Coyot
+		Model ResNet osiągnął wysoką dokładność 0.981 na oryginalnych obrazach, co wskazuje na jego skuteczność w klasyfikacji klasy 15 w standardowych warunkach. Średnia pewność wynosiła 96.633280, co jest bardzo wysoką wartością, potwierdzającą pewność modelu przy klasyfikacji.
+		
+		Znaczący spadek dokładności został zanotowany przy modyfikacjach tła. Najniższa dokładność została zanotowana przy modyfikacji "No Foreground" (0.023), co wskazuje na dużą trudność modelu w klasyfikacji obiektów bez tła. Inne modyfikacje, takie jak "Desert" (0.830), "Low Contrast" (0.883), i "City" (0.909), również obniżyły dokładność modelu, co sugeruje, że zmiany w tle mogą negatywnie wpływać na wydajność modelu.
+		
+		Model najczęściej mylił klasę 15 z "Hummingbird" przy większości modyfikacji tła. Wyjątek stanowiła modyfikacja "No Foreground", gdzie model najczęściej mylił klasę z "Magpie".e, prairie wolf (32) \\
 		\hline
 		High Contrast & 0.819 & 80.306382 & Malinois (39) \\
 		\hline
@@ -1352,23 +1208,9 @@ Na podstawie wyników przedstawionych w Tabeli X i Tabeli Y, można wyciągnąć
 
 \subsection*{Model ResNet}
 
-Model ResNet osiągnął wysoką dokładność 0.981 na oryginalnych obrazach, co wskazuje na jego skuteczność w klasyfikacji klasy 15 w standardowych warunkach. Średnia pewność wynosiła 96.633280, co jest bardzo wysoką wartością, potwierdzającą pewność modelu przy klasyfikacji.
-
-Znaczący spadek dokładności został zanotowany przy modyfikacjach tła. Najniższa dokładność została zanotowana przy modyfikacji "No Foreground" (0.023), co wskazuje na dużą trudność modelu w klasyfikacji obiektów bez tła. Inne modyfikacje, takie jak "Desert" (0.830), "Low Contrast" (0.883), i "City" (0.909), również obniżyły dokładność modelu, co sugeruje, że zmiany w tle mogą negatywnie wpływać na wydajność modelu.
-
-Model najczęściej mylił klasę 15 z "Hummingbird" przy większości modyfikacji tła. Wyjątek stanowiła modyfikacja "No Foreground", gdzie model najczęściej mylił klasę z "Magpie".
 
 \subsection*{Model ConvNeXt}
 
-Model ConvNeXt osiągnął wyższą dokładność (0.997) na oryginalnych obrazach w porównaniu do ResNet, co sugeruje lepszą wydajność w standardowych warunkach. Średnia pewność wynosiła 68.229925, co jest niższą wartością w porównaniu do ResNet, ale nadal stosunkowo wysoką.
-
-Podobnie jak w przypadku ResNet, modyfikacja "No Foreground" znacząco obniżyła dokładność modelu ConvNeXt (0.052). Inne modyfikacje, takie jak "Desert" (0.905) i "City" (0.942), również wpłynęły negatywnie na dokładność, choć model ConvNeXt radził sobie nieco lepiej niż ResNet w tych warunkach.
-
-Podobnie jak w przypadku ResNet, model ConvNeXt najczęściej mylił klasę 15 z "Hummingbird" przy większości modyfikacji tła. Wyjątek stanowiła modyfikacja "No Foreground", gdzie model najczęściej mylił klasę z "Magpie".
-
-\subsection*{Podsumowanie}
-
-Oba modele, ResNet i ConvNeXt, wykazały wysoką skuteczność w klasyfikacji klasy 15 (American robin) na oryginalnych obrazach. Jednakże, modyfikacje tła, takie jak "Desert", "Low Contrast", i "No Foreground", znacząco obniżyły dokładność klasyfikacji. Modele najczęściej myliły klasę 15 z "Hummingbird" przy większości modyfikacji tła. Wyniki te sugerują, że tło ma istotny wpływ na wydajność modeli klasyfikacyjnych, a modyfikacje tła mogą wprowadzać znaczące trudności w prawidłowej klasyfikacji.
 
 \begin{table}
 	\centering
