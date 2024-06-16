@@ -37,7 +37,6 @@ This project is focused on automating the process of analyzing and modifying ima
 ## Table of Contents
 
 - [Installation](#installation)
-- [Usage](#usage)
 - [Scripts Overview](#scripts-overview)
   - [Main Script](#main-script)
   - [Segmentation Script](#segmentation-script)
@@ -72,7 +71,8 @@ This project is focused on automating the process of analyzing and modifying ima
 
 ## Scripts Overview
 
-### Main Script: `analysis/main.py`
+### Main Script: 
+**File:** `analysis/main.py`
 
 This script is the entry point of the project. It orchestrates the creation of directories, counts the number of existing files, and processes images using a pre-trained DeepLabV3 model. The goal is to ensure that each class has a specified number of processed images.
 
@@ -112,7 +112,8 @@ This script is the entry point of the project. It orchestrates the creation of d
 - **Classes**: A list of class labels to process.
 - **Target Per Class**: The number of images to process per class.
 
-### Segmentation Script: `analysis/seg_model_1.py`
+### Segmentation Script: 
+**File:** `analysis/seg_model_1.py`
 
 This script provides the necessary functions to load the segmentation model, process images, and save the results. It includes functions for model loading, image transformation, segmentation, and saving the segmentation outputs as mask and overlay images.
 
@@ -167,7 +168,8 @@ This script analyzes mask images to identify the most common nonzero grayscale v
 
 This script helps in ensuring that the mask images are consistent in terms of the grayscale values they use for each class, and highlights any discrepancies for further inspection.
 
-### BackgroundRemoval Script: `remove_bg.py`
+### BackgroundRemoval Script: 
+**File:** `analysis/remove_bg.py`
 
 This script removes the background from images using specified grayscale values from masks and saves the results.
 
@@ -207,7 +209,8 @@ This script removes the background from images using specified grayscale values 
 
 This script facilitates the removal of backgrounds from images based on mask information, providing a streamlined process for preparing modified images for further analysis or use.
 
-### Color Script: `find_contrast_colors.py`
+### Color Script: 
+**File:** `analysis/find_contrast_colors.py`
 
 This script analyzes the colors in images within a directory to find dominant colors and determine high and low contrast colors for each class. The results are saved in a JSON file.
 
@@ -251,7 +254,8 @@ This script analyzes the colors in images within a directory to find dominant co
 
 This script helps in analyzing and determining high and low contrast colors for images in different classes, providing valuable color information for further use or analysis.
 
-### Foreground Script: `remove_foreground.py`
+### Foreground Script: 
+**File:** `analysis/remove_foreground.py`
 
 This script saves images with only the background, removing the foreground based on specified grayscale values from masks.
 
@@ -296,7 +300,8 @@ This script saves images with only the background, removing the foreground based
 
 This script helps in extracting and saving the background from images based on mask information, providing a streamlined process for preparing modified images for further analysis or use.
 
-### Contrast Script: `apply_contrast_background.py`
+### Contrast Script: 
+**File:** `analysis/apply_contrast_background.py`
 
 This script applies contrast backgrounds to images using masks and saves them. It leverages the most common grayscale values from masks and pre-defined contrast colors for each class.
 
@@ -345,7 +350,8 @@ This script applies contrast backgrounds to images using masks and saves them. I
 
 This script facilitates the application of contrast backgrounds to images based on mask information and pre-defined color configurations, providing a streamlined process for generating visually distinct images for each class.
 
-### Scenic Script: `scenic_bg.py`
+### Scenic Script: 
+**File:** `analysis/scenic_bg.py`
 
 This script applies different scenic backgrounds to images using masks, skipping images that are already processed.
 
@@ -406,7 +412,8 @@ This script applies different scenic backgrounds to images using masks, skipping
 
 This script helps in applying various scenic backgrounds to images based on mask information and pre-defined background scenarios, providing a streamlined process for generating visually distinct images for each class.
 
-### Resnet Script: `resnet.py`
+### Resnet Script: 
+**File:** `analysis/resnet.py`
 
 This script compares original images with their modified versions using a pre-trained ResNet model and saves the top-5 class predictions and their confidence scores to a CSV file.
 
@@ -475,7 +482,8 @@ This script compares original images with their modified versions using a pre-tr
 
 This script helps in comparing original and modified images, providing insights into how modifications affect the classification results, and saves the results for further analysis.
 
-### Convnext Script: `convnext.py`
+### Convnext Script: 
+**File:** `analysis/convnext.py`
 
 This script compares original images with their modified versions using a pre-trained ConvNeXt model and saves the top-5 class predictions and their confidence scores to a CSV file.
 
