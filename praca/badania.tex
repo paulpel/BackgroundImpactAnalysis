@@ -10,7 +10,7 @@ oraz zmodyfikowanych obrazów, traktując wszystkie modyfikację jako jedną gru
 
 Dla modelu ResNet, na oryginalnych obrazach uzyskano Accuracy na poziomie 0.886500, Precision 0.967026, Recall 0.886500 i F1-score 0.922742. Po modyfikacji tła wartości te uległy istotnemu obniżeniu, osiągając odpowiednio 0.697018 dla 
 Accuracy, 0.948539 dla Precision, 0.697018 dla Recall i 0.802350 dla F1-score. W przypadku modelu ConvNeXt, na oryginalnych obrazach uzyskano wartości: Accuracy 0.943300, Precision 0.972519, Recall 0.943300 i F1-score 0.956791. Podobnie jak 
-w przypadku ResNet, modyfikacja tła spowodowała obniżenie tych wartości, osiągając Accuracy 0.790873, Precision 0.961080, Recall 0.790873 i F1-score 0.866282. Ogólne wyniki można zaobserwować na \ref*{model_comparison_metrics} oraz \ref*{overall_metrics}
+w przypadku ResNet, modyfikacja tła spowodowała obniżenie tych wartości, osiągając Accuracy 0.790873, Precision 0.961080, Recall 0.790873 i F1-score 0.866282. Ogólne wyniki można zaobserwować na \ref*{tab:model_comparison_metrics} oraz \ref*{rys:overall_metrics}
 
 Analiza wyników wskazuje, że modyfikacja tła negatywnie wpływa na skuteczność obu modeli, jednak model o nowszej architekturze ConvNeXt wykazuje większą odporność na zmiany tła w porównaniu do modelu ResNet. Model ConvNeXt osiąga wyższe 
 wartości metryk zarówno dla oryginalnych, jak i zmodyfikowanych obrazów, co sugeruje jego większą stabilność i lepszą adaptację do różnych warunków. Wartości metryk dla zmodyfikowanych obrazów są niższe w przypadku ResNet, co może 
@@ -48,7 +48,7 @@ prawdziwie pozytywne przypadki po modyfikacji tła.
 
 W badaniach obliczono również średnie wartości confidence scores w celu sprawdzenia pewności decyzji modeli. Wartości te obejmują ogólną średnią confidence score, a także średnie confidence scores dla poprawnych i niepoprawnych klasyfikacji. 
 Dla modelu ResNet na oryginalnych obrazach średnia confidence score wyniosła 85.188854, ze średnią wartością 89.137424 dla poprawnych klasyfikacji i 54.348263 dla niepoprawnych. Po 
-modyfikacji tła, średnia confidence score spadła do 71.694490, ze średnią wartością 83.929904 dla poprawnych klasyfikacji i 43.546579 dla niepoprawnych. Wyniki znajdują się w tabeli \ref*{model_confidence} oraz wizualizacja tych wyników na 
+modyfikacji tła, średnia confidence score spadła do 71.694490, ze średnią wartością 83.929904 dla poprawnych klasyfikacji i 43.546579 dla niepoprawnych. Wyniki znajdują się w tabeli \ref*{tab:model_confidence} oraz wizualizacja tych wyników na 
 \ref*{confidence_avg}
 
 W przypadku modelu ConvNeXt na oryginalnych obrazach średnia confidence score wyniosła 68.527975, ze średnią wartością 70.036361 dla poprawnych klasyfikacji i 43.433439 dla niepoprawnych. Po modyfikacji tła, średnia confidence score spadła 
@@ -88,7 +88,7 @@ tych wartości, z bardziej zauważalnym spadkiem w przypadku modelu ConvNeXt.
     \label{rys:confidence_avg}
 \end{figure}
 \newpage
-Na podstawie dystrybucji confidence scores widocznynch na rysunkach \ref*{res_c_distro} oraz \ref*{conv_c_distro} dla modeli ResNet i ConvNeXt można wyciągnąć kilka istotnych wniosków. Model ResNet wykazuje wysoką pewność dla poprawnych 
+Na podstawie dystrybucji confidence scores widocznynch na rysunkach \ref*{rys:res_c_distro} oraz \ref*{rys:conv_c_distro} dla modeli ResNet i ConvNeXt można wyciągnąć kilka istotnych wniosków. Model ResNet wykazuje wysoką pewność dla poprawnych 
 klasyfikacji, co wskazuje na jego stabilność w identyfikowaniu prawidłowych przypadków. W przypadku błędnych klasyfikacji confidence scores są bardziej równomiernie rozłożone, co oznacza, że model jest mniej pewny, gdy się myli. Z kolei 
 model ConvNeXt ma szerszy rozkład confidence scores, większość poprawnych klasyfikacji znajduje się w przedziale 70-80 i dla błędnych w przedziale 30-40. Mimo mniejszej pewności model convnext odnotował mniejsze spadki pewności w porównaniu
 z pewnością na zdjęciach oryginalnych. Można z tego wnioskować, że modyfikacje tła mniej wpływają na pewność modelu convnext niż na resnet.
@@ -370,7 +370,7 @@ W tej sekcji przeanalizowano wpływ różnych typów modyfikacji tła na skutecz
 
 Analiza wyników pokazuje, że typ modyfikacji tła ma znaczący wpływ na skuteczność klasyfikacji obrazów oraz wartości confidence scores dla obu modeli. Oba modele osiągały najlepsze wyniki głównie na modyfikacjach, które były jednokolorowe, a mianowicie na "no\_background", "high\_contrast"
 oraz "low\_contrast". W pierwszym przypadku tło było całkowicie czarne, a w pozostałych kolor był dobrany na podstawie dominujących kolorów w obiektach danej klasy. Najlepsze wyniki oba modele uzyskały na tle o kolorze niskokontrastowym do obiektu. Zarówno ResNet jak i ConvNext
-osiągneły nieco gorsze wyniki dla sceneri wodnej, wnętrza domu oraz scenerii górzystej. Dokładne wartośći można zaobserwawać w tabelach \ref*{resnet_confidence_scores_modification} oraz \ref*{convnext_metrics_modification}. Wyższa dokładność na modyfikacjach jednokolorowych prawdopodobnie wynika z powodu mniejszej liczby elementów na 
+osiągneły nieco gorsze wyniki dla sceneri wodnej, wnętrza domu oraz scenerii górzystej. Dokładne wartośći można zaobserwawać w tabelach \ref*{tab:resnet_confidence_scores_modification} oraz \ref*{tab:convnext_metrics_modification}. Wyższa dokładność na modyfikacjach jednokolorowych prawdopodobnie wynika z powodu mniejszej liczby elementów na 
 zdjęciach, które mogą być mylące dla modeli. Oba modele poardziły sobie fatalnie w sytuacji gdy ze zdjęcia został usunięty obiekt i pozostawione zostało tło, jednak model ConvNext był bardziej odporny i lepiej radził sobie z analizowaniem samego pozostawionego kształtu obiektu. Dla modelu
 ConvNeXt jedyną modyfikacją (poza usunięciem obiektu), na której uzyskał wartość dokładnośći poniżej 80 \% jest sceneria z wnętrznem domu. Wysoką wartość accuracy uzyskała również sceneria dżungli dla obu modeli, może to wynikać z faktu iż ta sceneria posiada dużo zielonych roślin,
 które często mogą występować przy rzeczywistych zdjęciach wybranych zwierząt.
@@ -390,13 +390,13 @@ również jakie błędy są najczęściej podejmowane, czyli z jaką klasą jest
 
 \section*{Wnioski dla klasy 348 (ram, tup)}
 
-Na podstawie wyników dwóch modeli przedstawionych w \ref*{metrics_confidence_class_348_resnet} i \ref*{metrics_confidence_class_348_convnext}, można wyciągnąć następujące wnioski dotyczące wpływu różnych 
+Na podstawie wyników dwóch modeli przedstawionych w \ref*{tab:metrics_confidence_class_348_resnet} i \ref*{tab:metrics_confidence_class_348_convnext}, można wyciągnąć następujące wnioski dotyczące wpływu różnych 
 modyfikacji tła na klasyfikację klasy 348 (ram, tup) przy użyciu modeli ResNet i ConvNeXt:
 
 \subsection*{Model ResNet}
 
 Model ResNet osiągnął dosyć niską dokładność 0.781 na oryginalnych obrazach, co wskazuje na dosyć problematyczną klasę. Średnia pewność wynosiła 80.888742, co jest stosunkowo wysoką wartością, potwierdzającą pewność modelu przy klasyfikacji. Najczęściej myloną klasą była klasa 
-"Bighorn sheep" dla wszystkich typów modyfikacji. Te dwie klasy są niemal identyczne nawet dla ludzkiego oka, co można zaobserwować na \ref*{348}.
+"Bighorn sheep" dla wszystkich typów modyfikacji. Te dwie klasy są niemal identyczne nawet dla ludzkiego oka, co można zaobserwować na \ref*{rys:348}.
 
 Dla większości modyfikacji wartości accuracy się obniżyły. Dla jednego typu modyfikacji udało się polepszeć metrykę dokładności o około 5 punktów procentowych, a mianowicie dla scenerii dżungli. Największe spadki uzsykano dla scenerii górzystych i śnieżnych, dla których znacznie wzrosła
 liczba przypadków gdzie pomylono się z klasą "bighorn sheep". Podejrzewam, że tereny górzyste czy śnieżne są miejscem, w którym klasa "bighorn sheep" znajduję się częsciej niż przewidywana klasa "ram, tup", natomiast sceneria dżungli pomaga modelowi rozróżnić te dwie klasy, gdzie
@@ -490,13 +490,13 @@ wysokie wartości uzyskano także dla tła o niskim kontraście. Ten model zdecy
 
 \section*{Wnioski dla klasy 238 (Greater Swiss Mountain dog)}
 
-Na podstawie wyników dwóch modeli przedstawionych w \ref*{metrics_confidence_class_238_resnet} i \ref*{metrics_confidence_class_238_convnext}, można wyciągnąć następujące wnioski dotyczące wpływu różnych 
+Na podstawie wyników dwóch modeli przedstawionych w \ref*{tab:metrics_confidence_class_238_resnet} i \ref*{tab:metrics_confidence_class_238_convnext}, można wyciągnąć następujące wnioski dotyczące wpływu różnych 
 modyfikacji tła na klasyfikację klasy 238 (Greater Swiss Mountain dog) przy użyciu modeli ResNet i ConvNeXt:
 
 \subsection*{Model ResNet}
 
 Dla modelu ResNet udało się minimalnie polepszyć wyniki klasyfikacji dla trzech scenerii: pustynnej, śnieżnej oraz wnętrza domu, dla reszty modyfikacji wyniki były gorsze. Model najczęściej mylił się z dwoma klasami, w zależności od typu modyfikacji. Wszystkie trzy klasy są bardzo do siebie
-podobne co można zaobserwować na rysunku \ref*{238}  
+podobne co można zaobserwować na rysunku \ref*{rys:238}  
 
 \begin{figure}
 	\centering\includegraphics[width=.9\textwidth]{img/238}
@@ -586,13 +586,13 @@ półkę z książkami. Dowodzi to że różne niechciane obiekty znajdujące si
 
 \section*{Wnioski dla klasy 94 (Hummingbird)}
 
-Na podstawie wyników dwóch modeli przedstawionych w \ref*{metrics_confidence_class_94_resnet} i \ref*{metrics_confidence_class_94_convnext}, można wyciągnąć następujące wnioski dotyczące wpływu różnych 
+Na podstawie wyników dwóch modeli przedstawionych w \ref*{tab:metrics_confidence_class_94_resnet} i \ref*{tab:metrics_confidence_class_94_convnext}, można wyciągnąć następujące wnioski dotyczące wpływu różnych 
 modyfikacji tła na klasyfikację klasy 94 (Hummingbird) przy użyciu modeli ResNet i ConvNeXt:
 
 \subsection*{Model ResNet}
 
 Model ResNet okazał się bardzo podatny na niektóre typy modyfikacji, szczególnie dla scenerii wodnych, śnieżnych, górzystych oraz wnętrza domu. Dokładność dla tych modyfikacji spadła do około 50\% z poziomu oryginalnej wartości 96\%. Ciekawym zjawiskiem było częste mylenie zdjęć kolibra z krajobrazem "seashore" oraz
-"lakeshore" dla modyfikacji o scenerii pustynnej oraz górzystej. W tych dwóch przypadkach porządany obiekt jakim był koliber, został potraktowany przez model jako element większej scenerii jaką są krajobrazy. Na rysynku \ref*{94} można zaobserwować przykładowe zdjęcie po modyfikacji "desert",
+"lakeshore" dla modyfikacji o scenerii pustynnej oraz górzystej. W tych dwóch przypadkach porządany obiekt jakim był koliber, został potraktowany przez model jako element większej scenerii jaką są krajobrazy. Na rysynku \ref*{rys:94} można zaobserwować przykładowe zdjęcie po modyfikacji "desert",
 oraz przykładowe zdjęcia z klasy "lakeshore" oraz "seashore". Jeżeli chodzi o scenerie wodną model aż w 15\% przypadków pomylił się z klasą "Albatross", która znacznie różni się wyglądem od klasy "hummingbird", przypominającej wyglądem mewę. Jest to ptak wodny, fotografowany często z tłem wody.
 Pokazuję to jaką istotną rolę pełni tło w procesie klasyfikacji. Mimo wyraźnych róźnic w wyglądzie ptaków udało się nakłonić model do pomyłek poprzez prostą zmianę tła na wodne.
 
@@ -683,14 +683,14 @@ na zdjęciach jako te porządane, np. dla scenerii miejskiej często klasyfikowa
 
 \section*{Wnioski dla klasy 285 (Egyptian cat)}
 
-Na podstawie wyników dwóch modeli przedstawionych w \ref*{metrics_confidence_class_285_resnet} i \ref*{metrics_confidence_class_238_convnext}, można wyciągnąć następujące wnioski dotyczące wpływu różnych 
+Na podstawie wyników dwóch modeli przedstawionych w \ref*{tab:metrics_confidence_class_285_resnet} i \ref*{tab:metrics_confidence_class_238_convnext}, można wyciągnąć następujące wnioski dotyczące wpływu różnych 
 modyfikacji tła na klasyfikację klasy 285 (Egyptian cat) przy użyciu modeli ResNet i ConvNeXt:
 
 \subsection*{Model ResNet}
 
 Dla 5 typów modyfikacji uzyskano lepsze wyniki niż dla oryginalnych zdjęć. W przypadku pozostawienia tła czarnego poprawiono dokładność aż o 7 punktów procentowych, z 78\% do 85\%. Najczęściej myloną klasą, prawie dla każdej modyfikacji była klasa "Tabby cat", która podobnie jak
 we wcześniejszym przypadku jest bardzo podobna do klasy przewidywanej. Ciekawym zauważonym zjawiskiem była pomyłka modelu dla scenerii śnieżnej oraz dżungli, gdzie pomylono się na klasę "Tiger cat". Po analizie dostępnych zdjęć treningowych dla klasy tiger cat zauważyłem, że w ich skład 
-wchodzą zarówno zdjęcia przedstawiające kota domowego jak i zdjęcia tygrysa. Przykłady zdjęć widnieją na obrazku \ref*{label}
+wchodzą zarówno zdjęcia przedstawiające kota domowego jak i zdjęcia tygrysa. Przykłady zdjęć widnieją na obrazku \ref*{rys:285}
 
 \begin{figure}
 	\centering\includegraphics[width=.9\textwidth]{img/285}
@@ -778,7 +778,7 @@ Model ConvNext zachowywał się w bardzo podobny sposób jak wcześniejszy model
 
 \section*{Wnioski dla klasy 349 (Bighorn sheep)}
 
-Na podstawie wyników dwóch modeli przedstawionych w \ref*{metrics_confidence_class_285_resnet} i \ref*{metrics_confidence_class_238_convnext}, można wyciągnąć następujące wnioski dotyczące wpływu różnych 
+Na podstawie wyników dwóch modeli przedstawionych w \ref*{tab:metrics_confidence_class_285_resnet} i \ref*{tab:metrics_confidence_class_238_convnext}, można wyciągnąć następujące wnioski dotyczące wpływu różnych 
 modyfikacji tła na klasyfikację klasy 349 (Bighorn sheep) przy użyciu modeli ResNet i ConvNeXt:
 
 \subsection*{Model ResNet}
@@ -867,7 +867,7 @@ na zdjęcie i zakwalifikowanie obiektu po prostu jako elementu krajobrazu "lakes
 
 \section*{Wnioski dla klasy 229 (Old English sheepdog)}
 
-Na podstawie wyników dwóch modeli przedstawionych w \ref*{metrics_confidence_class_229_resnet} i \ref*{metrics_confidence_class_229_convnext}, można wyciągnąć następujące wnioski dotyczące wpływu różnych 
+Na podstawie wyników dwóch modeli przedstawionych w \ref*{tab:metrics_confidence_class_229_resnet} i \ref*{tab:metrics_confidence_class_229_convnext}, można wyciągnąć następujące wnioski dotyczące wpływu różnych 
 modyfikacji tła na klasyfikację klasy 229 (Old English sheepdog) przy użyciu modeli ResNet i ConvNeXt:
 
 \subsection*{Model ResNet}
@@ -877,7 +877,7 @@ Wyniki klasyfikacji były najlepsze dla oryginalnych zdjęc, na drugiej pozycji 
 
 \subsection*{Model ConvNeXt}
 
-Ten model poradził sobie z tą klasą zdecydowanie lepiej niż ResNet. Mimo pogorszenia metryk dla każdej modyfikacji, wyniki nadal były całkiem zadowalające. 
+Ten model poradził sobie z tą klasą zdecydowanie lepiej niż ResNet. Mimo pogorszenia metryk dla każdej modyfikacji, wyniki nadal były całkiem zadowalające. Sceneria pystynna ponownie spowodowała częstą pomyłkę klasy z wielbłądem (ok 10\%).
 
 \begin{table}
 	\centering
@@ -955,13 +955,23 @@ Ten model poradził sobie z tą klasą zdecydowanie lepiej niż ResNet. Mimo pog
 
 \section*{Wnioski dla klasy 283 (Persian cat)}
 
-Na podstawie wyników przedstawionych w Tabeli X i Tabeli Y, można wyciągnąć następujące wnioski dotyczące wpływu różnych modyfikacji tła na klasyfikację klasy 283 (Persian cat) przy użyciu modeli ResNet i ConvNeXt:
+Na podstawie wyników dwóch modeli przedstawionych w \ref*{tab:metrics_confidence_class_283_resnet} i \ref*{tab:metrics_confidence_class_283_convnext}, można wyciągnąć następujące wnioski dotyczące wpływu różnych 
+modyfikacji tła na klasyfikację klasy 283 (Persian cat) przy użyciu modeli ResNet i ConvNeXt:
 
 \subsection*{Model ResNet}
 
+Wyniki dla klasy 283 dla modelu resnet są dosyć wysokie, zachowując przynajmniej 80\% dla wszystkich modyfikacji. Najwyższe wartości były dla zdjęć oryginalnych i dla każdej modyfikacji odnotowano spadek. Klasa nie wykazała tendencji do mylenia się
+z jakąś konkretną klasą. Ciekawym spostrzeżeniem jest pomyłka kota z wulkanem w przypadku scenerii nieba w około 5\% przypadków, na rysunku \ref*{rys:vulcan} można zobaczyć przykładowe zdjęcia po modyfikacji, które zostały zakwalifikowane jako wulkan. 
+
+\begin{figure}
+	\centering\includegraphics[width=.9\textwidth]{img/vulcan}
+	\caption{Zdjęcia oryginalne klasy 283 oraz po modyfikacji na scenerie nieba, zakwalifikowane jako wulkan}
+	\label{rys:vulcan}
+\end{figure}
 
 \subsection*{Model ConvNeXt}
 
+Model ConvNeXt osiągnął wyniki bardzo dobre dla wszystkich modyfikacji, dokładność nie spadała poniżej 90\%. Również można zaobserwować pomyłki wywołane scenerią, jak klasyfikacja jako wielbłąd czy krajobraz górski.
 
 \begin{table}
 	\centering
@@ -1037,15 +1047,33 @@ Na podstawie wyników przedstawionych w Tabeli X i Tabeli Y, można wyciągnąć
 	\label{tab:metrics_confidence_class_283_convnext}
 \end{table}
 
-\section*{Wnioski dla klasy 13 (junco, snowbird)}
+\section*{Wnioski dla klasy 13 (Junco, snowbird)}
 
-Na podstawie wyników przedstawionych w Tabeli X i Tabeli Y, można wyciągnąć następujące wnioski dotyczące wpływu różnych modyfikacji tła na klasyfikację klasy 13 (junco, snowbird) przy użyciu modeli ResNet i ConvNeXt:
+Na podstawie wyników dwóch modeli przedstawionych w \ref*{tab:metrics_confidence_class_13_resnet} i \ref*{tab:metrics_confidence_class_13_convnext}, można wyciągnąć następujące wnioski dotyczące wpływu różnych 
+modyfikacji tła na klasyfikację klasy 13 (Junco, snowbird) przy użyciu modeli ResNet i ConvNeXt:
 
 \subsection*{Model ResNet}
 
+Dokładność zmalała dla każdej modyfikacji. Typ scenerii wpłynął na pomyłki modelu i w zależności od tła prawdziwa klasa była mylona z innymi klasami. Przykładowo model w około 12\% przypadków predykcji dla wodnej scenerii mylił "snowbird" z innym ptakiem wodnym. 
+Co można zaobserwować na rysunku \ref*{rys:13}. Dowodzi to po raz kolejny, że sceneria wykonywanego zdjęcia znacząco wpływa na uczenie jak i predykowanie modeli klasyfikacyjnych. Kolejnym ciekawym przykładem jest częste mylenie klasy z klasą "snowmobile", przykłady tych
+pomyłek można zaobserwować na rysunku \ref*{rys:13_2}. Opływowy kształt ptaka oraz obecność śniegu w scenerii skłoniło model do podjęcia decyzji że są to skutery śnieżne.
+
+\begin{figure}
+	\centering\includegraphics[width=.9\textwidth]{img/13}
+	\caption{Oryginalne zdjęcie klasy snowbird, które po modyfikacji i przeniesieniu na wodną scenerie zostało zakwalifikowane jako klasa widoczna na zdjęciu z prawej strony}
+	\label{rys:13}
+\end{figure}
 
 \subsection*{Model ConvNeXt}
 
+Ten model zakwalifikował wszystkie oryginalne zdjęcia poprawnie oraz okazał się bardziej odporny na modeyfikację, prawie wszędzie uzyskując wyniki dokładności przynajmniej 90\%. Jedyną modyfikacją w której uzyskał gorsze wyniki była sceneria 
+wnętrza domu, co może sugerować że ptak bardzo rzadko, bądź w ogóle nie był fotografowany w warunkach domowych.
+
+\begin{figure}
+	\centering\includegraphics[width=.9\textwidth]{img/13_2}
+	\caption{Oryginalne zdjęcie klasy snowbird wraz z ich modyfikacjami na śnieżną sceneria, które zostały zakwalifikowane jako skuter śnieżny}
+	\label{rys:13_2}
+\end{figure}
 
 \begin{table}
 	\centering
@@ -1121,15 +1149,26 @@ Na podstawie wyników przedstawionych w Tabeli X i Tabeli Y, można wyciągnąć
 	\label{tab:metrics_confidence_class_13_convnext}
 \end{table}
 
-\section*{Wnioski dla klasy 235 (German shepherd)}
+\section*{Wnioski dla klasy 235 (German shepard)}
 
-Na podstawie wyników przedstawionych w Tabeli X i Tabeli Y, można wyciągnąć następujące wnioski dotyczące wpływu różnych modyfikacji tła na klasyfikację klasy 235 (German shepherd) przy użyciu modeli ResNet i ConvNeXt:
+Na podstawie wyników dwóch modeli przedstawionych w \ref*{tab:metrics_confidence_class_235_resnet} i \ref*{tab:metrics_confidence_class_235_convnext}, można wyciągnąć następujące wnioski dotyczące wpływu różnych 
+modyfikacji tła na klasyfikację klasy 235 (German shepard) przy użyciu modeli ResNet i ConvNeXt:
 
 \subsection*{Model ResNet}
 
+Różne modyfikację znacząco obniżyły skuteczność modelu. Klasa predykowana była często mylona z dwoma innymi klasami, które przedstawiały inne podobne rasy psów, lecz liczba pomyłek była bardziej rozłożona na różne klasy w obrębie danej modyfikacji.
+Podobieństwo klas można zaobserwować na rysunku \ref*{rys:235}. Najgorzsze wyniki uzysskano dla scenerii domowej oraz pustynnej, co jest ciekawym zjawiskiem, ponieważ jest to rasa psów, która często znajduje swoje miejsce w domowych warunkach, być może
+zdjęcia na których model był uczony nie posiadały takich scenerii, bądź liczba przedmiotów znajdujących się na scenerii rozpraszała model i powodowała dużo zróżnicowanych pomyłek. 
+
+\begin{figure}
+	\centering\includegraphics[width=.9\textwidth]{img/235}
+	\caption{Klasa badana oraz klasy często z nią mylone}
+	\label{rys:235}
+\end{figure}
 
 \subsection*{Model ConvNeXt}
 
+Wnioski dla tego modelu są identyczne jak w przypadku modelu ResNet, lecz średnie wyniki metryk dla każdej modyfikacji byly proporcjonalnie większe. 
 
 \begin{table}
 	\centering
@@ -1207,13 +1246,25 @@ Na podstawie wyników przedstawionych w Tabeli X i Tabeli Y, można wyciągnąć
 
 \section*{Wnioski dla klasy 15 (American robin)}
 
-Na podstawie wyników przedstawionych w Tabeli X i Tabeli Y, można wyciągnąć następujące wnioski dotyczące wpływu różnych modyfikacji tła na klasyfikację klasy 15 (American robin) przy użyciu modeli ResNet i ConvNeXt:
+Na podstawie wyników dwóch modeli przedstawionych w \ref*{tab:metrics_confidence_class_15_resnet} i \ref*{tab:metrics_confidence_class_15_convnext}, można wyciągnąć następujące wnioski dotyczące wpływu różnych 
+modyfikacji tła na klasyfikację klasy 15 (American robin) przy użyciu modeli ResNet i ConvNeXt:
 
 \subsection*{Model ResNet}
 
+Największą utrate jakości klasyfikatora uzyskano dla scenerii wnętrza domu. Scenerie wodna oraz pustynna też uzyskały wyniki gorsze w porównaniu do innych typów modyfikacji. W pierwszym przypadku model prawdopodbnie został zmylony poprzez
+duża ilośc innych obiektów widniejących na zdjęciu ze scenerią "indoor". Z kolei w sceneriach pustynnych model traktował ptaka jako element większej całośći jaką jest krajobraz nadbrzeżny ("seashore"). W przypadku scenerii wodnej model
+pomylił ptaka najczęściej z rurką do nurkowania. Co można zaobserwować na rysunku \ref*{rys:15}, co jest kolejnym dowodem jak sceneria tła może wpływac na decyzję modelu. Model widząc mały obiekt wystający z wody zakwalifikował go jako rurkę,
+mimo widocznych jasnych różnic dla ludzkiego oka i żadnych wątpliwośći że na zdjęciu widnieje ptak.
+
+\begin{figure}
+	\centering\includegraphics[width=.9\textwidth]{img/15}
+	\caption{Klasa "american robin" (drozd) zakwalifikowana jako "snorkel" (rurka do nurkowania) na wszystkiech trzech obrazach}
+	\label{rys:15}
+\end{figure}
 
 \subsection*{Model ConvNeXt}
 
+Model convnext również najgorzej poradził sobie z scenerią "indoor". Gorsze wyniki uzyskał także dla scenerii pustynnej, gdzie ptak często był klasyfikowany jako wielbłąd. 
 
 \begin{table}
 	\centering

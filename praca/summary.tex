@@ -3,5 +3,15 @@
 
 \chapter*{Podsumowanie}
 
-\lipsum[17]
+Analiza wyników klasyfikacji dwóch modeli – ResNet oraz ConvNeXt – wykazała, że modyfikacje tła mają znaczący wpływ na jakość klasyfikacji w obu modelach. Stwierdzono, że wielkość tego wpływu jest zależna od konkretnego modelu, klasy 
+zwierzęcia, proporcji obiektu do całego zdjęcia oraz metody modyfikacji tła. Modele często popełniały błędy w przypadku zdjęć z różnorodnym tłem, co sugeruje, że w dużym stopniu polegają na informacjach zawartych w tle podczas procesu 
+klasyfikacji.
+
+Model ConvNeXt, reprezentujący nowszą architekturę, uzyskał lepsze wyniki metryk zarówno dla oryginalnych, jak i zmodyfikowanych zdjęć, jednak charakteryzował się mniejszą pewnością swoich decyzji w porównaniu do modelu ResNet. Wyizolowanie 
+obiektu poprzez pozostawienie jednolitego koloru tła w niektórych przypadkach poprawiało dokładność, jednak w większości przypadków nieznacznie obniżało wartości metryk. Sugeruje to, że tło może dostarczać modeli cennych informacji, które 
+pomagają w poprawnej klasyfikacji, jednak czasami wprowadza także zakłócenia, które mogą mylić model.
+
+Wyniki badania podkreślają znaczenie zróżnicowanych scenerii, obejmujących różne skale, tła i oświetlenie, w procesie uczenia modeli klasyfikacyjnych. Taka różnorodność pomaga zabezpieczyć model przed sytuacjami, w których zdjęcia są wykonane 
+w nietypowej scenerii, co może prowadzić do błędnej klasyfikacji. Konkludując, zrozumienie wpływu tła na klasyfikację obrazów jest kluczowe dla poprawy wydajności modeli uczenia maszynowego i może przyczynić się do opracowania bardziej 
+odpornych na zakłócenia systemów klasyfikacyjnych.
 

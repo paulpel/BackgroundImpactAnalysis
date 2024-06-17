@@ -1,0 +1,23 @@
+\abstract{
+% English abstract 
+
+Celem niniejszej pracy magisterskiej było zbadanie wpływu tła na klasyfikację zwierząt na obrazach. Praca skupia się na analizie różnych modyfikacji tła i ocenie ich wpływu na dokładność klasyfikacji, pewność decyzji oraz na analizę 
+najczęstszych pomyłek dwóch przetrenowanych modeli: ResNet oraz ConvNeXt. Analiza wyników została przeprowadzona zarówno ogólnosystemowo, jak i pod kątem typu modyfikacji tła, wielkości obiektu w porównaniu do reszty obrazu oraz konkretnych 
+klas.
+
+Do badań wybrano 10 klas ze zbioru ImageNet. Segmentację przeprowadzono za pomocą modelu DeepLabV3, a następnie dokonano różnych modyfikacji tła, takich jak manipulacja kolorem tła, usunięcie tła (kolor czarny), tła wysoko i nisko kontrastowe 
+oraz przeniesienie obiektu na inne scenerie (np. pustynna, górska, dżungla, ocean). Na tak przygotowanym zbiorze danych (oryginalne plus różne modyfikacje) przeprowadzono predykcje przy użyciu modeli ResNet i ConvNeXt, a następnie obliczono 
+metryki i porównano wyniki.
+
+Kluczowym celem było zbadanie wpływu tła, aby lepiej zrozumieć działanie modeli klasyfikacyjnych i tworzyć modele bardziej odporne na różnorodne warunki rzeczywistych zdjęć oraz zidentyfikować możliwe obszary zwiększenia skuteczności modeli.
+
+}{
+% Abstract translated into Polish
+
+The objective of this master's thesis was to investigate the impact of background on the classification of animals in images. The study focuses on analyzing various background modifications and evaluating their effect on classification accuracy, decision confidence, and analyzing the most frequent errors of two pre-trained models: ResNet and ConvNeXt. The analysis of results was conducted both generally and in terms of the type of background modification, the size category of the object in the image (compared to the rest of the image), and specific classes.
+
+For the study, 10 classes were selected from the ImageNet dataset. Segmentation was performed using the DeepLabV3 model, followed by various background modifications such as color manipulation, background removal (black color), high and low contrast backgrounds, and transferring the object to different scenes (e.g., desert, mountainous, jungle, ocean). Predictions were then made on this prepared dataset (original plus various modifications) using the pre-trained ResNet and ConvNeXt models, and metrics were calculated and compared.
+
+The key goal was to examine the influence of background to better understand the functioning of classification models and to develop models more resilient to diverse real-world conditions, as well as to identify potential areas for improving model performance.
+
+}
