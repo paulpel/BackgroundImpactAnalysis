@@ -8,11 +8,7 @@ oraz w zależności od wielkości obiektu na obrazie oraz w zależności od pred
 Badania miały na celu zbadanie wpływu modyfikacji tła na skuteczność klasyfikacji obrazów za pomocą dwóch wybranych modeli. W tym celu dokonano obliczeń podstawowych metryk, takich jak Accuracy, Precision, Recall i F1-score, dla oryginalnych 
 oraz zmodyfikowanych obrazów, traktując wszystkie modyfikację jako jedną grupę.
 
-Dla modelu ResNet, na oryginalnych obrazach uzyskano Accuracy na poziomie 0.886500, Precision 0.967026, Recall 0.886500 i F1-score 0.922742. Po modyfikacji tła wartości te uległy istotnemu obniżeniu, osiągając odpowiednio 0.697018 dla 
-Accuracy, 0.948539 dla Precision, 0.697018 dla Recall i 0.802350 dla F1-score. W przypadku modelu ConvNeXt, na oryginalnych obrazach uzyskano wartości: Accuracy 0.943300, Precision 0.972519, Recall 0.943300 i F1-score 0.956791. Podobnie jak 
-w przypadku ResNet, modyfikacja tła spowodowała obniżenie tych wartości, osiągając Accuracy 0.790873, Precision 0.961080, Recall 0.790873 i F1-score 0.866282. Ogólne wyniki można zaobserwować na \ref*{tab:model_comparison_metrics} oraz \ref*{rys:overall_metrics}
-
-Analiza wyników wskazuje, że modyfikacja tła negatywnie wpływa na skuteczność obu modeli, jednak model o nowszej architekturze ConvNeXt wykazuje większą odporność na zmiany tła w porównaniu do modelu ResNet. Model ConvNeXt osiąga wyższe 
+Analiza wyników, które widnieją na tabeli \ref*{tab:model_comparison_metrics} oraz rysunku \ref*{rys:overall_metrics}, wskazuje, że modyfikacja tła negatywnie wpływa na skuteczność obu modeli, jednak model o nowszej architekturze ConvNeXt wykazuje większą odporność na zmiany tła w porównaniu do modelu ResNet. Model ConvNeXt osiąga wyższe 
 wartości metryk zarówno dla oryginalnych, jak i zmodyfikowanych obrazów, co sugeruje jego większą stabilność i lepszą adaptację do różnych warunków. Wartości metryk dla zmodyfikowanych obrazów są niższe w przypadku ResNet, co może 
 wskazywać na większą wrażliwość tego modelu na zmiany w tle. Różnica w dokładności dla danych zmodyfikowanychwynosi aż 10 punktów procentowych, przy dokładności około 79 procent dla convnext oraz około 69 procent dla resnet. Model 
 z nowszą architekturrą poradził sobie lepiej.
@@ -36,8 +32,14 @@ z nowszą architekturrą poradził sobie lepiej.
 	\label{tab:model_comparison_metrics}
 \end{table}
 
-Wyniki badań również wskazują, że pomimo modyfikacji tła, Precision dla obu modeli (ResNet i ConvNeXt) uległa jedynie niewielkiemu spadkowi. Mały spadek Precision w obu przypadkach sugeruje, że oba modele nadal skutecznie identyfikują 
-prawdziwie pozytywne przypadki po modyfikacji tła.
+Wyniki badań również wskazują, że pomimo modyfikacji tła, Precision dla obu modeli (ResNet i ConvNeXt) uległa jedynie niewielkiemu spadkowi.
+
+Spadek recall przy jednoczesnym utrzymaniu się precision w wynikach klasyfikacji sugeruje istotne implikacje dotyczące wpływu tła na działanie modeli. Spadek recall wskazuje, że modele po modyfikacji tła mają trudności z identyfikacją 
+wszystkich rzeczywistych przypadków pozytywnych, co może oznaczać, że zmiana tła wprowadza dodatkowy szum lub cechy zakłócające kluczowe informacje używane przez modele do identyfikacji pozytywów. Z kolei utrzymanie się 
+precision wskazuje, że modele nadal skutecznie identyfikują przypadki sklasyfikowane jako pozytywne, co oznacza, że liczba fałszywie pozytywnych klasyfikacji nie wzrasta znacząco. Oznacza to, że modele działają bardziej 
+konserwatywnie, ostrożniej klasyfikując przypadki jako pozytywne, co prowadzi do mniejszej liczby fałszywych pozytywów, mimo że liczba fałszywych negatywów rośnie. Ta konserwatywność wskazuje, że zmiana tła wprowadza nowe zmienne, 
+z którymi modele nie były wcześniej konfrontowane, co może być wynikiem niedostatecznej różnorodności danych treningowych. Aby poprawić wyniki recall bez utraty precision, konieczne jest stosowanie bardziej zróżnicowanych danych 
+treningowych zawierających różne tła oraz technik augmentacji, które zwiększą odporność modeli na zmiany w tle.
 
 \begin{figure}
 	\centering\includegraphics[width=.9\textwidth]{img/overall_metrics}
@@ -49,7 +51,7 @@ prawdziwie pozytywne przypadki po modyfikacji tła.
 W badaniach obliczono również średnie wartości confidence scores w celu sprawdzenia pewności decyzji modeli. Wartości te obejmują ogólną średnią confidence score, a także średnie confidence scores dla poprawnych i niepoprawnych klasyfikacji. 
 Dla modelu ResNet na oryginalnych obrazach średnia confidence score wyniosła 85.188854, ze średnią wartością 89.137424 dla poprawnych klasyfikacji i 54.348263 dla niepoprawnych. Po 
 modyfikacji tła, średnia confidence score spadła do 71.694490, ze średnią wartością 83.929904 dla poprawnych klasyfikacji i 43.546579 dla niepoprawnych. Wyniki znajdują się w tabeli \ref*{tab:model_confidence} oraz wizualizacja tych wyników na 
-\ref*{confidence_avg}
+\ref*{rys:confidence_avg}
 
 W przypadku modelu ConvNeXt na oryginalnych obrazach średnia confidence score wyniosła 68.527975, ze średnią wartością 70.036361 dla poprawnych klasyfikacji i 43.433439 dla niepoprawnych. Po modyfikacji tła, średnia confidence score spadła 
 do 57.543545, ze średnią wartością 63.189640 dla poprawnych klasyfikacji i 36.191272 dla niepoprawnych.
@@ -399,7 +401,7 @@ Model ResNet osiągnął dosyć niską dokładność 0.781 na oryginalnych obraz
 "Bighorn sheep" dla wszystkich typów modyfikacji. Te dwie klasy są niemal identyczne nawet dla ludzkiego oka, co można zaobserwować na \ref*{rys:348}.
 
 Dla większości modyfikacji wartości accuracy się obniżyły. Dla jednego typu modyfikacji udało się polepszeć metrykę dokładności o około 5 punktów procentowych, a mianowicie dla scenerii dżungli. Największe spadki uzsykano dla scenerii górzystych i śnieżnych, dla których znacznie wzrosła
-liczba przypadków gdzie pomylono się z klasą "bighorn sheep". Podejrzewam, że tereny górzyste czy śnieżne są miejscem, w którym klasa "bighorn sheep" znajduję się częsciej niż przewidywana klasa "ram, tup", natomiast sceneria dżungli pomaga modelowi rozróżnić te dwie klasy, gdzie
+liczba przypadków gdzie pomylono się z klasą "bighorn sheep". Podejrzewam, że tereny górzyste czy śnieżne są miejscem, w którym klasa "bighorn sheep" znajduje się częsciej niż przewidywana klasa "ram, tup", natomiast sceneria dżungli pomaga modelowi rozróżnić te dwie klasy, gdzie
 liczba pomyłek jest znacznie niższa.
 
 

@@ -158,35 +158,30 @@ Dokładność została wybrana jako podstawowa metryka oceny modeli, ponieważ d
 \subsection*{Precyzja (Precision)}
 Precyzja (precision) jest metryką oceniającą dokładność pozytywnych predykcji modelu. Definiuje się ją jako stosunek liczby prawdziwie pozytywnych przypadków do sumy liczby prawdziwie pozytywnych i fałszywie pozytywnych przypadków. 
 Wzór na precyzję jest następujący:
-
-\[
+\begin{equation}
 \text{Precision} = \frac{TP}{TP + FP}
-\]
-
+\end{equation}
 
 \subsection*{Recall}
 Recall, zwany również czułością lub TPR (True Positive Rate), mierzy zdolność modelu do wykrywania wszystkich pozytywnych przypadków. Jest definiowany jako stosunek liczby prawdziwie pozytywnych przypadków do sumy liczby prawdziwie 
 pozytywnych i fałszywie negatywnych przypadków. Wzór na recall 
 jest następujący:
-
-\[
+\begin{equation}
 \text{Recall} = \frac{TP}{TP + FN}
-\]
-
+\end{equation}
 \subsection*{F1 Score}
 F1 score jest harmoniczną średnią precyzji i recall. Jest używany jako pojedyncza metryka oceniająca wydajność modelu, która uwzględnia zarówno precyzję, jak i recall. Wzór na F1 score jest następujący:
-
-\[
+\begin{equation}
 \text{F1 Score} = 2 \times \frac{\text{Precision} \times \text{Recall}}{\text{Precision} + \text{Recall}}
-\]
-
+\end{equation}
 
 \subsection*{Pewność klasyfikacji (Confidence Scores)}
+Pewność klasyfikacji (confidence scores) odnosi się do stopnia pewności modelu co do przypisania danego przykładu do określonej klasy. Jest to istotna metryka, ponieważ dostarcza dodatkowych informacji o tym, jak pewny jest model swoich predykcji. Wyższe wartości pewności oznaczają większe zaufanie modelu do swojej klasyfikacji. Analiza pewności klasyfikacji pozwala na ocenę, jak model jest pewny swoich decyzji oraz jak modyfikacje tła wpływają na pewność modeli. W przypadku modeli takich jak ResNet i ConvNext, confidence score jest obliczany na podstawie wartości wyjściowych warstwy softmax. Oba modele przetwarzają obraz przez szereg warstw konwolucyjnych, przy czym ResNet wykorzystuje połączenia rezydualne, a ConvNext wprowadza różnice konstrukcyjne, takie jak użycie bloków konwolucyjnych o różnych rozmiarach filtrów oraz warstw normalizacji. Wektor cech generowany przez te warstwy jest następnie przekształcany przez warstwę w pełni połączoną, a na końcu przez warstwę softmax, która przekształca wartości wyjściowe na prawdopodobieństwa. Confidence score dla klasy \(i\) jest zdefiniowany jako:
+\begin{equation}
+\text{Confidence}(i) = \frac{e^{z_i}}{\sum_{j} e^{z_j}}
+\end{equation}
+gdzie \(z_i\) to logit dla klasy \(i\), a suma w mianowniku przebiega przez wszystkie klasy.
 
-Pewność klasyfikacji (confidence scores) odnosi się do stopnia pewności modelu co do przypisania danego przykładu do określonej klasy. Jest to istotna metryka, ponieważ dostarcza dodatkowych informacji o tym, jak pewny jest model swoich 
-predykcji. Wyższe wartości pewności oznaczają większe zaufanie modelu do swojej klasyfikacji.
-
-Analiza pewności klasyfikacji pozwala na ocenę, jak model jest pewny swoich decyzji oraz jak modyfikacje tła wpływają na pewność modeli.
 
 \section*{Opis wykorzystanego zbioru danych}
 
@@ -240,7 +235,7 @@ Skrypty są nazwane zgodnie ze swoją funkcjonalnością, co ułatwia nawigację
 
 Dodatkowo, cała implementacja wraz z dokładnym opisem znajduje się na GitHubie, gdzie można znaleźć pełen kod oraz plik README zawierający instrukcje dotyczące uruchamiania skryptów i analizy wyników. 
 
-Link do repozytorium GitHub: \href{https://github.com/paulpel/BackgroundImpactAnalysis}{link do repozytorium}
+Link do repozytorium GitHub: \href{https://github.com/paulpel/BackgroundImpactAnalysis}{https://github.com/paulpel/BackgroundImpactAnalysis}
 
 \subsection*{Wybranie modeli do segmentacji i klasyfikacji}
 

@@ -11,6 +11,10 @@ Model ConvNeXt, reprezentujący nowszą architekturę, uzyskał lepsze wyniki me
 obiektu poprzez pozostawienie jednolitego koloru tła w niektórych przypadkach poprawiało dokładność, jednak w większości przypadków nieznacznie obniżało wartości metryk. Sugeruje to, że tło może dostarczać modeli cennych informacji, które 
 pomagają w poprawnej klasyfikacji, jednak czasami wprowadza także zakłócenia, które mogą mylić model.
 
+Efekt poprawy metryk po modyfikacji wystąpił tylko dla trzech klas i jedynie przy niektórych modyfikacjach. Wszystkie te klasy, dla których udało się uzyskać poprawę, były mylone z jedną lub dwiema innymi, bardzo podobnymi klasami. Modyfikacja 
+tła poprzez przeniesienie na inną scenerię mogła pomóc modelowi w ich rozróznianiu. Wynika to prawdopodobnie z faktu, iż w zbiorze treningowym klasy prawdziwej było więcej zdjęć o podobnej scenerii do tej zmodyfikowanej niż w drugiej klasie, z 
+którą była ona mylona. Dlatego w sytuacji gdy mamy klasy o bardzo podobnych cechach, modyfikacja tła może korzystnie wpłynąć na efektywność modeli.
+
 Wyniki badania podkreślają znaczenie zróżnicowanych scenerii, obejmujących różne skale, tła i oświetlenie, w procesie uczenia modeli klasyfikacyjnych. Taka różnorodność pomaga zabezpieczyć model przed sytuacjami, w których zdjęcia są wykonane 
 w nietypowej scenerii, co może prowadzić do błędnej klasyfikacji. Konkludując, zrozumienie wpływu tła na klasyfikację obrazów jest kluczowe dla poprawy wydajności modeli uczenia maszynowego i może przyczynić się do opracowania bardziej 
 odpornych na zakłócenia systemów klasyfikacyjnych.
